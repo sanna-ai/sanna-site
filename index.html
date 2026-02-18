@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanna — Trust Infrastructure for AI Agents</title>
-    <meta name="description" content="Constitution enforcement and cryptographic reasoning receipts for AI agents. Open source. Vendor neutral. pip install sanna.">
-    <meta property="og:title" content="Sanna — Trust Infrastructure for AI Agents">
-    <meta property="og:description" content="Constitution enforcement and cryptographic reasoning receipts for AI agents. Open source. pip install sanna.">
+    <title>Blog — Sanna</title>
+    <meta name="description" content="Writing on AI agent governance, constitution enforcement, reasoning receipts, and trust infrastructure.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sanna.dev/blog/">
+    <meta property="og:title" content="Blog — Sanna">
+    <meta property="og:description" content="Writing on AI agent governance, constitution enforcement, reasoning receipts, and trust infrastructure.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sanna.dev">
+    <meta property="og:url" content="https://sanna.dev/blog/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -25,8 +27,6 @@
             --text-muted: #556677;
             --accent: #38bdf8;
             --accent-dim: rgba(56, 189, 248, 0.1);
-            --green: #34d399;
-            --green-dim: rgba(52, 211, 153, 0.08);
         }
 
         html { scroll-behavior: smooth; }
@@ -39,366 +39,110 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .mono { font-family: 'IBM Plex Mono', monospace; }
+        nav {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
 
         .container {
-            max-width: 960px;
+            max-width: 720px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        section {
-            padding: 100px 0;
-        }
-
-        section + section {
-            border-top: 1px solid var(--border);
-        }
-
-        /* --- Hero --- */
-        .hero {
-            padding: 140px 0 100px;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse 600px 400px at 50% 0%, rgba(56, 189, 248, 0.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-eyebrow {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-size: clamp(52px, 8vw, 80px);
-            font-weight: 300;
-            letter-spacing: -2px;
-            line-height: 1.05;
-            margin-bottom: 32px;
-            color: #fff;
-        }
-
-        .hero-sub {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 640px;
-            margin: 0 auto 48px;
-            line-height: 1.8;
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 32px;
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 15px;
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .hero-cta:hover {
-            background: var(--accent-dim);
-        }
-
-        .hero-cta svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
-        .hero-meta {
-            margin-top: 32px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        .hero-meta span { margin: 0 8px; }
-
-        /* --- Section headings --- */
-        .section-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 16px;
-        }
-
-        h2 {
-            font-size: clamp(28px, 4vw, 36px);
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            color: #fff;
-        }
-
-        .section-body {
-            font-size: 17px;
-            color: var(--text-secondary);
-            max-width: 620px;
-            line-height: 1.8;
-        }
-
-        .section-body + .section-body { margin-top: 16px; }
-
-        /* --- Two Pillars --- */
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            margin-top: 48px;
-        }
-
-        .pillar {
-            padding: 36px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-card);
-        }
-
-        .pillar-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-
-        .pillar-icon.shield { background: var(--accent-dim); color: var(--accent); }
-        .pillar-icon.receipt { background: var(--green-dim); color: var(--green); }
-
-        .pillar h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        .pillar p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* --- Steps --- */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 32px;
-            margin-top: 48px;
-        }
-
-        .step-number {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .step h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        .step p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* --- Deploy --- */
-        .deploy-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            margin-top: 48px;
-        }
-
-        .deploy-card {
-            padding: 36px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-card);
-        }
-
-        .deploy-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        .deploy-card p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .code-block {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 14px;
-            color: var(--green);
-            background: var(--bg);
-            padding: 14px 18px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            overflow-x: auto;
-        }
-
-        .code-block .dim { color: var(--text-muted); }
-
-        /* --- Stats --- */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            margin-top: 48px;
-        }
-
-        .stat { text-align: center; }
-
-        .stat-number {
-            font-size: 42px;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        /* --- Cloud --- */
-        .cloud-section {
-            background: var(--bg-alt);
-            border-top: 1px solid var(--border);
+        .page-header {
+            padding: 80px 0 48px;
             border-bottom: 1px solid var(--border);
         }
 
-        .cloud-inner {
-            text-align: center;
-            max-width: 580px;
-            margin: 0 auto;
+        .page-header h1 {
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: -1px;
+            color: #fff;
         }
 
-        .cloud-badge {
-            display: inline-block;
+        .posts {
+            padding: 48px 0;
+        }
+
+        .post-item {
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .post-item:first-child {
+            padding-top: 0;
+        }
+
+        .post-date {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--green);
-            background: var(--green-dim);
-            padding: 6px 14px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .cloud-inner h2 { margin-bottom: 16px; }
-
-        .cloud-inner > p {
-            font-size: 16px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 36px;
-        }
-
-        .signup-form {
-            display: flex;
-            gap: 12px;
-            max-width: 460px;
-            margin: 0 auto;
-        }
-
-        .signup-form input[type="email"] {
-            flex: 1;
-            padding: 14px 18px;
-            font-family: 'IBM Plex Sans', sans-serif;
-            font-size: 15px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text);
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .signup-form input[type="email"]::placeholder { color: var(--text-muted); }
-        .signup-form input[type="email"]:focus { border-color: var(--accent); }
-
-        .signup-form button {
-            padding: 14px 28px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 14px;
-            font-weight: 500;
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: opacity 0.2s;
-        }
-
-        .signup-form button:hover { opacity: 0.9; }
-
-        .signup-note {
             font-size: 13px;
             color: var(--text-muted);
-            margin-top: 16px;
+            margin-bottom: 8px;
         }
 
-        .signup-success {
-            display: none;
-            color: var(--green);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 14px;
-            padding: 14px 0;
+        .post-item h2 {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 10px;
         }
 
-        /* --- Footer --- */
+        .post-item h2 a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .post-item h2 a:hover {
+            color: var(--accent);
+        }
+
+        .post-item p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
         footer {
-            padding: 48px 0;
             border-top: 1px solid var(--border);
+            padding: 40px 0;
             text-align: center;
         }
 
         .footer-line {
-            font-size: 14px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .footer-links {
@@ -408,215 +152,51 @@
         }
 
         .footer-links a {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s;
         }
 
         .footer-links a:hover { color: var(--accent); }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            section { padding: 72px 0; }
-            .hero { padding: 100px 0 72px; }
-            .pillars-grid, .deploy-grid { grid-template-columns: 1fr; }
-            .steps-grid { grid-template-columns: 1fr; gap: 40px; }
-            .stats-row { grid-template-columns: 1fr 1fr; gap: 40px; }
-            .signup-form { flex-direction: column; }
-            .signup-form button { width: 100%; }
-        }
-
-        @media (max-width: 480px) {
-            .stats-row { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 <body>
-
-    <!-- Hero -->
-    <section class="hero">
+    <nav>
         <div class="container">
-            <div class="hero-eyebrow">Trust Infrastructure for AI Agents</div>
-            <h1>Sanna</h1>
-            <p class="hero-sub">Sanna enforces governance rules at execution time, halts forbidden actions before they reach downstream systems, and generates cryptographic receipts proving it happened.</p>
-            <a href="https://github.com/nicallen-exd/sanna" class="hero-cta" target="_blank" rel="noopener">
-                GitHub
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            </a>
-            <div class="hero-meta">
-                <span class="mono">pip install sanna</span>
-                <span>·</span>
-                <span>Open source</span>
-                <span>·</span>
-                <span>Ed25519 signed</span>
-                <span>·</span>
-                <span>Vendor neutral</span>
+            <a href="/" class="nav-logo">SANNA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="https://github.com/sanna-ai/sanna" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <!-- The Problem -->
-    <section>
+    <div class="page-header">
         <div class="container">
-            <div class="section-label">The Problem</div>
-            <h2>The Handover Problem</h2>
-            <p class="section-body">The moment an AI agent's output leaves your system — handed to a customer, submitted to a regulator, used in a material decision — someone is liable for what it said.</p>
-            <p class="section-body">Current tooling tells you what an agent did. Nothing proves it should have.</p>
-            <p class="section-body">Sanna is the evidence layer. Constitution enforcement and cryptographic reasoning receipts, generated at decision time, verifiable by anyone with a public key.</p>
+            <h1>Blog</h1>
         </div>
-    </section>
+    </div>
 
-    <!-- Two Pillars -->
-    <section>
+    <div class="posts">
         <div class="container">
-            <div class="section-label">Architecture</div>
-            <h2>Two Equal Pillars</h2>
-            <div class="pillars-grid">
-                <div class="pillar">
-                    <div class="pillar-icon shield">◈</div>
-                    <h3>Constitution Enforcement</h3>
-                    <p>Governance rules in version-controlled YAML. Forbidden actions are halted. Escalation-required actions are held for human approval. Rules that drive agent behavior — not suggestions in a dashboard.</p>
-                </div>
-                <div class="pillar">
-                    <div class="pillar-icon receipt">✓</div>
-                    <h3>Reasoning Receipts</h3>
-                    <p>Every decision — allow, halt, escalate — produces an Ed25519-signed receipt. Deterministic fingerprints. Tamper-evident. Verifiable offline with just a public key. The receipt travels with the output.</p>
-                </div>
+            <div class="post-item">
+                <div class="post-date">February 18, 2026</div>
+                <h2><a href="/blog/how-to-govern-ai-agents-in-production.html">How to Govern AI Agents in Production</a></h2>
+                <p>AI agents cross trust boundaries every day with no proof they followed their rules. Here's how to enforce governance at execution time and generate cryptographic evidence it happened.</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- How It Works -->
-    <section>
-        <div class="container">
-            <div class="section-label">How It Works</div>
-            <h2>Three Steps</h2>
-            <div class="steps-grid">
-                <div class="step">
-                    <div class="step-number">01</div>
-                    <h3>Define</h3>
-                    <p>Write your agent's authority boundaries in a constitution YAML. Sign it with your Ed25519 key. Version-control it alongside your code.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">02</div>
-                    <h3>Enforce</h3>
-                    <p>Sanna evaluates every action against the constitution at execution time. Allowed actions proceed. Forbidden actions halt. Uncertain actions escalate.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">03</div>
-                    <h3>Prove</h3>
-                    <p>Every decision generates a signed reasoning receipt — portable, vendor-neutral proof that governance was enforced. Hand it to auditors, regulators, or counterparties.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Deployment Modes -->
-    <section>
-        <div class="container">
-            <div class="section-label">Deployment</div>
-            <h2>Two Ways to Deploy</h2>
-            <div class="deploy-grid">
-                <div class="deploy-card">
-                    <h3>Library Mode</h3>
-                    <p>Add a decorator to the functions you govern. Three lines of code. Receipts generated inline.</p>
-                    <div class="code-block"><span class="dim">$</span> pip install sanna</div>
-                </div>
-                <div class="deploy-card">
-                    <h3>Gateway Mode</h3>
-                    <p>An MCP proxy between your AI client and downstream tools. Zero code changes to your agent. Constitution enforcement and signed receipts for every tool call.</p>
-                    <div class="code-block"><span class="dim">$</span> pip install sanna[mcp]<br><span class="dim">$</span> sanna gateway --config gateway.yaml</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats -->
-    <section>
-        <div class="container">
-            <div class="section-label">Proof</div>
-            <h2>Shipped, Not Slideware</h2>
-            <div class="stats-row">
-                <div class="stat">
-                    <div class="stat-number">2,000+</div>
-                    <div class="stat-label">Tests passing</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">179</div>
-                    <div class="stat-label">Integration tests</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">7</div>
-                    <div class="stat-label">Coverage areas</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label">Adversarial evasions</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sanna Cloud -->
-    <section class="cloud-section">
-        <div class="container">
-            <div class="cloud-inner">
-                <div class="cloud-badge">Coming Soon</div>
-                <h2>Sanna Cloud</h2>
-                <p>Everything in the open-source library, plus fleet-level behavioral analytics, drift detection, constitution management dashboards, and compliance evidence packs. Built for teams governing agents across the enterprise.</p>
-                <form class="signup-form" id="signup-form">
-                    <input type="email" name="email" placeholder="you@company.com" required>
-                    <button type="submit">Get Early Access</button>
-                </form>
-                <div class="signup-success" id="signup-success">You're on the list. We'll be in touch.</div>
-                <p class="signup-note">We'll notify you when Sanna Cloud opens for design partners. No spam.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Who It's For -->
-    <section>
-        <div class="container">
-            <div class="section-label">Use Cases</div>
-            <h2>Built for Regulated AI</h2>
-            <p class="section-body">If your AI agents operate where decisions carry liability — financial services, healthcare, legal, insurance, government — Sanna provides the evidence layer between your agent and the trust boundary.</p>
-            <p class="section-body">Portable receipts. Vendor-neutral verification. Constitutions your compliance team can actually read.</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
             <p class="footer-line">Built by Nic Allen · v0.13.2 · Open Source · Apache 2.0</p>
             <div class="footer-links">
-                <a href="https://github.com/nicallen-exd/sanna" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://github.com/sanna-ai/sanna" target="_blank" rel="noopener">GitHub</a>
                 <a href="https://www.linkedin.com/in/nicallen27" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="/cdn-cgi/l/email-protection#ee80878dae9d8f80808fc08a8b98"><span class="__cf_email__" data-cfemail="b3dddad0f3c0d2ddddd29dd7d6c5">[email&#160;protected]</span></a>
+                <a href="mailto:nic@sanna.dev">nic@sanna.dev</a>
             </div>
         </div>
     </footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        document.getElementById('signup-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const form = this;
-            const email = form.querySelector('input[type="email"]').value;
-            const success = document.getElementById('signup-success');
-            const note = document.querySelector('.signup-note');
-
-            const url = 'https://docs.google.com/forms/d/e/1FAIpQLSeaFoQGxrnZvblu44abhtdHWbL1qSJV8tjCa2z6aSsEGONk9A/formResponse';
-            const body = new URLSearchParams();
-            body.append('entry.633596266', email);
-
-            fetch(url, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: body.toString()
-            }).then(function() {
-                form.style.display = 'none';
-                if (note) note.style.display = 'none';
-                success.style.display = 'block';
-           
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Govern AI Agents in Production — Sanna</title>
+    <meta name="description" content="AI agents cross trust boundaries every day with no proof they followed their rules. Here's how to enforce governance at execution time and generate cryptographic evidence it happened.">
+    <meta name="keywords" content="AI agent governance, how to govern AI agents, AI compliance, agentic AI safety, AI constitution enforcement, reasoning receipts, MCP gateway governance, AI agent policy enforcement, enterprise AI governance">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Nic Allen">
+    <link rel="canonical" href="https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="How to Govern AI Agents in Production">
+    <meta property="og:description" content="AI agents cross trust boundaries with no proof they followed their rules. Here's how to enforce governance at execution time with cryptographic evidence.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html">
+    <meta property="og:site_name" content="Sanna">
+    <meta property="article:author" content="Nic Allen">
+    <meta property="article:published_time" content="2026-02-18T00:00:00Z">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Govern AI Agents in Production">
+    <meta name="twitter:description" content="Enforce governance at execution time. Generate cryptographic proof it happened. Open source.">
+
+    <!-- JSON-LD Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to Govern AI Agents in Production",
+        "description": "AI agents cross trust boundaries every day with no proof they followed their rules. Here's how to enforce governance at execution time and generate cryptographic evidence it happened.",
+        "author": {
+            "@type": "Person",
+            "name": "Nic Allen",
+            "url": "https://www.linkedin.com/in/nicallen27"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Sanna"
+        },
+        "datePublished": "2026-02-18",
+        "url": "https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html",
+        "mainEntityOfPage": "https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0b1017;
+            --bg-alt: #0f151d;
+            --bg-card: #111922;
+            --border: #1c2938;
+            --text: #e2e8f0;
+            --text-secondary: #8899ad;
+            --text-muted: #556677;
+            --accent: #38bdf8;
+            --accent-dim: rgba(56, 189, 248, 0.1);
+            --green: #34d399;
+            --green-dim: rgba(52, 211, 153, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mono { font-family: 'IBM Plex Mono', monospace; }
+
+        /* --- Nav --- */
+        nav {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Article Header --- */
+        .article-header {
+            padding: 80px 0 48px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .article-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .article-header h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 400;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .article-header .lede {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* --- Article Body --- */
+        .article-body {
+            padding: 64px 0;
+        }
+
+        .article-body h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #fff;
+            margin-top: 56px;
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+
+        .article-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-body p {
+            margin-bottom: 24px;
+            color: var(--text);
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .article-body strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .article-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+            transition: border-color 0.2s;
+        }
+
+        .article-body a:hover {
+            border-color: var(--accent);
+        }
+
+        /* --- Code Blocks --- */
+        .code-block {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 24px 28px;
+            margin: 28px 0 32px;
+            overflow-x: auto;
+        }
+
+        .code-block-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .code-block pre {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text);
+            white-space: pre;
+        }
+
+        .code-block .comment { color: var(--text-muted); }
+        .code-block .key { color: var(--accent); }
+        .code-block .value { color: var(--green); }
+        .code-block .string { color: #fbbf24; }
+
+        /* --- Inline Code --- */
+        code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9em;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 3px;
+            color: var(--accent);
+        }
+
+        /* --- Callout --- */
+        .callout {
+            background: var(--accent-dim);
+            border-left: 3px solid var(--accent);
+            padding: 20px 24px;
+            margin: 32px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .callout p {
+            margin-bottom: 0;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        /* --- Install Block --- */
+        .install-block {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            margin: 48px 0;
+            text-align: center;
+        }
+
+        .install-block h3 {
+            font-size: 20px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .install-block p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .install-cmd {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 12px 28px;
+            border-radius: 6px;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .install-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .install-links a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .install-links a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-line {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .article-header { padding: 48px 0 32px; }
+            .article-body { padding: 40px 0; }
+            .code-block { padding: 16px 18px; }
+            .install-block { padding: 28px 20px; }
+            .article-meta { flex-direction: column; gap: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="nav-logo">SANNA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="https://github.com/sanna-ai/sanna" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <article>
+        <header class="article-header">
+            <div class="container">
+                <div class="article-meta">
+                    <span>February 18, 2026</span>
+                    <span>·</span>
+                    <span>Nic Allen</span>
+                </div>
+                <h1>How to Govern AI Agents in Production</h1>
+                <p class="lede">AI agents cross trust boundaries every day — handing outputs to customers, submitting data to regulators, making material decisions on behalf of organizations. None of them can prove they followed their rules.</p>
+            </div>
+        </header>
+
+        <div class="article-body">
+            <div class="container">
+
+                <h2>The Problem Is Liability, Not Capability</h2>
+
+                <p>The conversation around AI agents has been almost entirely about what they can do. Browse the web. Write code. Manage files. Execute multi-step workflows autonomously. Every week, a new framework makes agents more capable.</p>
+
+                <p>But capability isn't what stalls enterprise adoption. Liability is.</p>
+
+                <p>The moment an agent's output leaves your system — handed to a customer, submitted to a regulator, used in a financial decision, embedded in a clinical recommendation — someone is responsible for what it said and what it did. And right now, there's no standard way to prove that the agent operated within its authorized boundaries when that output was generated.</p>
+
+                <p>Current tooling tells you <strong>what an agent did</strong>. Logs, traces, observability dashboards — all retrospective, all internal. None of it answers the question that actually matters at the trust boundary: <strong>was it allowed to?</strong></p>
+
+                <h2>Why Observability Isn't Enough</h2>
+
+                <p>Observability platforms are excellent at telling you what happened. An agent called a tool, received a response, generated an output, moved to the next step. You can trace the full execution path, measure latency, catch errors.</p>
+
+                <p>But observability is descriptive, not prescriptive. It records behavior without evaluating whether that behavior was authorized. A log entry that says "agent called send_email" doesn't tell you whether the agent was allowed to send that email, to that recipient, with that content, at that point in its workflow.</p>
+
+                <p>This distinction matters because the people who need assurance — regulators, auditors, counterparties, customers — don't have access to your observability stack. They can't log into your Datadog instance. They need evidence that travels <em>with</em> the output. Something portable. Something verifiable without trusting the system that generated it.</p>
+
+                <p>That's a fundamentally different artifact than a log entry.</p>
+
+                <h2>What You Actually Need: Two Things</h2>
+
+                <p><strong>First: rules that execute, not rules that suggest.</strong> A governance policy written in a PDF on your compliance team's SharePoint doesn't affect agent behavior. It's a hope, not a control. What you need is a machine-readable definition of the agent's authority boundaries that is evaluated at the moment of action — before the action reaches the downstream system.</p>
+
+                <p><strong>Second: proof that the rules were followed.</strong> Not a log. Not a dashboard metric. A cryptographic artifact — signed, timestamped, deterministically fingerprinted — that proves governance was evaluated and records the outcome. An artifact that can be verified by anyone with a public key, offline, without trusting the agent, the vendor, or the platform that generated it.</p>
+
+                <p>These two pieces together form a complete governance layer: enforcement at execution time, and evidence that enforcement happened.</p>
+
+                <h2>Constitution Enforcement</h2>
+
+                <p>In Sanna, an agent's authority boundaries are defined in a YAML constitution. This is a version-controlled, human-readable file that specifies what the agent can do, what it cannot do, and what requires human approval before proceeding.</p>
+
+                <div class="code-block">
+                    <span class="code-block-label">constitution.yaml</span>
+<pre><span class="key">name</span>: <span class="value">customer-support-agent</span>
+<span class="key">version</span>: <span class="value">1.0.0</span>
+
+<span class="key">rules</span>:
+  - <span class="key">action</span>: <span class="value">issue_refund</span>
+    <span class="key">constraint</span>: <span class="string">"amount must not exceed 500"</span>
+    <span class="key">enforcement</span>: <span class="value">halt</span>
+
+  - <span class="key">action</span>: <span class="value">send_customer_email</span>
+    <span class="key">constraint</span>: <span class="string">"must not contain legal commitments or promises"</span>
+    <span class="key">enforcement</span>: <span class="value">halt</span>
+
+  - <span class="key">action</span>: <span class="value">modify_account</span>
+    <span class="key">constraint</span>: <span class="string">"changes to billing or subscription require approval"</span>
+    <span class="key">enforcement</span>: <span class="value">escalate</span>
+
+  - <span class="key">action</span>: <span class="value">access_knowledge_base</span>
+    <span class="key">enforcement</span>: <span class="value">allow</span></pre>
+                </div>
+
+                <p>Every action the agent takes is evaluated against this constitution at execution time. If the action violates a <code>halt</code> rule, it is stopped before it reaches the downstream system. Not logged after the fact — stopped. If the action matches an <code>escalate</code> rule, it is held for human review. If it's explicitly allowed, it proceeds.</p>
+
+                <p>The constitution is signed with the organization's Ed25519 key and version-controlled alongside the agent's code. Your compliance team can read it. Your engineers can enforce it. Your auditors can verify it was the active constitution at the time of any given decision.</p>
+
+                <h2>Reasoning Receipts</h2>
+
+                <p>Every decision Sanna makes — allow, halt, or escalate — generates a reasoning receipt. This is a signed artifact containing the decision outcome, the rule that was evaluated, a deterministic fingerprint of the input, and a timestamp.</p>
+
+                <div class="code-block">
+                    <span class="code-block-label">reasoning receipt (simplified)</span>
+<pre>{
+  <span class="key">"decision"</span>: <span class="string">"halt"</span>,
+  <span class="key">"rule"</span>: <span class="string">"issue_refund: amount must not exceed 500"</span>,
+  <span class="key">"action"</span>: <span class="string">"issue_refund"</span>,
+  <span class="key">"input_fingerprint"</span>: <span class="string">"a3f8c9..."</span>,
+  <span class="key">"constitution_hash"</span>: <span class="string">"7b2e1d..."</span>,
+  <span class="key">"timestamp"</span>: <span class="string">"2026-02-18T14:32:01Z"</span>,
+  <span class="key">"signature"</span>: <span class="string">"ed25519:9c4f2a..."</span>
+}</pre>
+                </div>
+
+                <p>The receipt is signed with Ed25519 and uses RFC 8785 JSON canonicalization for deterministic hashing. This means anyone with the corresponding public key can verify the receipt independently — no API call, no vendor dependency, no trust assumption about the platform.</p>
+
+                <p>The receipt travels with the output. When the agent's decision crosses a trust boundary — handed to a counterparty, submitted to a regulator, attached to an audit — the receipt is the evidence that governance was enforced at the moment of action.</p>
+
+                <h2>A Concrete Example</h2>
+
+                <p>Last week, an AI agent running on a popular open-source framework published a hit piece targeting a volunteer open-source maintainer who had rejected its pull request. The agent autonomously decided to write and publish content attacking a real person's reputation.</p>
+
+                <p>If that agent had run through a Sanna constitution with a rule like:</p>
+
+                <div class="code-block">
+<pre>- <span class="key">action</span>: <span class="value">publish_content</span>
+  <span class="key">constraint</span>: <span class="string">"must not target, defame, or reference individuals"</span>
+  <span class="key">enforcement</span>: <span class="value">halt</span></pre>
+                </div>
+
+                <p>The blog post doesn't go live. The action is halted before reaching the publishing system. And a signed receipt records exactly why: which rule was triggered, what the input was, and when it happened.</p>
+
+                <p>That's the difference between governance as a policy document and governance as infrastructure.</p>
+
+                <h2>Two Ways to Deploy</h2>
+
+                <p><strong>Library mode</strong> — add a decorator to the functions you want to govern. Three lines of code. Receipts are generated inline, and forbidden actions are halted at the function boundary.</p>
+
+                <div class="code-block">
+<pre><span class="comment"># pip install sanna</span>
+<span class="key">from</span> sanna <span class="key">import</span> govern
+
+<span class="comment">@govern</span>
+<span class="key">def</span> <span class="value">issue_refund</span>(amount, customer_id):
+    <span class="comment"># Your existing logic — unchanged</span>
+    process_refund(amount, customer_id)</pre>
+                </div>
+
+                <p><strong>Gateway mode</strong> — an MCP proxy that sits between your AI client and downstream tools. Zero code changes to your agent. The gateway evaluates every tool call against the constitution and generates receipts for each decision.</p>
+
+                <div class="code-block">
+<pre><span class="comment"># pip install sanna[mcp]</span>
+<span class="comment"># sanna gateway --config gateway.yaml</span></pre>
+                </div>
+
+                <p>Gateway mode is particularly relevant for teams deploying agents across multiple platforms — ServiceNow, Salesforce, custom internal tools — where modifying each agent's code isn't practical. The governance layer wraps around the existing infrastructure without changing it.</p>
+
+                <h2>Try It</h2>
+
+                <div class="install-block">
+                    <h3>Sanna is open source</h3>
+                    <p>Apache 2.0 licensed. Over 2,000 tests passing. Adversarial evasion coverage shipped.</p>
+                    <div class="install-cmd">pip install sanna</div>
+                    <div class="install-links">
+                        <a href="https://github.com/sanna-ai/sanna" target="_blank" rel="noopener">GitHub Repository</a>
+                        <a href="https://pypi.org/project/sanna/" target="_blank" rel="noopener">PyPI</a>
+                        <a href="/">sanna.dev</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <div class="container">
+            <p class="footer-line">Built by Nic Allen · v0.13.2 · Open Source · Apache 2.0</p>
+            <div class="footer-links">
+                <a href="https://github.com/sanna-ai/sanna" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.linkedin.com/in/nicallen27" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="mailto:nic@sanna.dev">nic@sanna.dev</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
