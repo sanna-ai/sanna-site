@@ -681,6 +681,34 @@
 <span class="keyword">except</span> SannaHaltError <span class="keyword">as</span> e:
     print(f<span class="string">"HALTED: {e}"</span>)  <span class="comment"># Constitution violation detected</span></pre>
             </div>
+            <div class="code-example" style="margin-top: 24px;">
+                <div class="code-example-header">The Receipt It Produces</div>
+                <pre>{
+  <span class="string">"spec_version"</span>: <span class="string">"1.0"</span>,
+  <span class="string">"receipt_id"</span>: <span class="string">"a7e3b1f0-4c2d-4a8e-9f1b-3d5e7a9c2b4d"</span>,
+  <span class="string">"receipt_fingerprint"</span>: <span class="string">"30dedec9373c4d9b"</span>,
+  <span class="string">"status"</span>: <span class="string">"PASS"</span>,
+  <span class="string">"checks_passed"</span>: <span class="keyword">5</span>,
+  <span class="string">"checks_failed"</span>: <span class="keyword">0</span>,
+  <span class="string">"context_hash"</span>: <span class="string">"a43401a2a64954e9...c3797e1231415"</span>,
+  <span class="string">"output_hash"</span>: <span class="string">"5eebc757bbbe8b82...2f38a69f89"</span>,
+  <span class="string">"constitution_ref"</span>: {
+    <span class="string">"document_id"</span>: <span class="string">"financial-services-v2"</span>,
+    <span class="string">"policy_hash"</span>: <span class="string">"8f3a9b2c1d4e5f6a"</span>,
+    <span class="string">"signature_verified"</span>: <span class="keyword">true</span>
+  },
+  <span class="string">"enforcement"</span>: {
+    <span class="string">"action"</span>: <span class="string">"allowed"</span>,
+    <span class="string">"reason"</span>: <span class="string">"All checks passed"</span>,
+    <span class="string">"failed_checks"</span>: [],
+    <span class="string">"enforcement_mode"</span>: <span class="string">"halt"</span>
+  },
+  <span class="string">"receipt_signature"</span>: {
+    <span class="string">"signature"</span>: <span class="string">"ed25519:2f8c4d9e1a7b..."</span>,
+    <span class="string">"scheme"</span>: <span class="string">"receipt_sig_v1"</span>
+  }
+}</pre>
+            </div>
         </div>
     </section>
 
@@ -818,9 +846,19 @@
     <section>
         <div class="container">
             <div class="section-label">Use Cases</div>
-            <h2>Built for Regulated AI</h2>
-            <p class="section-body">If your AI agents operate where decisions carry liability — financial services, healthcare, legal, insurance, government — Sanna provides the evidence layer between your agent and the trust boundary.</p>
-            <p class="section-body">And it's not just enterprises. Personal AI agents are arriving — booking travel, managing finances, sending messages on your behalf. If an agent acts for you, you deserve the same governance: boundaries it can't cross, and a receipt proving it stayed inside them.</p>
+            <h2>Built for Anyone Running Agents</h2>
+            <div class="pillars-grid" style="margin-top: 32px; margin-bottom: 32px;">
+                <div class="pillar">
+                    <div class="pillar-icon shield" style="background: var(--green-dim); color: var(--green);">⚡</div>
+                    <h3>Personal Agent Infrastructure</h3>
+                    <p>Running AI assistants that book travel, manage finances, or send messages on your behalf? Sanna gives you boundaries they can't cross and a receipt proving they stayed inside them. Your agents, your rules.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon shield">◈</div>
+                    <h3>Regulated & Enterprise</h3>
+                    <p>If your agents operate where decisions carry liability — financial services, healthcare, legal, insurance, government — Sanna provides the runtime enforcement and verifiable evidence layer your compliance teams and auditors require.</p>
+                </div>
+            </div>
             <p class="section-body">Receipt format designed for the evidence and audit requirements emerging across AI governance legislation worldwide — and new laws are being enacted every quarter. Portable receipts. Vendor-neutral verification. Constitutions your compliance team — or just you — can actually read.</p>
         </div>
     </section>
