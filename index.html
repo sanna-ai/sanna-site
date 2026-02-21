@@ -34,7 +34,7 @@
         "description": "Open-source AI agent governance infrastructure providing constitution enforcement and cryptographic reasoning receipts. Define agent authority boundaries in YAML, enforce them at execution time, and generate Ed25519-signed proof of compliance.",
         "url": "https://sanna.dev",
         "downloadUrl": "https://pypi.org/project/sanna/",
-        "softwareVersion": "0.13.2",
+        "softwareVersion": "0.13.5",
         "license": "https://www.apache.org/licenses/LICENSE-2.0",
         "programmingLanguage": "Python",
         "author": {
@@ -471,15 +471,130 @@
 
         .footer-links a:hover { color: var(--accent); }
 
+        /* --- Code Example --- */
+        .code-example {
+            margin-top: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-example-header {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-alt);
+        }
+
+        .code-example pre {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text);
+            padding: 20px;
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        .code-example .comment { color: var(--text-muted); }
+        .code-example .keyword { color: #c084fc; }
+        .code-example .string { color: var(--green); }
+        .code-example .function { color: var(--accent); }
+        .code-example .decorator { color: #f59e0b; }
+
+        /* --- Capabilities --- */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .capability {
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+        }
+
+        .capability-icon {
+            font-size: 20px;
+            margin-bottom: 14px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            background: var(--accent-dim);
+            color: var(--accent);
+        }
+
+        .capability h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .capability p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* --- Try It --- */
+        .try-it {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .try-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .try-option {
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+        }
+
+        .try-option h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .try-option p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
         /* --- Responsive --- */
         @media (max-width: 768px) {
             section { padding: 72px 0; }
             .hero { padding: 100px 0 72px; }
-            .pillars-grid, .deploy-grid { grid-template-columns: 1fr; }
+            .pillars-grid, .deploy-grid, .try-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr; gap: 40px; }
             .stats-row { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .capabilities-grid { grid-template-columns: 1fr; }
             .signup-form { flex-direction: column; }
             .signup-form button { width: 100%; }
+            .code-example pre { font-size: 12px; }
         }
 
         @media (max-width: 480px) {
@@ -515,10 +630,10 @@
     <section>
         <div class="container">
             <div class="section-label">The Problem</div>
-            <h2>The Handover Problem</h2>
-            <p class="section-body">The moment an AI agent's output leaves your system — handed to a customer, submitted to a regulator, used in a material decision — someone is liable for what it said.</p>
-            <p class="section-body">Current tooling tells you what an agent did. Nothing proves it should have.</p>
-            <p class="section-body">Sanna is the evidence layer. Constitution enforcement and cryptographic reasoning receipts, generated at decision time, verifiable by anyone with a public key.</p>
+            <h2>Your Agents Are Making Decisions You Can't Control or Prove</h2>
+            <p class="section-body">An AI agent approves a loan, triages a patient, sends a contract to a counterparty — or books a flight and moves money on your behalf. Two things should have happened before that output left your system: something should have stopped it if it violated policy, and something should have recorded proof that it didn't.</p>
+            <p class="section-body">Neither happened. There's no runtime enforcement — your governance rules live in a wiki, not in the execution path. And there's no evidence trail — you have logs and metrics, but nothing a regulator, auditor, or counterparty would accept as proof the agent operated within its authority.</p>
+            <p class="section-body">AI governance legislation is accelerating worldwide — laws are already live or taking effect in the US, EU, South Korea, Vietnam, and more are coming. Your compliance team is asking for runtime enforcement and verifiable evidence. Your customers will too. The gap between what your agents are doing and what you can enforce and prove is a liability waiting to surface.</p>
         </div>
     </section>
 
@@ -538,6 +653,33 @@
                     <h3>Reasoning Receipts</h3>
                     <p>Every decision — allow, halt, escalate — produces an Ed25519-signed receipt. Deterministic fingerprints. Tamper-evident. Verifiable offline with just a public key. The receipt travels with the output.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Example -->
+    <section>
+        <div class="container">
+            <div class="section-label">In Practice</div>
+            <h2>Five Lines to Governed AI</h2>
+            <p class="section-body">Wrap the functions you want to govern. Every call is checked against your constitution, and a signed receipt is generated automatically.</p>
+            <div class="code-example">
+                <div class="code-example-header">Library Mode</div>
+                <pre><span class="keyword">from</span> sanna <span class="keyword">import</span> sanna_observe, SannaHaltError
+
+<span class="decorator">@sanna_observe</span>(
+    constitution_path=<span class="string">"constitution.yaml"</span>,
+    constitution_public_key_path=<span class="string">"~/.sanna/keys/&lt;key-id&gt;.pub"</span>,
+)
+<span class="keyword">def</span> <span class="function">my_agent</span>(query: str, context: str) -> str:
+    <span class="keyword">return</span> <span class="string">"Based on the data, revenue grew 12% year-over-year."</span>
+
+<span class="keyword">try</span>:
+    result = <span class="function">my_agent</span>(query=<span class="string">"What was revenue growth?"</span>, context=<span class="string">"..."</span>)
+    print(result.output)   <span class="comment"># The original return value</span>
+    print(result.receipt)  <span class="comment"># Cryptographic governance receipt</span>
+<span class="keyword">except</span> SannaHaltError <span class="keyword">as</span> e:
+    print(f<span class="string">"HALTED: {e}"</span>)  <span class="comment"># Constitution violation detected</span></pre>
             </div>
         </div>
     </section>
@@ -592,22 +734,64 @@
         <div class="container">
             <div class="section-label">Proof</div>
             <h2>Shipped, Not Slideware</h2>
+            <p class="section-body">Five independent security review cycles. A published formal specification. Production-grade cryptographic engineering tested across three Python versions.</p>
             <div class="stats-row">
                 <div class="stat">
-                    <div class="stat-number">2,000+</div>
+                    <div class="stat-number">2,489</div>
                     <div class="stat-label">Tests passing</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">179</div>
-                    <div class="stat-label">Integration tests</div>
+                    <div class="stat-number">16</div>
+                    <div class="stat-label">CLI commands</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">7</div>
-                    <div class="stat-label">Coverage areas</div>
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">Constitution templates</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label">Adversarial evasions</div>
+                    <div class="stat-number">v1.0</div>
+                    <div class="stat-label">Formal specification</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Capabilities -->
+    <section>
+        <div class="container">
+            <div class="section-label">Beyond the Basics</div>
+            <h2>Enterprise-Grade, Open Source</h2>
+            <p class="section-body">Sanna ships with the governance lifecycle tooling that regulated industries require. All of it is free, open source, and available today.</p>
+            <div class="capabilities-grid">
+                <div class="capability">
+                    <div class="capability-icon">&#9878;</div>
+                    <h3>Evidence Bundles</h3>
+                    <p>Self-contained zip archives with receipt, constitution, and public keys. Hand an auditor a single file — they verify the full governance chain offline.</p>
+                </div>
+                <div class="capability">
+                    <div class="capability-icon">&#9100;</div>
+                    <h3>Drift Analytics</h3>
+                    <p>Per-agent, per-check failure-rate trending with linear regression. Project when governance thresholds will breach. Export to CSV or JSON for enterprise tooling.</p>
+                </div>
+                <div class="capability">
+                    <div class="capability-icon">&#9998;</div>
+                    <h3>Approval Workflows</h3>
+                    <p>Ed25519-signed constitution approval chains. Multi-party review before enforcement. Tamper-evident version history with structural diffing between revisions.</p>
+                </div>
+                <div class="capability">
+                    <div class="capability-icon">&#128269;</div>
+                    <h3>Receipt Querying</h3>
+                    <p>SQLite-backed receipt persistence with indexed metadata. Filter by agent, status, time range, or halt events. Query via CLI, Python API, or MCP tools.</p>
+                </div>
+                <div class="capability">
+                    <div class="capability-icon">&#9881;</div>
+                    <h3>Vertical Templates</h3>
+                    <p>Pre-built constitutions for financial services, healthcare, enterprise IT, and developer workflows. Start with tested governance rules, not blank YAML.</p>
+                </div>
+                <div class="capability">
+                    <div class="capability-icon">&#9656;</div>
+                    <h3>OpenTelemetry</h3>
+                    <p>Receipt telemetry exportable to Splunk, Datadog, Grafana. Pointer-and-hash architecture — receipts stay on disk, telemetry flows to your dashboards.</p>
                 </div>
             </div>
         </div>
@@ -619,7 +803,7 @@
             <div class="cloud-inner">
                 <div class="cloud-badge">Coming Soon</div>
                 <h2>Sanna Cloud</h2>
-                <p>Everything in the open-source library, plus fleet-level behavioral analytics, drift detection, constitution management dashboards, and compliance evidence packs. Built for teams governing agents across the enterprise.</p>
+                <p>Hosted receipt storage, fleet dashboards, managed gateway, and drift alerting — so you don't run the infrastructure yourself. The open-source primitives are free forever. Sanna Cloud offers convenience, scale, and intelligence.</p>
                 <form class="signup-form" id="signup-form">
                     <input type="email" name="email" placeholder="you@company.com" required>
                     <button type="submit">Get Early Access</button>
@@ -636,14 +820,36 @@
             <div class="section-label">Use Cases</div>
             <h2>Built for Regulated AI</h2>
             <p class="section-body">If your AI agents operate where decisions carry liability — financial services, healthcare, legal, insurance, government — Sanna provides the evidence layer between your agent and the trust boundary.</p>
-            <p class="section-body">Portable receipts. Vendor-neutral verification. Constitutions your compliance team can actually read.</p>
+            <p class="section-body">And it's not just enterprises. Personal AI agents are arriving — booking travel, managing finances, sending messages on your behalf. If an agent acts for you, you deserve the same governance: boundaries it can't cross, and a receipt proving it stayed inside them.</p>
+            <p class="section-body">Receipt format designed for the evidence and audit requirements emerging across AI governance legislation worldwide — and new laws are being enacted every quarter. Portable receipts. Vendor-neutral verification. Constitutions your compliance team — or just you — can actually read.</p>
+        </div>
+    </section>
+
+    <!-- Try It -->
+    <section class="try-it">
+        <div class="container">
+            <div class="section-label">Get Started</div>
+            <h2>See It Work in 30 Seconds</h2>
+            <p class="section-body">No configuration. No external dependencies. One command generates keys, creates a constitution, simulates a governed tool call, generates a signed receipt, and verifies it.</p>
+            <div class="try-grid">
+                <div class="try-option">
+                    <h3>Interactive Demo</h3>
+                    <p>Self-contained governance demo. Generates keys, evaluates a tool call, and verifies the receipt — all locally.</p>
+                    <div class="code-block"><span class="dim">$</span> pip install sanna<br><span class="dim">$</span> sanna demo</div>
+                </div>
+                <div class="try-option">
+                    <h3>Full Documentation</h3>
+                    <p>Quick-start guides for library mode and gateway mode. Constitution templates, CLI reference, and the formal specification.</p>
+                    <div class="code-block"><a href="https://github.com/nicallen-exd/sanna" style="color: var(--accent); text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 14px;">github.com/nicallen-exd/sanna</a></div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p class="footer-line">Built by Nic Allen · v0.13.2 · Open Source · Apache 2.0</p>
+            <p class="footer-line">© 2026 Sanna · Built by Nic Allen · v0.13.5 · Open Source · Apache 2.0</p>
             <div class="footer-links">
                 <a href="/blog/">Blog</a>
                 <a href="https://github.com/nicallen-exd/sanna" target="_blank" rel="noopener">GitHub</a>
