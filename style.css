@@ -12,6 +12,10 @@
     --accent-dim: rgba(56, 189, 248, 0.1);
     --green: #34d399;
     --green-dim: rgba(52, 211, 153, 0.08);
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --ts-blue: #3178c6;
+    --ts-blue-dim: rgba(49, 120, 198, 0.1);
 }
 
 html { scroll-behavior: smooth; }
@@ -260,6 +264,35 @@ h2 {
 
 .code-block .dim { color: var(--text-muted); }
 
+/* --- Deploy language badges --- */
+.deploy-lang-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+}
+
+.badge-python { background: var(--green-dim); color: var(--green); }
+.badge-typescript { background: var(--ts-blue-dim); color: var(--ts-blue); }
+.badge-gateway { background: var(--accent-dim); color: var(--accent); }
+.badge-openclaw { background: rgba(251, 191, 36, 0.1); color: var(--yellow); }
+
+/* --- Code note --- */
+.code-note {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-left: 2px solid var(--accent);
+    background: var(--bg-alt);
+    border-radius: 0 6px 6px 0;
+}
+
 /* --- Stats --- */
 .stats-row {
     display: grid;
@@ -439,6 +472,48 @@ footer {
 .code-example .function { color: var(--accent); }
 .code-example .decorator { color: #f59e0b; }
 
+/* --- Battle-Tested --- */
+.battle-tested-section {
+    background: var(--bg-alt);
+}
+
+.battle-tested-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+    margin-bottom: 32px;
+}
+
+.bt-stat { text-align: center; }
+
+.bt-number {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.bt-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.battle-tested-link {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.battle-tested-link:hover {
+    opacity: 0.8;
+}
+
 /* --- Capabilities --- */
 .capabilities-grid {
     display: grid;
@@ -480,6 +555,71 @@ footer {
     line-height: 1.65;
 }
 
+/* --- Ecosystem --- */
+.ecosystem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.ecosystem-card {
+    display: block;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.ecosystem-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-alt);
+}
+
+.ecosystem-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.ecosystem-card h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.ecosystem-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 16px;
+}
+
+.ecosystem-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.lang-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.lang-python { background: var(--green-dim); color: var(--green); }
+.lang-typescript { background: var(--ts-blue-dim); color: var(--ts-blue); }
+.lang-spec { background: var(--accent-dim); color: var(--accent); }
+
 /* --- Try It --- */
 .try-it {
     background: var(--bg-alt);
@@ -519,10 +659,13 @@ footer {
 @media (max-width: 768px) {
     section { padding: 72px 0; }
     .hero { padding: 100px 0 72px; }
+    .hero-meta { line-height: 2; }
     .pillars-grid, .deploy-grid, .try-grid { grid-template-columns: 1fr; }
     .steps-grid { grid-template-columns: 1fr; gap: 40px; }
     .stats-row { grid-template-columns: 1fr 1fr; gap: 40px; }
     .capabilities-grid { grid-template-columns: 1fr; }
+    .ecosystem-grid { grid-template-columns: 1fr; }
+    .battle-tested-stats { grid-template-columns: 1fr; gap: 32px; }
     .signup-form { flex-direction: column; }
     .signup-form button { width: 100%; }
     .code-example pre { font-size: 12px; }
@@ -530,4 +673,5 @@ footer {
 
 @media (max-width: 480px) {
     .stats-row { grid-template-columns: 1fr; }
+    .battle-tested-stats { grid-template-columns: 1fr; }
 }
