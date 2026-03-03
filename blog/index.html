@@ -13,157 +13,12 @@
     <meta property="og:url" content="https://sanna.dev/blog/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg: #0b1017;
-            --bg-alt: #0f151d;
-            --bg-card: #111922;
-            --border: #1c2938;
-            --text: #e2e8f0;
-            --text-secondary: #8899ad;
-            --text-muted: #556677;
-            --accent: #38bdf8;
-            --accent-dim: rgba(56, 189, 248, 0.1);
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        nav {
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        nav a:hover { color: var(--accent); }
-
-        .nav-logo {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 16px;
-            font-weight: 500;
-            color: #fff;
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .page-header {
-            padding: 80px 0 48px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .page-header h1 {
-            font-size: 36px;
-            font-weight: 300;
-            letter-spacing: -1px;
-            color: #fff;
-        }
-
-        .posts {
-            padding: 48px 0;
-        }
-
-        .post-item {
-            padding: 32px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .post-item:first-child {
-            padding-top: 0;
-        }
-
-        .post-date {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .post-item h2 {
-            font-size: 22px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .post-item h2 a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .post-item h2 a:hover {
-            color: var(--accent);
-        }
-
-        .post-item p {
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .footer-line {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-        }
-
-        .footer-links a {
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover { color: var(--accent); }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <nav>
-        <div class="container">
+        <div class="container-narrow">
             <a href="/" class="nav-logo">SANNA</a>
             <div class="nav-links">
                 <a href="/">Home</a>
@@ -174,13 +29,13 @@
     </nav>
 
     <div class="page-header">
-        <div class="container">
+        <div class="container-narrow">
             <h1>Blog</h1>
         </div>
     </div>
 
     <div class="posts">
-        <div class="container">
+        <div class="container-narrow">
             <div class="post-item">
                 <div class="post-date">February 26, 2026</div>
                 <h2><a href="/blog/live-demo-constitutional-enforcement.html">&ldquo;I&rsquo;m Not Gonna Sabotage Your Own Governance Layer&rdquo;</a></h2>
@@ -195,9 +50,14 @@
     </div>
 
     <footer>
-        <div class="container">
-            <p class="footer-line">© 2026 Sanna · Built by Nic Allen · v0.13.5 · Open Source · AGPL-3.0</p>
+        <div class="container-narrow">
+            <p class="footer-line">&copy; 2026 Sanna &middot; Built by Nic Allen &middot; v0.13.7 &middot; Open Source &middot; AGPL-3.0</p>
             <div class="footer-links">
                 <a href="https://github.com/sanna-ai/sanna" target="_blank" rel="noopener">GitHub</a>
                 <a href="https://www.linkedin.com/in/nicallen27" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="/cdn-cgi/l/email-protection#a0cec9c3e0d3c1cecec18ec4c5d6"><span class="__cf_email__" data-cfemail="157b7
+                <a href="mailto:nic@sanna.dev">nic@sanna.dev</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

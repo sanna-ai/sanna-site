@@ -65,7 +65,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -76,7 +76,7 @@
             <div class="hero-eyebrow">Trust Infrastructure for AI Agents</div>
             <h1>Sanna</h1>
             <p class="hero-sub">Sanna enforces governance rules at execution time, halts forbidden actions before they reach downstream systems, and generates cryptographic receipts proving it happened.</p>
-            <a href="https://github.com/sanna-ai" class="hero-cta" target="_blank" rel="noopener">
+            <a href="https://github.com/sanna-ai" class="btn btn-ghost" target="_blank" rel="noopener">
                 GitHub
                 <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             </a>
@@ -108,16 +108,16 @@
     <!-- Two Pillars -->
     <section>
         <div class="container">
-            <div class="section-label">Architecture</div>
+            <div class="section-label coral">Architecture</div>
             <h2>Two Equal Pillars</h2>
-            <div class="pillars-grid">
-                <div class="pillar">
-                    <div class="pillar-icon shield">◈</div>
+            <div class="grid-2" style="margin-top: 48px;">
+                <div class="card card-accent-blue">
+                    <div class="icon-box icon-blue">◈</div>
                     <h3>Constitution Enforcement</h3>
                     <p>Governance rules in version-controlled YAML. Forbidden actions are halted. Escalation-required actions are held for human approval. Rules that drive agent behavior — not suggestions in a dashboard.</p>
                 </div>
-                <div class="pillar">
-                    <div class="pillar-icon receipt">✓</div>
+                <div class="card card-accent-coral">
+                    <div class="icon-box icon-coral">✓</div>
                     <h3>Reasoning Receipts</h3>
                     <p>Every decision — allow, halt, escalate — produces an Ed25519-signed receipt. Deterministic fingerprints. Tamper-evident. Verifiable offline with just a public key. The receipt travels with the output.</p>
                 </div>
@@ -131,7 +131,7 @@
             <div class="section-label">In Practice</div>
             <h2>Five Lines to Governed AI</h2>
             <p class="section-body">Wrap the functions you want to govern. Every call is checked against your constitution, and a signed receipt is generated automatically.</p>
-            <div class="code-example">
+            <div class="code-example" style="margin-top: 48px;">
                 <div class="code-example-header">Library Mode</div>
                 <pre><span class="keyword">from</span> sanna <span class="keyword">import</span> sanna_observe, SannaHaltError
 
@@ -178,16 +178,16 @@
   }
 }</pre>
             </div>
-            <p class="code-note">The same decorator pattern is available in TypeScript as <span class="mono">sannaObserve()</span>. Receipts are cross-language compatible — a receipt generated in Python verifies in TypeScript and vice versa.</p>
+            <div class="callout" style="margin-top: 20px;">The same decorator pattern is available in TypeScript as <span class="mono">sannaObserve()</span>. Receipts are cross-language compatible — a receipt generated in Python verifies in TypeScript and vice versa.</div>
         </div>
     </section>
 
     <!-- How It Works -->
     <section>
         <div class="container">
-            <div class="section-label">How It Works</div>
+            <div class="section-label violet">How It Works</div>
             <h2>Three Steps</h2>
-            <div class="steps-grid">
+            <div class="grid-3" style="margin-top: 48px;">
                 <div class="step">
                     <div class="step-number">01</div>
                     <h3>Define</h3>
@@ -210,29 +210,29 @@
     <!-- Deployment Modes -->
     <section>
         <div class="container">
-            <div class="section-label">Deployment</div>
+            <div class="section-label coral">Deployment</div>
             <h2>Four Ways to Deploy</h2>
-            <div class="deploy-grid">
-                <div class="deploy-card">
-                    <div class="deploy-lang-badge badge-python">Python</div>
+            <div class="grid-2" style="margin-top: 48px;">
+                <div class="card deploy-card">
+                    <div class="badge badge-green deploy-badge">Python</div>
                     <h3>Python Library</h3>
                     <p>Add a decorator to the functions you govern. Three lines of code. Receipts generated inline.</p>
                     <div class="code-block"><span class="dim">$</span> pip install sanna</div>
                 </div>
-                <div class="deploy-card">
-                    <div class="deploy-lang-badge badge-typescript">TypeScript</div>
+                <div class="card deploy-card">
+                    <div class="badge badge-ts deploy-badge">TypeScript</div>
                     <h3>TypeScript Library</h3>
                     <p>Wrap governed functions with sannaObserve(). Same constitution format, same receipt schema. Cross-language verification built in.</p>
                     <div class="code-block"><span class="dim">$</span> npm install @sanna-ai/core</div>
                 </div>
-                <div class="deploy-card">
-                    <div class="deploy-lang-badge badge-gateway">Gateway</div>
+                <div class="card deploy-card">
+                    <div class="badge badge-blue deploy-badge">Gateway</div>
                     <h3>MCP Gateway</h3>
                     <p>A proxy between your AI client and downstream tools. Zero code changes to your agent. Available in both Python and TypeScript.</p>
                     <div class="code-block"><span class="dim">$</span> sanna gateway --config gateway.yaml</div>
                 </div>
-                <div class="deploy-card">
-                    <div class="deploy-lang-badge badge-openclaw">OpenClaw</div>
+                <div class="card deploy-card">
+                    <div class="badge badge-yellow deploy-badge">OpenClaw</div>
                     <h3>OpenClaw Plugin</h3>
                     <p>Governance plugin for OpenClaw agents. 14 invariants, 3 constitution templates. Hooks into before_tool_call for runtime enforcement.</p>
                     <div class="code-block"><span class="dim">$</span> openclaw plugins install sanna</div>
@@ -247,21 +247,21 @@
             <div class="section-label">Proof</div>
             <h2>Shipped, Not Slideware</h2>
             <p class="section-body">Five independent security review cycles. A published formal specification. Production-grade cryptographic engineering tested across two languages, multiple runtimes, and 48 cross-language interoperability tests.</p>
-            <div class="stats-row">
+            <div class="grid-4" style="margin-top: 48px;">
                 <div class="stat">
                     <div class="stat-number">3,400+</div>
                     <div class="stat-label">Tests passing</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">2</div>
+                    <div class="stat-number blue">2</div>
                     <div class="stat-label">SDKs</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">v1.0.2</div>
+                    <div class="stat-number coral">v1.0.2</div>
                     <div class="stat-label">Formal specification</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">4</div>
+                    <div class="stat-number violet">4</div>
                     <div class="stat-label">Open source repos</div>
                 </div>
             </div>
@@ -269,26 +269,26 @@
     </section>
 
     <!-- Battle-Tested -->
-    <section class="battle-tested-section">
+    <section class="section-alt">
         <div class="container">
-            <div class="section-label">Adversarial Testing</div>
+            <div class="section-label coral">Adversarial Testing</div>
             <h2>Battle-Tested Against Real Attacks</h2>
             <p class="section-body">We ran a live red-team exercise against Sanna-governed agents. Multiple AI models. 20+ adversarial attack vectors including tool-name routing, social engineering, credential reconnaissance, browser-based exfiltration, and sub-agent delegation.</p>
-            <div class="battle-tested-stats">
-                <div class="bt-stat">
-                    <div class="bt-number">20+</div>
-                    <div class="bt-label">Attack vectors tested</div>
+            <div class="grid-3" style="margin-top: 40px; margin-bottom: 32px;">
+                <div class="stat">
+                    <div class="stat-number green">20+</div>
+                    <div class="stat-label">Attack vectors tested</div>
                 </div>
-                <div class="bt-stat">
-                    <div class="bt-number">18+</div>
-                    <div class="bt-label">Blocked by invariants</div>
+                <div class="stat">
+                    <div class="stat-number green">18+</div>
+                    <div class="stat-label">Blocked by invariants</div>
                 </div>
-                <div class="bt-stat">
-                    <div class="bt-number">2</div>
-                    <div class="bt-label">AI models tested</div>
+                <div class="stat">
+                    <div class="stat-number blue">2</div>
+                    <div class="stat-label">AI models tested</div>
                 </div>
             </div>
-            <a href="/blog/live-demo-constitutional-enforcement.html" class="battle-tested-link">
+            <a href="/blog/live-demo-constitutional-enforcement.html" class="link coral">
                 Read the full red-team report &rarr;
             </a>
         </div>
@@ -297,37 +297,37 @@
     <!-- Enterprise Capabilities -->
     <section>
         <div class="container">
-            <div class="section-label">Beyond the Basics</div>
+            <div class="section-label violet">Beyond the Basics</div>
             <h2>Enterprise-Grade, Open Source</h2>
             <p class="section-body">Sanna ships with the governance lifecycle tooling that regulated industries require. All of it is free, open source, and available today.</p>
-            <div class="capabilities-grid">
-                <div class="capability">
-                    <div class="capability-icon">&#9878;</div>
+            <div class="grid-3" style="margin-top: 48px;">
+                <div class="card capability">
+                    <div class="capability-icon icon-blue">&#9878;</div>
                     <h3>Evidence Bundles</h3>
                     <p>Self-contained zip archives with receipt, constitution, and public keys. Hand an auditor a single file — they verify the full governance chain offline.</p>
                 </div>
-                <div class="capability">
-                    <div class="capability-icon">&#9100;</div>
+                <div class="card capability">
+                    <div class="capability-icon icon-coral">&#9100;</div>
                     <h3>Drift Analytics</h3>
                     <p>Per-agent, per-check failure-rate trending with linear regression. Project when governance thresholds will breach. Export to CSV or JSON for enterprise tooling.</p>
                 </div>
-                <div class="capability">
-                    <div class="capability-icon">&#9998;</div>
+                <div class="card capability">
+                    <div class="capability-icon icon-violet">&#9998;</div>
                     <h3>Approval Workflows</h3>
                     <p>Ed25519-signed constitution approval chains. Multi-party review before enforcement. Tamper-evident version history with structural diffing between revisions.</p>
                 </div>
-                <div class="capability">
-                    <div class="capability-icon">&#128269;</div>
+                <div class="card capability">
+                    <div class="capability-icon icon-blue">&#128269;</div>
                     <h3>Receipt Querying</h3>
                     <p>SQLite-backed receipt persistence with indexed metadata. Filter by agent, status, time range, or halt events. Query via CLI, Python API, or MCP tools.</p>
                 </div>
-                <div class="capability">
-                    <div class="capability-icon">&#10227;</div>
+                <div class="card capability">
+                    <div class="capability-icon icon-coral">&#10227;</div>
                     <h3>Cross-Language Verification</h3>
                     <p>Receipts generated in Python verify in TypeScript and vice versa. 48 interoperability tests ensure both SDKs produce and validate identical cryptographic receipts.</p>
                 </div>
-                <div class="capability">
-                    <div class="capability-icon">&#9656;</div>
+                <div class="card capability">
+                    <div class="capability-icon icon-violet">&#9656;</div>
                     <h3>OpenTelemetry</h3>
                     <p>Receipt telemetry exportable to Splunk, Datadog, Grafana. Pointer-and-hash architecture — receipts stay on disk, telemetry flows to your dashboards.</p>
                 </div>
@@ -341,35 +341,35 @@
             <div class="section-label">Ecosystem</div>
             <h2>Four Repos. One Standard.</h2>
             <p class="section-body">Sanna is a multi-language ecosystem built around a single open specification. Every component generates and verifies the same receipt format.</p>
-            <div class="ecosystem-grid">
-                <a href="https://github.com/sanna-ai/sanna" class="ecosystem-card" target="_blank" rel="noopener">
+            <div class="grid-2" style="margin-top: 48px;">
+                <a href="https://github.com/sanna-ai/sanna" class="card card-interactive ecosystem-card" target="_blank" rel="noopener">
                     <div class="ecosystem-header">
                         <h3>sanna</h3>
-                        <span class="lang-badge lang-python">Python</span>
+                        <span class="badge badge-green">Python</span>
                     </div>
                     <p>The original SDK. 2,489+ tests, 16 CLI commands, 12 constitution templates. Library mode, gateway mode, and MCP server.</p>
                     <div class="ecosystem-meta">v0.13.7 &middot; AGPL-3.0</div>
                 </a>
-                <a href="https://github.com/sanna-ai/sanna-ts" class="ecosystem-card" target="_blank" rel="noopener">
+                <a href="https://github.com/sanna-ai/sanna-ts" class="card card-interactive ecosystem-card" target="_blank" rel="noopener">
                     <div class="ecosystem-header">
                         <h3>sanna-ts</h3>
-                        <span class="lang-badge lang-typescript">TypeScript</span>
+                        <span class="badge badge-ts">TypeScript</span>
                     </div>
                     <p>Full TypeScript implementation. 777+ tests, 4 npm packages, 48 cross-language interop tests. Node.js 22+.</p>
                     <div class="ecosystem-meta">v0.1.2 &middot; AGPL-3.0</div>
                 </a>
-                <a href="https://github.com/sanna-ai/sanna-openclaw" class="ecosystem-card" target="_blank" rel="noopener">
+                <a href="https://github.com/sanna-ai/sanna-openclaw" class="card card-interactive ecosystem-card" target="_blank" rel="noopener">
                     <div class="ecosystem-header">
                         <h3>sanna-openclaw</h3>
-                        <span class="lang-badge lang-typescript">TypeScript</span>
+                        <span class="badge badge-ts">TypeScript</span>
                     </div>
                     <p>Governance plugin for OpenClaw agents. 14 invariants, 3 constitution templates, before_tool_call hook enforcement.</p>
                     <div class="ecosystem-meta">v0.2.0 &middot; AGPL-3.0</div>
                 </a>
-                <a href="https://github.com/sanna-ai/sanna-protocol" class="ecosystem-card" target="_blank" rel="noopener">
+                <a href="https://github.com/sanna-ai/sanna-protocol" class="card card-interactive ecosystem-card" target="_blank" rel="noopener">
                     <div class="ecosystem-header">
                         <h3>sanna-protocol</h3>
-                        <span class="lang-badge lang-spec">Specification</span>
+                        <span class="badge badge-blue">Specification</span>
                     </div>
                     <p>The formal open specification. JSON schemas, golden test fixtures, HTTP header conventions, and implementers guide.</p>
                     <div class="ecosystem-meta">v1.0.2 &middot; Apache 2.0</div>
@@ -379,11 +379,11 @@
     </section>
 
     <!-- Sanna Cloud -->
-    <section class="cloud-section">
+    <section class="section-alt">
         <div class="container">
             <div class="cloud-inner">
-                <div class="cloud-badge">Coming Soon</div>
-                <h2>Sanna Cloud</h2>
+                <div class="badge badge-lg badge-green">Coming Soon</div>
+                <h2 style="margin-top: 20px;">Sanna Cloud</h2>
                 <p>Hosted receipt storage, fleet observability, drift analytics, and managed gateway. Self-hosted today — all core functionality is open source and free forever. Sanna Cloud adds convenience and scale for teams and power users.</p>
                 <form class="signup-form" id="signup-form">
                     <input type="email" name="email" placeholder="you@company.com" required>
@@ -398,16 +398,16 @@
     <!-- Who It's For -->
     <section>
         <div class="container">
-            <div class="section-label">Use Cases</div>
+            <div class="section-label coral">Use Cases</div>
             <h2>Built for Anyone Running Agents</h2>
-            <div class="pillars-grid" style="margin-top: 32px; margin-bottom: 32px;">
-                <div class="pillar">
-                    <div class="pillar-icon shield" style="background: var(--green-dim); color: var(--green);">⚡</div>
+            <div class="grid-2" style="margin-top: 32px; margin-bottom: 32px;">
+                <div class="card card-accent-coral">
+                    <div class="icon-box icon-green">&#9889;</div>
                     <h3>Personal Agent Infrastructure</h3>
                     <p>Running AI assistants that book travel, manage finances, or send messages on your behalf? Sanna gives you boundaries they can't cross and a receipt proving they stayed inside them. Your agents, your rules.</p>
                 </div>
-                <div class="pillar">
-                    <div class="pillar-icon shield">◈</div>
+                <div class="card card-accent-violet">
+                    <div class="icon-box icon-violet">&#9672;</div>
                     <h3>Regulated & Enterprise</h3>
                     <p>If your agents operate where decisions carry liability — financial services, healthcare, legal, insurance, government — Sanna provides the runtime enforcement and verifiable evidence layer your compliance teams and auditors require.</p>
                 </div>
@@ -417,21 +417,21 @@
     </section>
 
     <!-- Try It -->
-    <section class="try-it">
+    <section class="section-alt">
         <div class="container">
-            <div class="section-label">Get Started</div>
+            <div class="section-label violet">Get Started</div>
             <h2>See It Work in 30 Seconds</h2>
             <p class="section-body">No configuration. No external dependencies. One command generates keys, creates a constitution, simulates a governed tool call, generates a signed receipt, and verifies it.</p>
-            <div class="try-grid">
-                <div class="try-option">
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="card">
                     <h3>Interactive Demo</h3>
                     <p>Self-contained governance demo. Generates keys, evaluates a tool call, and verifies the receipt — all locally.</p>
-                    <div class="code-block"><span class="dim">$</span> pip install sanna && sanna demo<br><span class="dim"># or</span><br><span class="dim">$</span> npx @sanna-ai/cli demo</div>
+                    <div class="code-block" style="margin-top: 16px;"><span class="dim">$</span> pip install sanna && sanna demo<br><span class="dim"># or</span><br><span class="dim">$</span> npx @sanna-ai/cli demo</div>
                 </div>
-                <div class="try-option">
+                <div class="card">
                     <h3>Full Documentation</h3>
                     <p>Quick-start guides for library mode and gateway mode. Constitution templates, CLI reference, TypeScript SDK docs, and the formal specification.</p>
-                    <div class="code-block"><a href="https://github.com/sanna-ai" style="color: var(--accent); text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 14px;">github.com/sanna-ai</a></div>
+                    <div class="code-block" style="margin-top: 16px;"><a href="https://github.com/sanna-ai" style="color: var(--blue); text-decoration: none; font-family: var(--font-mono); font-size: 14px;">github.com/sanna-ai</a></div>
                 </div>
             </div>
         </div>
@@ -440,7 +440,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p class="footer-line">© 2026 Sanna · Built by Nic Allen · v0.13.7 · Open Source · AGPL-3.0</p>
+            <p class="footer-line">&copy; 2026 Sanna &middot; Built by Nic Allen &middot; v0.13.7 &middot; Open Source &middot; AGPL-3.0</p>
             <div class="footer-links">
                 <a href="/blog/">Blog</a>
                 <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
@@ -471,4 +471,9 @@
                 form.style.display = 'none';
                 if (note) note.style.display = 'none';
                 success.style.display = 'block';
-           
+            });
+        });
+    </script>
+
+</body>
+</html>
