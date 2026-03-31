@@ -1540,6 +1540,7 @@ table td:first-child {
     margin-right: auto;
 }
 
+.prose .cta-button,
 .cta-button {
     display: inline-block;
     padding: var(--space-3) var(--space-8);
@@ -1550,6 +1551,7 @@ table td:first-child {
     font-weight: 700;
     letter-spacing: 0.5px;
     text-decoration: none;
+    border-bottom: none;
     border-radius: var(--radius-md);
     transition: all 0.2s;
 }
