@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Governance Gap Inside the World's Leading AI Agent | Sanna</title>
+    <meta name="description" content="Anthropic's Claude Code source leak reveals the most sophisticated permission system in production agentic AI. It also reveals what's missing: proof.">
+    <meta name="keywords" content="Claude Code source leak, AI agent governance, agentic AI permissions, AI governance gap, reasoning receipts, cryptographic governance, Claude Code permissions, AI compliance, enterprise AI governance">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Nic Allen">
+    <link rel="canonical" href="https://sanna.dev/blog/the-governance-gap-inside-claude-code.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="The Governance Gap Inside the World's Leading AI Agent">
+    <meta property="og:description" content="Anthropic's Claude Code source leak reveals the most sophisticated permission system in production agentic AI. It also reveals what's missing: proof.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sanna.dev/blog/the-governance-gap-inside-claude-code.html">
+    <meta property="og:site_name" content="Sanna">
+    <meta property="article:author" content="Nic Allen">
+    <meta property="article:published_time" content="2026-03-31T00:00:00Z">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Governance Gap Inside the World's Leading AI Agent">
+    <meta name="twitter:description" content="Claude Code's leaked source reveals sophisticated enforcement with zero proof. Here's the structural gap — and how to close it.">
+
+    <!-- JSON-LD Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "The Governance Gap Inside the World's Leading AI Agent",
+        "description": "Anthropic's Claude Code source leak reveals the most sophisticated permission system in production agentic AI. It also reveals what's missing: proof.",
+        "author": {
+            "@type": "Person",
+            "name": "Nic Allen",
+            "url": "https://www.linkedin.com/in/nicallen27"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Sanna"
+        },
+        "datePublished": "2026-03-31",
+        "url": "https://sanna.dev/blog/the-governance-gap-inside-claude-code.html",
+        "mainEntityOfPage": "https://sanna.dev/blog/the-governance-gap-inside-claude-code.html"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner header-narrow">
+        <a href="/" class="logo">sanna<span>.</span></a>
+        <nav class="header-nav">
+            <a href="/blog/">Blog</a>
+            <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+    </div>
+</header>
+
+<article>
+    <div class="container-narrow">
+        <div class="article-hero">
+            <div class="article-meta">Analysis</div>
+            <h1 class="article-title">The Governance Gap Inside the World's Leading AI Agent</h1>
+            <p class="article-subtitle">Anthropic's Claude Code source leak reveals the most sophisticated permission system in production agentic AI. It also reveals what's missing: proof.</p>
+        </div>
+
+        <div class="article-info">
+            <span>Nic Allen</span>
+            <span class="dot"></span>
+            <span>March 31, 2026</span>
+            <span class="dot"></span>
+            <span>10 min read</span>
+        </div>
+
+        <div class="prose">
+
+            <h2>What happened</h2>
+
+            <p>You might assume the most sophisticated AI coding agent in production also has the most sophisticated governance. Risk classification on every action. ML-based auto-approval. Path traversal prevention. Permission modes from interactive prompts to full autonomy. Claude Code has all of it. What it does not have is a single durable record that any of it happened.</p>
+
+            <p>On March 31, 2026, Anthropic shipped Claude Code v2.1.88 to the npm registry with a 59.8MB source map file containing the entire original TypeScript codebase. Over 512,000 lines across roughly 1,900 files. The tool system, permission model, system prompts, multi-agent orchestration logic, and unreleased feature roadmap are now permanently public. <a href="https://venturebeat.com/technology/claude-codes-source-code-appears-to-have-leaked-heres-what-we-know" target="_blank">VentureBeat</a> and others have covered the incident itself.</p>
+
+            <p>This post covers what the leaked code reveals about the state of agentic governance. I'll walk through what Anthropic built, where the proof layer is missing, how the hooks architecture creates a literal integration surface for external governance, and why multi-agent swarms and autonomous daemon modes make this gap existential.</p>
+
+            <p>The engineering is genuinely impressive. Claude Code is not a wrapper around an API. It is a production-grade agent harness with deeply considered architecture. That's what makes the governance gap so instructive. If the best-resourced AI lab in the world ships enforcement without proof, the pattern is structural, not accidental.</p>
+
+            <h2>The permission system: what they built</h2>
+
+            <p>Claude Code implements a permission gate on every tool invocation. There are roughly 40 tools, each defined as a self-contained module with its own input schema, permission model, and execution logic. Every action routes through a <code>toolPermission</code> hook that checks the configured permission mode and either prompts the user, auto-resolves via an ML-based classifier, or blocks outright.</p>
+
+            <p>The risk classification system scores every tool action as LOW, MEDIUM, or HIGH. Protected files (.gitconfig, .bashrc, .zshrc, .mcp.json) are guarded from automatic editing. Path traversal prevention handles URL-encoded attacks, Unicode normalization, backslash injection, and case-insensitive path manipulation. A separate LLM call generates human-readable explanations of tool risks before the user approves.</p>
+
+            <p>The permission modes range from <code>default</code> (interactive prompts), to <code>auto</code> (ML classifier decides), to <code>plan</code> (read-only analysis before edits), to <code>bypassPermissions</code> (full autonomous access). There's also a hooks system that supports external policy enforcement via HTTP endpoints.</p>
+
+            <p>This is real governance engineering. And none of it produces a durable record.</p>
+
+            <h2>The gap: enforcement without proof</h2>
+
+            <p>The permission checks are ephemeral. They fire at runtime, make a decision, and the execution continues. Nothing is signed. There is no artifact that captures which policy was in effect, what the tool was attempting, or what the decision was. The governance is self-attested by the system that performed it.</p>
+
+            <p>For a developer sitting at their terminal, this might be fine. They saw the prompt. They clicked approve. They trust the tool.</p>
+
+            <p>For the enterprise deploying agentic AI at scale, it is not fine. When the White House AI framework shifted downstream liability to deployers, it created a class of buyer that needs to prove governance was applied, not just assert it. Regulators, auditors, and counterparties need evidence. An ephemeral runtime check is not evidence.</p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Governance Flow: Enforcement Without Proof</div>
+                <div class="flow-diagram">
+                    <div class="flow-node action">Agent requests tool execution</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node check">PreToolUse hook fires</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node check">Risk classification: LOW / MEDIUM / HIGH</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node check">Permission mode resolves: approve / deny / prompt</div>
+                    <div class="flow-arrow">&#8595;</div>
+
+                    <div class="flow-divider"></div>
+                    <div class="flow-divider-label">&#9888; No durable record produced below this line</div>
+
+                    <div class="flow-node gap">Decision is ephemeral. No receipt. No signature.</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node action">Tool executes</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node gap">PostToolUse fires, then discarded</div>
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Governance Flow: With Sanna</div>
+                <div class="flow-diagram">
+                    <div class="flow-node action">Agent requests tool execution</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node check">PreToolUse hook fires</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node sanna">Sanna constitution enforcement evaluates action</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node receipt">Ed25519-signed Governance Receipt produced</div>
+                    <div class="flow-label">constitution hash + action + decision + timestamp</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node check">Decision returned: approve / deny</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node action">Tool executes (if approved)</div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flow-node receipt">Receipt stored: tamper-evident, offline-verifiable</div>
+                </div>
+            </div>
+
+            <h2>The integration surface already exists</h2>
+
+            <p>Claude Code's hooks architecture defines lifecycle events that external systems can intercept. <code>PreToolUse</code> fires before tool execution. <code>PostToolUse</code> fires after. <code>PermissionRequest</code> fires when a permission dialog is about to be shown. HTTP hooks can return structured JSON decisions that allow, deny, or escalate tool calls.</p>
+
+            <p>This is a literal integration surface for external governance. A Sanna endpoint sitting behind a PreToolUse HTTP hook would evaluate every tool invocation against the deployer's constitution, return an allow/deny decision, and produce a signed Governance Receipt, all before the tool executes.</p>
+
+            <div class="code-panel">
+                <div class="code-panel-header">
+                    <span class="code-panel-filename">.claude/settings.json</span>
+                    <span class="code-panel-lang">JSON</span>
+                </div>
+                <div class="code-panel-body">
+<pre>{
+  <span class="str">"hooks"</span>: {
+    <span class="str">"PreToolUse"</span>: [
+      {
+        <span class="str">"type"</span>: <span class="str">"http"</span>,
+        <span class="str">"url"</span>: <span class="str">"https://api.sanna.cloud/v1/evaluate"</span>,
+        <span class="str">"timeout_ms"</span>: <span class="num">5000</span>
+      }
+    ]
+  }
+}</pre>
+                </div>
+            </div>
+
+            <div class="code-panel">
+                <div class="code-panel-header">
+                    <span class="code-panel-filename">Sanna evaluation response</span>
+                    <span class="code-panel-lang">JSON</span>
+                </div>
+                <div class="code-panel-body">
+<pre>{
+  <span class="str">"decision"</span>: <span class="str">"allow"</span>,
+  <span class="str">"receipt"</span>: {
+    <span class="str">"id"</span>: <span class="str">"rcpt_a1b2c3d4"</span>,
+    <span class="str">"constitution_hash"</span>: <span class="str">"sha256:9f86d08..."</span>,
+    <span class="str">"action"</span>: <span class="str">"BashTool"</span>,
+    <span class="str">"input_hash"</span>: <span class="str">"sha256:e3b0c44..."</span>,
+    <span class="str">"decision"</span>: <span class="str">"allow"</span>,
+    <span class="str">"timestamp"</span>: <span class="str">"2026-03-31T18:42:07Z"</span>,
+    <span class="str">"signature"</span>: <span class="str">"ed25519:b5bb9d80..."</span>
+  }
+}</pre>
+                </div>
+            </div>
+
+            <p>The receipt is the artifact that closes the gap. It binds the constitution hash (which specific policy was in effect), the action (what the tool was attempting), the decision (allow or deny), and the timestamp into a single Ed25519-signed object. Anyone can verify it after the fact without trusting Sanna, the agent, or the deployer. The receipt is self-proving.</p>
+
+            <h2>Where it gets harder: swarms and daemons</h2>
+
+            <p>The leaked code reveals two capabilities that make the governance gap significantly worse.</p>
+
+            <p><strong>Multi-agent orchestration.</strong> Claude Code can spawn sub-agents ("swarms") through an AgentTool, with a coordinator module handling orchestration. Each sub-agent runs in its own context with specific tool permissions. The ULTRAPLAN feature offloads complex planning to a remote container running for up to 30 minutes. When a primary agent delegates to sub-agents, who governs the swarm? The code shows that sub-agents inherit the parent's permission mode. But inheritance is not proof. There is no chain-of-custody across the orchestration boundary.</p>
+
+            <p><strong>KAIROS (autonomous daemon mode).</strong> Gated behind feature flags but fully built, KAIROS is an always-on background agent that doesn't wait for user input. It observes, logs, and proactively acts. A background process called autoDream performs "memory consolidation" during idle periods, merging observations, removing contradictions, and converting tentative insights into verified facts. An agent that acts without a human in the loop breaks the permission-prompt model entirely. There is no one to click "approve." Governance must be policy-as-code, evaluated automatically, with durable proof that evaluation happened.</p>
+
+            <div class="callout coral">
+                <strong>The permission-prompt model was designed for a human at a terminal.</strong> Multi-agent swarms and autonomous daemons are what's shipping next. The governance architecture needs to evolve ahead of the capability, not behind it.
+            </div>
+
+            <p>Sanna's receipt architecture was designed from day one to support cross-agent trust. A receipt chain that binds constitution-hash to action across agent boundaries provides the chain-of-custody that inheritance alone cannot. When Agent A delegates to Agent B, and Agent B invokes a tool, the receipt proves which constitution governed that action, regardless of which agent executed it. This is not a Phase 5 aspiration. It's baked into the receipt primitive.</p>
+
+            <h2>Direct comparison</h2>
+
+            <div class="table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th>Claude Code permissions</th>
+                            <th>Sanna governed capability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dim-label">Pre-execution enforcement</td>
+                            <td class="status-yes">Yes. PreToolUse hook with risk classification.</td>
+                            <td class="status-yes">Yes. Constitution evaluation before execution.</td>
+                        </tr>
+                        <tr>
+                            <td class="dim-label">Durable proof of governance</td>
+                            <td class="status-no">No. Decision is ephemeral.</td>
+                            <td class="status-yes">Yes. Ed25519-signed Governance Receipt.</td>
+                        </tr>
+                        <tr>
+                            <td class="dim-label">Offline verification</td>
+                            <td class="status-no">No. Must trust the system's assertion.</td>
+                            <td class="status-yes">Yes. Receipt verifiable without network access.</td>
+                        </tr>
+                        <tr>
+                            <td class="dim-label">Constitution binding</td>
+                            <td class="status-partial">Partial. Permission mode is set per-session.</td>
+                            <td class="status-yes">Yes. Constitution hash bound to each receipt.</td>
+                        </tr>
+                        <tr>
+                            <td class="dim-label">Cross-agent chain of custody</td>
+                            <td class="status-no">No. Sub-agents inherit mode, no proof chain.</td>
+                            <td class="status-yes">Yes. Receipt chains across agent boundaries.</td>
+                        </tr>
+                        <tr>
+                            <td class="dim-label">Autonomous / daemon mode support</td>
+                            <td class="status-no">No. Permission model assumes human in loop.</td>
+                            <td class="status-yes">Yes. Policy-as-code with automatic receipt generation.</td>
+                        </tr>
+                        <tr>
+                            <td class="dim-label">Third-party auditability</td>
+                            <td class="status-no">No. No exportable governance artifact.</td>
+                            <td class="status-yes">Yes. Receipts are portable, tamper-evident records.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>The structural argument</h2>
+
+            <p>This is not a gap unique to Claude Code. It is the industry default. Every major agentic framework, whether from Anthropic, OpenAI, Google, or the open-source ecosystem, implements some form of runtime permission checking. None of them produce durable, independently verifiable proof that governance was applied at the moment of action.</p>
+
+            <p>The reason is structural. Model providers cannot credibly self-govern. An agent asserting that it checked its own permissions is a self-referential claim. The proof must come from an independent layer that is open-source, cryptographically verifiable, and not controlled by the same entity that benefits from the agent's execution.</p>
+
+            <p>This is what Sanna provides. An open-source governance protocol (Apache 2.0) built on two equal pillars. Constitution enforcement blocks out-of-scope actions before execution. Ed25519-signed Governance Receipts produce tamper-evident, offline-verifiable proof that governance was applied at the moment of action. Neither pillar works without the other.</p>
+
+            <div class="callout green">
+                <strong>Enforcement that produces no proof is incomplete. And proof without enforcement is just audit theatre.</strong> Sanna provides both as a single integration at the point of action.
+            </div>
+
+            <p>The hooks architecture that Claude Code already ships confirms the integration pattern. PreToolUse with HTTP endpoints returning structured decisions is the natural insertion point for an external governance layer. The same pattern applies to any agentic framework that implements lifecycle hooks. Sanna sits at this point across all of them.</p>
+
+            <h2>What this means for deployers</h2>
+
+            <p>If you are deploying agentic AI in an enterprise context, the Claude Code source leak just showed you the ceiling of what runtime permission systems provide. The agent checks permissions, makes a decision, executes the tool, and then the evidence is gone.</p>
+
+            <p>As agents move from interactive tools to autonomous systems (multi-agent orchestration, background daemons, proactive action without user prompts), the governance gap doesn't shrink. It widens. Every new capability that reduces human oversight increases the need for a durable, verifiable governance layer.</p>
+
+            <p>Liability sits with the deployer now. The receipt is how they prove they governed.</p>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h3>Build with verifiable governance</h3>
+                <p>Sanna is open-source trust infrastructure for the agentic economy. We're working with design partners to integrate governance receipts into production agent deployments.</p>
+                <a href="mailto:nic@sanna.dev?subject=Design%20Partner%20Inquiry" class="cta-button">Become a design partner</a>
+            </div>
+
+        </div><!-- .prose -->
+    </div><!-- .container-narrow -->
+</article>
+
+<footer>
+    <div class="container-narrow">
+        <p class="footer-line">&copy; 2026 Sanna &middot; Built by Nic Allen &middot; Open Source &middot; AGPL-3.0</p>
+        <div class="footer-links">
+            <a href="/blog/">Blog</a>
+            <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/nicallen27" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:nic@sanna.dev">nic@sanna.dev</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
