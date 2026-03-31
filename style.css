@@ -1544,7 +1544,7 @@ table td:first-child {
     display: inline-block;
     padding: var(--space-3) var(--space-8);
     background: var(--blue);
-    color: var(--text-inverse);
+    color: #fff;
     font-family: var(--font-mono);
     font-size: 13px;
     font-weight: 600;
