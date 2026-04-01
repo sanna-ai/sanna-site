@@ -73,9 +73,12 @@
     <header class="site-header">
         <div class="header-inner">
             <a href="/" class="logo">sanna<span>.</span></a>
-            <nav class="header-nav">
+            <nav class="header-nav nav-links">
+                <a href="#use-cases">Use Cases</a>
                 <a href="/blog/">Blog</a>
+                <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">Docs</a>
                 <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
+                <a href="#cloud" class="cloud-badge">Cloud</a>
             </nav>
         </div>
     </header>
@@ -85,7 +88,8 @@
         <div class="container">
             <div class="hero-eyebrow">Trust Infrastructure for AI Agents</div>
             <h1>Sanna</h1>
-            <p class="hero-sub">Sanna enforces governance rules at execution time, halts forbidden actions before they reach downstream systems, and generates cryptographic receipts proving it happened.</p>
+            <p class="hero-sub">When your agent acts, Sanna enforces the rules and generates cryptographic proof it happened. Forbidden actions are halted before they reach downstream systems.</p>
+            <a href="#get-started" class="btn btn-primary">Get Started</a>
             <a href="https://github.com/sanna-ai" class="btn btn-ghost" target="_blank" rel="noopener">
                 GitHub
                 <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -108,10 +112,9 @@
     <section>
         <div class="container">
             <div class="section-label">The Problem</div>
-            <h2>Your Agents Are Making Decisions You Can't Control or Prove</h2>
-            <p class="section-body">An AI agent approves a loan, triages a patient, sends a contract to a counterparty — or books a flight and moves money on your behalf. Two things should have happened before that output left your system: something should have stopped it if it violated policy, and something should have recorded proof that it didn't.</p>
-            <p class="section-body">Neither happened. There's no runtime enforcement — your governance rules live in a wiki, not in the execution path. And there's no evidence trail — you have logs and metrics, but nothing a regulator, auditor, or counterparty would accept as proof the agent operated within its authority.</p>
-            <p class="section-body">AI governance legislation is accelerating worldwide — laws are already live or taking effect in the US, EU, South Korea, Vietnam, and more are coming. Your compliance team is asking for runtime enforcement and verifiable evidence. Your customers will too. The gap between what your agents are doing and what you can enforce and prove is a liability waiting to surface.</p>
+            <h2>You're Liable for What Your Agents Do</h2>
+            <p class="section-body">An AI agent approves a loan, triages a patient, sends a contract, moves money on your behalf. The White House AI framework shifted downstream liability to the deployer. That's you. Not the model provider. Not the developer who built the agent.</p>
+            <p class="section-body">Two things should happen before every agent output leaves your system: something should stop it if it violates policy, and something should record proof that it didn't. Right now, neither is happening. Your governance rules live in a wiki. Your evidence trail is a log file no regulator would accept. That gap is a liability waiting to surface.</p>
         </div>
     </section>
 
@@ -128,8 +131,39 @@
                 </div>
                 <div class="card card-accent-coral">
                     <div class="icon-box icon-coral">✓</div>
-                    <h3>Reasoning Receipts</h3>
+                    <h3>Governance Receipts</h3>
                     <p>Every decision — allow, halt, escalate — produces an Ed25519-signed receipt. Deterministic fingerprints. Tamper-evident. Verifiable offline with just a public key. The receipt travels with the output.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Architecture -->
+    <section>
+        <div class="container">
+            <div class="section-label violet">Why This Architecture</div>
+            <h2>What Exists Today Isn't Enough</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-number">01</div>
+                    <div class="why-content">
+                        <h3>Model providers can't self-govern</h3>
+                        <p>The entity generating the output cannot credibly certify its own compliance. You need an independent layer that evaluates and signs, not the same system that produced the answer.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-number">02</div>
+                    <div class="why-content">
+                        <h3>Observability without enforcement is audit theatre</h3>
+                        <p>Dashboards and logs tell you what happened after the fact. Sanna stops what shouldn't happen before it reaches downstream systems. Enforcement without proof is incomplete. Proof without enforcement is theatre.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-number">03</div>
+                    <div class="why-content">
+                        <h3>Periodic certification isn't proof</h3>
+                        <p>A SOC 2 badge certifies a point in time. Sanna generates per-action cryptographic evidence, the same way SSL produces per-connection proof. Portable, offline-verifiable, and bound to the specific constitution that was enforced.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -159,9 +193,13 @@
 <span class="keyword">except</span> SannaHaltError <span class="keyword">as</span> e:
     print(f<span class="string">"HALTED: {e}"</span>)  <span class="comment"># Constitution violation detected</span></pre>
             </div>
-            <div class="code-example" style="margin-top: 24px;">
-                <div class="code-example-header">Here's What a Real Receipt Looks Like</div>
-                <pre><span class="comment">// Signed, offline-verifiable proof generated for every governed action</span>
+            <div class="receipt-toggle" onclick="toggleReceipt()">
+                <span class="arrow">▸</span> View a real governance receipt
+            </div>
+            <div class="receipt-content" id="receipt-content">
+                <div class="code-example">
+                    <div class="code-example-header">Here's What a Real Receipt Looks Like</div>
+                    <pre><span class="comment">// Signed, offline-verifiable proof generated for every governed action</span>
 {
   <span class="string">"spec_version"</span>: <span class="string">"1.0"</span>,
   <span class="string">"receipt_id"</span>: <span class="string">"a7e3b1f0-4c2d-4a8e-9f1b-3d5e7a9c2b4d"</span>,
@@ -187,6 +225,7 @@
     <span class="string">"scheme"</span>: <span class="string">"receipt_sig_v1"</span>
   }
 }</pre>
+                </div>
             </div>
             <div class="callout" style="margin-top: 20px;">The same decorator pattern is available in TypeScript as <span class="mono">sannaObserve()</span>. Receipts are cross-language compatible — a receipt generated in Python verifies in TypeScript and vice versa.</div>
         </div>
@@ -221,8 +260,8 @@
     <section>
         <div class="container">
             <div class="section-label coral">Deployment</div>
-            <h2>Four Ways to Deploy</h2>
-            <div class="grid-2" style="margin-top: 48px;">
+            <h2>Multiple Ways to Deploy</h2>
+            <div class="deploy-primary">
                 <div class="card deploy-card">
                     <div class="badge badge-green deploy-badge">Python</div>
                     <h3>Python Library</h3>
@@ -235,6 +274,8 @@
                     <p>Wrap governed functions with sannaObserve(). Same constitution format, same receipt schema. Cross-language verification built in.</p>
                     <div class="code-block"><span class="dim">$</span> npm install @sanna-ai/core</div>
                 </div>
+            </div>
+            <div class="deploy-secondary">
                 <div class="card deploy-card">
                     <div class="badge badge-blue deploy-badge">Gateway</div>
                     <h3>MCP Gateway</h3>
@@ -242,7 +283,7 @@
                     <div class="code-block"><span class="dim">$</span> sanna gateway --config gateway.yaml</div>
                 </div>
                 <div class="card deploy-card">
-                    <div class="badge badge-yellow deploy-badge">OpenClaw</div>
+                    <div class="badge badge-yellow deploy-badge">OpenClaw</div> <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">Integration</span>
                     <h3>OpenClaw Plugin</h3>
                     <p>Governance plugin for OpenClaw agents. 14 invariants, 3 constitution templates. Hooks into before_tool_call for runtime enforcement.</p>
                     <div class="code-block"><span class="dim">$</span> openclaw plugins install sanna</div>
@@ -301,6 +342,47 @@
             <a href="/blog/live-demo-constitutional-enforcement.html" class="link coral">
                 Read the full red-team report &rarr;
             </a>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section id="use-cases">
+        <div class="container">
+            <div class="section-label coral">Built For</div>
+            <h2>Where Agent Decisions Carry Liability</h2>
+            <div class="verticals-grid">
+                <div class="vertical-card">
+                    <div style="font-size: 28px; margin-bottom: 16px;">⚡</div>
+                    <h3>Financial Services</h3>
+                    <p>Agents approving loans, generating reports, moving money, scoring risk. Governance receipts map directly to SOC 2 evidence requirements and emerging AI audit frameworks.</p>
+                    <div class="vertical-tags">
+                        <span class="tag">SOC 2</span>
+                        <span class="tag">NIST AI RMF</span>
+                        <span class="tag">Audit trail</span>
+                    </div>
+                </div>
+                <div class="vertical-card">
+                    <div style="font-size: 28px; margin-bottom: 16px;">◈</div>
+                    <h3>Healthcare</h3>
+                    <p>Clinical decision support, triage, prior authorization. Receipts satisfy the evidence trail requirements emerging under FDA guidance for AI/ML-based software as a medical device.</p>
+                    <div class="vertical-tags">
+                        <span class="tag">FDA SaMD</span>
+                        <span class="tag">GxP</span>
+                        <span class="tag">HIPAA</span>
+                    </div>
+                </div>
+                <div class="vertical-card">
+                    <div style="font-size: 28px; margin-bottom: 16px;">⛨</div>
+                    <h3>Enterprise AI Teams</h3>
+                    <p>Any organization deploying agents where downstream liability applies. Your compliance team needs runtime enforcement and verifiable evidence that governance was applied at the moment of action.</p>
+                    <div class="vertical-tags">
+                        <span class="tag">EU AI Act</span>
+                        <span class="tag">ISO 42001</span>
+                        <span class="tag">Deployer liability</span>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 14px; color: var(--text-muted); margin-top: 32px; text-align: center;">Receipt format designed for the evidence and audit requirements emerging across AI governance legislation worldwide. Portable receipts. Vendor-neutral verification. Constitutions your compliance team can actually read.</p>
         </div>
     </section>
 
@@ -388,13 +470,32 @@
         </div>
     </section>
 
-    <!-- Sanna Cloud -->
+    <!-- Founded by Nic Allen -->
     <section class="section-alt">
+        <div class="container">
+            <div class="section-label violet">About</div>
+            <h2>Founded by Nic Allen</h2>
+            <p class="section-body">15 years building enforcement and trust systems across regulated pharma (GxP/FDA), Google Cloud, and cybersecurity.</p>
+            <div class="founder-links" style="margin-top: 20px;">
+                <a href="https://www.linkedin.com/in/nicallen27" target="_blank">LinkedIn →</a>
+                <a href="mailto:nic@sanna.dev">nic@sanna.dev</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sanna Cloud -->
+    <section class="section-alt" id="cloud">
         <div class="container">
             <div class="cloud-inner">
                 <div class="badge badge-lg badge-green">Coming Soon</div>
                 <h2 style="margin-top: 20px;">Sanna Cloud</h2>
-                <p>Hosted receipt storage, fleet observability, drift analytics, and managed gateway. Self-hosted today — all core functionality is open source and free forever. Sanna Cloud adds convenience and scale for teams and power users.</p>
+                <p>Hosted receipt storage, fleet observability, drift analytics, and managed gateways. The open source SDKs stay free forever. Cloud adds the convenience and scale layer for teams.</p>
+                <div class="cloud-features">
+                    <span>Receipt storage</span>
+                    <span>Fleet dashboards</span>
+                    <span>Drift analytics</span>
+                    <span>Managed gateway</span>
+                </div>
                 <form class="signup-form" id="signup-form">
                     <input type="email" name="email" placeholder="you@company.com" required>
                     <button type="submit">Get Early Access</button>
@@ -405,29 +506,29 @@
         </div>
     </section>
 
-    <!-- Who It's For -->
-    <section>
+    <!-- From the Blog -->
+    <section class="section-alt">
         <div class="container">
-            <div class="section-label coral">Use Cases</div>
-            <h2>Built for Anyone Running Agents</h2>
-            <div class="grid-2" style="margin-top: 32px; margin-bottom: 32px;">
-                <div class="card card-accent-coral">
-                    <div class="icon-box icon-green">&#9889;</div>
-                    <h3>Personal Agent Infrastructure</h3>
-                    <p>Running AI assistants that book travel, manage finances, or send messages on your behalf? Sanna gives you boundaries they can't cross and a receipt proving they stayed inside them. Your agents, your rules.</p>
-                </div>
-                <div class="card card-accent-violet">
-                    <div class="icon-box icon-violet">&#9672;</div>
-                    <h3>Regulated & Enterprise</h3>
-                    <p>If your agents operate where decisions carry liability — financial services, healthcare, legal, insurance, government — Sanna provides the runtime enforcement and verifiable evidence layer your compliance teams and auditors require.</p>
-                </div>
+            <div class="section-label coral">Latest</div>
+            <h2>From the Blog</h2>
+            <a href="/blog/the-governance-gap-inside-claude-code.html" class="blog-latest">
+                <span class="blog-date">Mar 31, 2026</span>
+                <span class="blog-title">The Governance Gap Inside Claude Code</span>
+                <span class="blog-arrow">Read →</span>
+            </a>
+            <a href="/blog/live-demo-constitutional-enforcement.html" class="blog-latest">
+                <span class="blog-date">Feb 26, 2026</span>
+                <span class="blog-title">"I'm Not Gonna Sabotage Your Own Governance Layer"</span>
+                <span class="blog-arrow">Read →</span>
+            </a>
+            <div style="text-align: center; margin-top: 24px;">
+                <a href="/blog/" style="font-family: var(--font-mono); font-size: 14px; color: var(--text-muted);">View all posts →</a>
             </div>
-            <p class="section-body">Receipt format designed for the evidence and audit requirements emerging across AI governance legislation worldwide — and new laws are being enacted every quarter. Portable receipts. Vendor-neutral verification. Constitutions your compliance team — or just you — can actually read.</p>
         </div>
     </section>
 
     <!-- Try It -->
-    <section class="section-alt">
+    <section class="section-alt" id="get-started">
         <div class="container">
             <div class="section-label violet">Get Started</div>
             <h2>See It Work in 30 Seconds</h2>
@@ -450,9 +551,10 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p class="footer-line">&copy; 2026 Sanna &middot; Built by Nic Allen &middot; Open Source &middot; AGPL-3.0</p>
+            <p class="footer-line">&copy; 2026 Sanna &middot; Founded by Nic Allen &middot; Open Source &middot; AGPL-3.0</p>
             <div class="footer-links">
                 <a href="/blog/">Blog</a>
+                <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">Docs</a>
                 <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
                 <a href="https://www.linkedin.com/in/nicallen27" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="mailto:nic@sanna.dev">nic@sanna.dev</a>
@@ -461,6 +563,18 @@
     </footer>
 
     <script>
+        function toggleReceipt() {
+            const content = document.getElementById('receipt-content');
+            const toggle = document.querySelector('.receipt-toggle');
+            content.classList.toggle('visible');
+            toggle.classList.toggle('open');
+            if (content.classList.contains('visible')) {
+                toggle.querySelector('.arrow').textContent = '▾';
+            } else {
+                toggle.querySelector('.arrow').textContent = '▸';
+            }
+        }
+
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = this;
