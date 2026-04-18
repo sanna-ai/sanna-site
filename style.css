@@ -627,7 +627,7 @@ footer {
     transform: translateY(2px); /* optical-center nudge toward wordmark cap-mid */
 }
 
-.logo span { color: var(--blue); }
+.logo span { color: var(--blue); margin-left: -0.18em; }
 
 /* Reusable inline aperture mark helper */
 .aperture-mark {
