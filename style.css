@@ -599,16 +599,50 @@ footer {
     max-width: 820px;
 }
 
+/* Brand lockup: aperture mark + "sanna." wordmark.
+   Mark is injected via ::before so existing markup <a class="logo">sanna<span>.</span></a>
+   renders the full lockup without per-page edits. */
 .logo {
     font-family: var(--font-sans);
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 300;
     color: #fff;
     text-decoration: none;
-    letter-spacing: -0.3px;
+    letter-spacing: -1.2px;
+    line-height: 0.82;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo::before {
+    content: "";
+    width: 28px;
+    height: 28px;
+    flex: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='none' stroke='%2338bdf8' stroke-width='3'/><path d='M 50 50 L 50 10 L 68 20 Z' fill='%2338bdf8'/><path d='M 50 50 L 84.6 30 L 84.6 50 Z' fill='%23a78bfa'/><path d='M 50 50 L 84.6 70 L 68 80 Z' fill='%23f07356'/><path d='M 50 50 L 50 90 L 32 80 Z' fill='%2338bdf8'/><path d='M 50 50 L 15.4 70 L 15.4 50 Z' fill='%23a78bfa'/><path d='M 50 50 L 15.4 30 L 32 20 Z' fill='%23f07356'/><circle cx='50' cy='50' r='8' fill='%230b1017'/></svg>");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translateY(2px); /* optical-center nudge toward wordmark cap-mid */
 }
 
 .logo span { color: var(--blue); }
+
+/* Reusable inline aperture mark helper */
+.aperture-mark {
+    display: inline-block;
+    vertical-align: middle;
+    flex: none;
+}
+
+/* Brand gradient bar — decorative accent per brand identity.
+   Blue (system boundary) → Violet (constitution check) → Coral (human attestation). */
+.brand-gradient-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--violet) 50%, var(--coral) 100%);
+}
 
 .header-nav {
     display: flex;
