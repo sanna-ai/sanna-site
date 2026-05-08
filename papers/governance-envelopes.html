@@ -55,7 +55,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css?v=5">
+<link rel="stylesheet" href="/style.css?v=6">
 <style>
 /* Brand gradient bar — used as a decorative accent in the cover */
 .brand-gradient-bar {
@@ -379,6 +379,21 @@ body {
 /* The cover should fill the viewport below the sticky site header */
 .cover { min-height: calc(100vh - 65px); }
 
+/* Running-head PDF link */
+.running-head .rh-right { display: inline-flex; align-items: center; gap: 4px; }
+.running-head .rh-pdf {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--coral);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(240, 115, 86, 0.3);
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.running-head .rh-pdf:hover { color: var(--coral-strong); border-color: var(--coral); }
+
 </style>
 </head>
 <body>
@@ -449,7 +464,7 @@ body {
   </div>
 </article>
 
-<div class="running-head"><span class="wm">sanna<span class="p">.</span></span><span>Governance Envelopes · v0.1</span></div>
+<div class="running-head"><span class="wm">sanna<span class="p">.</span></span><span class="rh-right">Governance Envelopes · v0.1 &nbsp;·&nbsp; <a href="/papers/governance-envelopes.pdf" class="rh-pdf">Download PDF</a></span></div>
 
 <!-- ABSTRACT + TOC -->
 <section class="section-page" id="abstract" data-screen-label="02 Abstract">
@@ -498,6 +513,7 @@ body {
     <tr><td>Builds on</td><td>Sanna Protocol v1.5 receipt primitives</td></tr>
     <tr><td>Published</td><td>May 8, 2026</td></tr>
     <tr><td>Author</td><td>Nicholas Allen, Sanna AI, Inc.</td></tr>
+    <tr><td>Download</td><td><a href="/papers/governance-envelopes.pdf">Governance Envelopes — Sanna AI (PDF)</a></td></tr>
   </table>
 </div>
 </section>
@@ -1311,7 +1327,7 @@ body {
       </div>
       <div class="col">
         <h5>This document</h5>
-        <p>Public draft.<br/>© 2026 Sanna AI, Inc.</p>
+        <p>Public draft. <a href="/papers/governance-envelopes.pdf">Download PDF</a><br/>© 2026 Sanna AI, Inc.</p>
       </div>
     </div>
   </div>

@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css?v=5">
+    <link rel="stylesheet" href="/style.css?v=6">
     <style>
     /* Page-local: paper card layout */
     .paper-item {
@@ -92,7 +92,16 @@
         flex-wrap: wrap;
     }
     .paper-foot .author { color: var(--text-secondary); }
+    .paper-foot .actions { display: flex; gap: 18px; align-items: center; }
     .paper-foot .read { color: var(--blue); }
+    .paper-foot .pdf-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 1px;
+        transition: color 0.2s, border-color 0.2s;
+    }
+    .paper-foot .pdf-link:hover { color: var(--coral); border-color: var(--coral); }
     .papers-empty {
         margin-top: 40px;
         padding: 32px;
@@ -140,7 +149,10 @@
                 <p class="paper-abstract">A portable, signed evidence graph for agent context, memory, citation, handoff, and action. The paper proposes Governance Envelopes &mdash; signed bundles of receipts that travel with agent output &mdash; and Receipt-Gated Handoff for downstream verification across observation boundaries.</p>
                 <div class="paper-foot">
                     <span><span class="author">Nicholas Allen</span> &middot; May 8, 2026 &middot; ~14,000 words</span>
-                    <span class="read">Read paper &rarr;</span>
+                    <span class="actions">
+                        <a class="pdf-link" href="/papers/governance-envelopes.pdf" onclick="event.stopPropagation();">Download PDF</a>
+                        <span class="read">Read paper &rarr;</span>
+                    </span>
                 </div>
             </a>
         </div>
