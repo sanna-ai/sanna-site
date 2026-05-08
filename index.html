@@ -74,7 +74,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -84,6 +84,7 @@
             <a href="/" class="logo">sanna<span>.</span></a>
             <nav class="header-nav nav-links">
                 <a href="#use-cases">Use Cases</a>
+                <a href="/papers/">Papers</a>
                 <a href="/blog/">Blog</a>
                 <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">Docs</a>
                 <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
@@ -515,8 +516,43 @@
         </div>
     </section>
 
+    <!-- Research / White Papers -->
+    <section class="section-alt" id="research">
+        <div class="container">
+            <div class="section-label violet">Research</div>
+            <h2>White Papers</h2>
+            <p class="section-body">Public drafts of the architectural and protocol thinking behind Sanna. Open for external review.</p>
+            <a href="/papers/governance-envelopes.html" class="paper-feature">
+                <div class="paper-feature-mark" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="44" fill="none" stroke="#38bdf8" stroke-width="2"/>
+                        <path d="M 50 50 L 50 10 L 68 20 Z" fill="#38bdf8"/>
+                        <path d="M 50 50 L 84.6 30 L 84.6 50 Z" fill="#a78bfa"/>
+                        <path d="M 50 50 L 84.6 70 L 68 80 Z" fill="#f07356"/>
+                        <path d="M 50 50 L 50 90 L 32 80 Z" fill="#38bdf8"/>
+                        <path d="M 50 50 L 15.4 70 L 15.4 50 Z" fill="#a78bfa"/>
+                        <path d="M 50 50 L 15.4 30 L 32 20 Z" fill="#f07356"/>
+                        <circle cx="50" cy="50" r="6" fill="#0b1017"/>
+                    </svg>
+                </div>
+                <div class="paper-feature-body">
+                    <div class="paper-feature-meta">
+                        <span class="paper-feature-id">SANNA-WP-001 &middot; v0.1</span>
+                        <span class="paper-feature-status">Public Draft</span>
+                    </div>
+                    <h3 class="paper-feature-title">Governance Envelopes for Verifiable Agent Handoff</h3>
+                    <p class="paper-feature-deck">A portable, signed evidence graph for agent context, memory, citation, handoff, and action &mdash; and a Receipt-Gated Handoff pattern downstream agents can verify under local trust policy.</p>
+                    <span class="paper-feature-cta">Read the paper &rarr;</span>
+                </div>
+            </a>
+            <div style="text-align: center; margin-top: 28px;">
+                <a href="/papers/" style="font-family: var(--font-mono); font-size: 14px; color: var(--text-muted);">View all papers →</a>
+            </div>
+        </div>
+    </section>
+
     <!-- From the Blog -->
-    <section class="section-alt">
+    <section>
         <div class="container">
             <div class="section-label coral">Latest</div>
             <h2>From the Blog</h2>

@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Governance Envelopes for Verifiable Agent Handoff | Sanna</title>
+<meta name="description" content="A public draft on verifiable agent-to-agent handoff with chain-of-custody review. Cross-vendor evidence graph for agent context, citations, memory, handoff, and action.">
+<meta name="keywords" content="governance envelopes, agent handoff, AI agent governance, verifiable agent handoff, chain of custody, governance receipts, context admission, citation binding, memory writeback, action enforcement, multi-agent systems, sanna protocol">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Nicholas Allen">
+<link rel="canonical" href="https://sanna.dev/papers/governance-envelopes.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Governance Envelopes for Verifiable Agent Handoff">
+<meta property="og:description" content="A public draft on verifiable agent-to-agent handoff with chain-of-custody review. Cross-vendor evidence graph for agent context, citations, memory, handoff, and action.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sanna.dev/papers/governance-envelopes.html">
+<meta property="og:site_name" content="Sanna">
+<meta property="article:author" content="Nic Allen">
+<meta property="article:published_time" content="2026-05-08T00:00:00Z">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Governance Envelopes for Verifiable Agent Handoff">
+<meta name="twitter:description" content="A public draft on verifiable agent-to-agent handoff with chain-of-custody review. Cross-vendor evidence graph for agent context, citations, memory, handoff, and action.">
+
+<!-- JSON-LD Article -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Governance Envelopes for Verifiable Agent Handoff",
+    "description": "A public draft on verifiable agent-to-agent handoff with chain-of-custody review. Cross-vendor evidence graph for agent context, citations, memory, handoff, and action.",
+    "author": {
+        "@type": "Person",
+        "name": "Nicholas Allen",
+        "url": "https://www.linkedin.com/in/nicallen27"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Sanna"
+    },
+    "datePublished": "2026-05-08",
+    "url": "https://sanna.dev/papers/governance-envelopes.html",
+    "mainEntityOfPage": "https://sanna.dev/papers/governance-envelopes.html",
+    "isPartOf": {
+        "@type": "PublicationIssue",
+        "issueNumber": "v0.1",
+        "name": "Sanna White Paper SANNA-WP-001"
+    }
+}
+</script>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css?v=5">
+<style>
+/* Brand gradient bar — used as a decorative accent in the cover */
+.brand-gradient-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--violet) 50%, var(--coral) 100%);
+}
+</style>
+<style>
+/* ============================================================
+   GOVERNANCE ENVELOPES — Web-optimized layout
+   Dark only. Wider columns, larger figures, more presence.
+   ============================================================ */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.doc  { max-width: 1080px; margin: 0 auto; padding: 0 64px; }
+.wide { max-width: 1360px; margin: 0 auto; padding: 0 64px; }
+
+/* ---------- COVER ---------- */
+.cover {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 72px 96px;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(56,189,248,0.08) 0%, transparent 55%),
+    radial-gradient(circle at 78% 18%, rgba(167,139,250,0.07) 0%, transparent 55%),
+    radial-gradient(circle at 60% 92%, rgba(240,115,86,0.06) 0%, transparent 55%),
+    var(--bg);
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+.cover-top, .cover-mid, .cover-bot { position: relative; z-index: 1; }
+.cover-top {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.cover-top .wm-row { display: flex; align-items: center; gap: 14px; }
+.cover-top .wm-row .wm { font-family: var(--font-sans); font-weight: 300; font-size: 26px; letter-spacing: -0.5px; color: #fff; text-transform: none; }
+.cover-top .wm-row .wm .p { color: var(--blue); }
+.cover-top .meta-r { display: flex; gap: 32px; }
+
+.cover-mid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  gap: 48px;
+  padding: 32px 0;
+}
+.cover-mark { width: 360px; height: 360px; }
+.cover-mark svg { width: 100%; height: 100%; filter: drop-shadow(0 40px 100px rgba(56,189,248,0.22)); }
+
+.cover-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin: 0; }
+.cover h1 {
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: 88px; letter-spacing: -2.5px; line-height: 1.0;
+  color: #fff; max-width: 16ch; margin: 0; text-wrap: balance;
+}
+.cover h1 .stop { color: var(--blue); }
+.cover .deck {
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: 24px; line-height: 1.5;
+  color: var(--text-secondary); max-width: 60ch; margin: 0; text-wrap: balance;
+}
+.cover-bot {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  padding-top: 36px; border-top: 1px solid var(--border);
+}
+.cover-bot .field { display: flex; flex-direction: column; gap: 6px; }
+.cover-bot .field .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+.cover-bot .field .v { font-family: var(--font-sans); font-size: 15px; color: var(--text); }
+.cover-bot .field .v.mono { font-family: var(--font-mono); }
+.brand-bar { height: 4px; background: linear-gradient(90deg, var(--blue) 0%, var(--violet) 50%, var(--coral) 100%); margin: 28px 0 0; }
+
+/* ---------- Section pages ---------- */
+.section-page { padding: 140px 0 160px; position: relative; }
+.section-page + .section-page { border-top: 1px solid var(--border); }
+.running-head {
+  max-width: 1360px; margin: 0 auto;
+  padding: 32px 64px 16px;
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.running-head .wm { font-family: var(--font-sans); font-weight: 300; font-size: 16px; color: #fff; text-transform: none; letter-spacing: -0.3px; }
+.running-head .wm .p { color: var(--blue); }
+
+/* ---------- Typography ---------- */
+.doc h2.section-title, .wide h2.section-title {
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: 56px; letter-spacing: -1.6px; line-height: 1.05;
+  color: var(--text-strong); margin: 0 0 36px; text-wrap: balance;
+}
+.doc .section-num, .wide .section-num {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--blue);
+  margin: 0 0 22px; display: block;
+}
+.doc h3 { font-family: var(--font-sans); font-weight: 600; font-size: 24px; letter-spacing: -0.3px; color: var(--text-strong); margin: 64px 0 20px; }
+.doc h4 { font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); margin: 36px 0 12px; }
+.doc p { font-family: var(--font-sans); font-size: 17px; line-height: 1.85; color: var(--text-secondary); margin: 0 0 24px; }
+.doc p strong, .doc li strong { color: var(--text-strong); font-weight: 600; }
+.doc p em, .doc li em { color: var(--text); font-style: italic; }
+.doc a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,0.3); }
+.doc a:hover { color: var(--blue-strong); border-bottom-color: var(--blue); }
+.doc ul, .doc ol { font-family: var(--font-sans); font-size: 17px; line-height: 1.85; color: var(--text-secondary); margin: 0 0 24px; padding-left: 24px; }
+.doc ul li, .doc ol li { margin-bottom: 12px; }
+.doc ul li::marker { color: var(--blue); }
+.doc ol li::marker { color: var(--blue); font-family: var(--font-mono); font-size: 14px; }
+.doc code { font-family: var(--font-mono); font-size: 0.88em; color: var(--violet-strong); background: rgba(167,139,250,0.07); padding: 1px 6px; border-radius: 3px; }
+
+.lead {
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: 24px !important; line-height: 1.55 !important;
+  color: var(--text) !important; margin: 0 0 40px !important;
+  text-wrap: pretty; letter-spacing: -0.2px;
+}
+
+/* ---------- Pull quote ---------- */
+.pull {
+  margin: 56px -24px;
+  padding: 40px 48px;
+  border-left: 3px solid var(--blue);
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: 28px; line-height: 1.4;
+  color: var(--text-strong); letter-spacing: -0.5px;
+  background: linear-gradient(90deg, rgba(56,189,248,0.07) 0%, transparent 80%);
+  text-wrap: balance;
+}
+.pull .pull-attr {
+  display: block; margin-top: 18px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 400;
+}
+
+/* ---------- Glossary ---------- */
+.glossary {
+  border: 1px solid var(--border); border-radius: 14px;
+  background: var(--bg-alt); margin: 0 0 36px; overflow: hidden;
+}
+.glossary .row { padding: 28px 36px; border-bottom: 1px solid var(--border-subtle); display: grid; grid-template-columns: 220px 1fr; gap: 32px; align-items: baseline; }
+.glossary .row:last-child { border-bottom: none; }
+.glossary .term {
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--blue);
+  display: block;
+}
+.glossary .def { font-family: var(--font-sans); font-size: 16px; line-height: 1.75; color: var(--text-secondary); margin: 0; }
+.glossary .def strong { color: var(--text-strong); }
+
+/* ---------- Cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 0 0 36px; }
+.card {
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--bg-alt); padding: 28px 32px;
+}
+.card .num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; color: var(--text-muted); display: block; margin-bottom: 8px; }
+.card .title { font-family: var(--font-sans); font-weight: 600; font-size: 17px; color: var(--text-strong); margin: 0 0 12px; }
+.card .body { font-family: var(--font-sans); font-size: 15px; line-height: 1.7; color: var(--text-secondary); margin: 0; }
+.card.coral  { border-left: 3px solid var(--coral); }
+.card.violet { border-left: 3px solid var(--violet); }
+.card.blue   { border-left: 3px solid var(--blue); }
+
+/* Threat cards: 4 columns at wide widths */
+@media (min-width: 1200px) {
+  .threat-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.threat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 0 0 36px; }
+
+/* ---------- Tables ---------- */
+.tbl {
+  width: 100%; border-collapse: collapse; margin: 0 0 36px;
+  font-family: var(--font-sans); font-size: 15px; line-height: 1.6;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.tbl th, .tbl td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; color: var(--text-secondary); }
+.tbl thead th { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 500; color: var(--blue); background: var(--bg-alt); border-bottom: 1px solid var(--border); }
+.tbl tbody tr:last-child td { border-bottom: none; }
+.tbl td.term { font-family: var(--font-sans); color: var(--text-strong); font-weight: 500; }
+.tbl td.mono { font-family: var(--font-mono); font-size: 13px; color: var(--violet-strong); }
+
+.metatable {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-mono); font-size: 13px;
+  margin: 0 0 40px;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.metatable td { padding: 14px 0; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+.metatable td:first-child { width: 160px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; font-size: 10.5px; }
+.metatable td:last-child { color: var(--text); font-family: var(--font-sans); font-size: 15px; letter-spacing: 0; text-transform: none; }
+.metatable tr:last-child td { border-bottom: none; }
+
+/* ---------- Code ---------- */
+.codeblock {
+  background: #06090e; border: 1px solid var(--border); border-radius: 12px;
+  padding: 32px 36px; margin: 0 0 16px;
+  font-family: var(--font-mono); font-size: 14px; line-height: 1.7;
+  color: var(--text); overflow-x: auto; white-space: pre;
+}
+.codeblock .k { color: var(--blue-strong); }
+.codeblock .s { color: var(--coral-strong); }
+.codeblock .n { color: var(--violet-strong); }
+.codeblock .c { color: var(--text-muted); font-style: italic; }
+.codeblock .p { color: var(--text-muted); }
+.code-cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin: 0 0 36px; display: block; }
+
+/* ---------- TOC ---------- */
+.toc { margin: 0 0 36px; }
+.toc-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+.toc-list li { border-bottom: 1px solid var(--border-subtle); }
+.toc-list a {
+  display: flex; align-items: baseline; gap: 24px;
+  padding: 18px 6px;
+  text-decoration: none; border-bottom: none;
+  color: var(--text); font-family: var(--font-sans); font-size: 17px;
+  transition: var(--t-fast);
+}
+.toc-list a:hover { color: var(--blue); background: var(--blue-dim); padding-left: 14px; padding-right: 14px; }
+.toc-list a .num { font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.5px; color: var(--text-muted); width: 44px; flex: none; }
+.toc-list a .label { flex: 1; text-wrap: balance; }
+.toc-list a .pg { display: none; }
+.toc-list a:hover .num { color: var(--blue); }
+.toc-group { padding: 18px 6px 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border-subtle); }
+
+/* ---------- Diagrams ---------- */
+.figure {
+  margin: 48px 0 16px;
+  padding: 48px 40px 40px;
+  background: var(--bg-alt); border: 1px solid var(--border); border-radius: 16px;
+}
+.figure svg { display: block; width: 100%; height: auto; }
+.figcap {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.2px;
+  color: var(--text-muted); text-transform: uppercase;
+  margin: 18px 0 36px; padding-left: 4px; display: block;
+}
+.figcap .fig-num { color: var(--blue); margin-right: 16px; }
+
+.dg-box        { fill: #111922; stroke: #1c2938; stroke-width: 1; }
+.dg-box-blue   { fill: rgba(56,189,248,0.08);  stroke: var(--blue);   stroke-width: 1; }
+.dg-box-violet { fill: rgba(167,139,250,0.08); stroke: var(--violet); stroke-width: 1; }
+.dg-box-coral  { fill: rgba(240,115,86,0.08);  stroke: var(--coral);  stroke-width: 1; }
+.dg-text       { font-family: var(--font-sans); font-size: 13px; fill: var(--text-strong); }
+.dg-text-sm    { font-family: var(--font-sans); font-size: 12px; fill: var(--text-secondary); }
+.dg-mono        { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; fill: var(--text-muted); }
+.dg-mono-blue   { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; fill: var(--blue); }
+.dg-mono-coral  { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; fill: var(--coral); }
+.dg-mono-violet { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; fill: var(--violet); }
+.dg-arrow       { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+.dg-arrow-strong{ stroke: var(--blue); stroke-width: 1.4; fill: none; }
+
+/* ---------- Back cover ---------- */
+.back {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 72px 96px;
+  background:
+    radial-gradient(circle at 80% 80%, rgba(56,189,248,0.06) 0%, transparent 55%),
+    var(--bg);
+}
+.back-mid { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; flex: 1; text-align: center; }
+.back-mid .mark { width: 120px; height: 120px; }
+.back-mid .wm { font-family: var(--font-sans); font-weight: 300; font-size: 72px; letter-spacing: -2.5px; color: #fff; }
+.back-mid .wm .p { color: var(--blue); }
+.back-mid .tag { font-family: var(--font-sans); font-weight: 300; font-size: 26px; color: var(--text); letter-spacing: -0.3px; max-width: 36ch; text-wrap: balance; }
+.back-bot { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; padding-top: 36px; border-top: 1px solid var(--border); }
+.back-bot .col h5 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin: 0 0 12px; }
+.back-bot .col p { font-family: var(--font-sans); font-size: 15px; color: var(--text); margin: 0; line-height: 1.7; }
+.back-bot .col p a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,0.3); }
+
+/* Mobile */
+@media (max-width: 900px) {
+  .doc, .wide { padding: 0 24px; }
+  .cover { padding: 32px 28px; }
+  .cover h1 { font-size: 44px; letter-spacing: -1.2px; }
+  .cover .deck { font-size: 18px; }
+  .cover-bot { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cover-mark { width: 220px; height: 220px; }
+  .doc h2.section-title, .wide h2.section-title { font-size: 36px; }
+  .lead { font-size: 19px !important; }
+  .pull { font-size: 22px; padding: 28px 28px; margin: 36px -8px; }
+  .cards, .threat-grid { grid-template-columns: 1fr; }
+  .glossary .row { grid-template-columns: 1fr; gap: 10px; }
+  .back { padding: 32px 28px; }
+  .back-mid .wm { font-size: 52px; }
+  .back-bot { grid-template-columns: 1fr; }
+  .section-page { padding: 80px 0 100px; }
+}
+
+/* Print: hide site chrome and let the document flow */
+@media print {
+  .site-header,
+  body > footer { display: none !important; }
+  .cover, .back { min-height: auto !important; }
+  .section-page { page-break-inside: avoid; }
+}
+
+/* The cover should fill the viewport below the sticky site header */
+.cover { min-height: calc(100vh - 65px); }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner header-narrow">
+        <a href="/" class="logo">sanna<span>.</span></a>
+        <nav class="header-nav">
+            <a href="/papers/">Papers</a>
+            <a href="/blog/">Blog</a>
+            <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ============================================================ COVER ============================================================ -->
+<article class="cover" data-screen-label="01 Cover">
+  <div class="cover-top">
+    <div class="wm-row">
+      <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="#38bdf8" stroke-width="3"/>
+        <path d="M 50 50 L 50 10 L 68 20 Z" fill="#38bdf8"/>
+        <path d="M 50 50 L 84.6 30 L 84.6 50 Z" fill="#a78bfa"/>
+        <path d="M 50 50 L 84.6 70 L 68 80 Z" fill="#f07356"/>
+        <path d="M 50 50 L 50 90 L 32 80 Z" fill="#38bdf8"/>
+        <path d="M 50 50 L 15.4 70 L 15.4 50 Z" fill="#a78bfa"/>
+        <path d="M 50 50 L 15.4 30 L 32 20 Z" fill="#f07356"/>
+        <circle cx="50" cy="50" r="7" fill="#0b1017"/>
+      </svg>
+      <span class="wm">sanna<span class="p">.</span></span>
+    </div>
+    <div class="meta-r">
+      <span>White paper</span>
+      <span>v0.1 · Draft</span>
+    </div>
+  </div>
+
+  <div class="cover-mid">
+    <div class="cover-mark">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+        <path d="M 50 50 L 50 10 L 68 20 Z" fill="#38bdf8"/>
+        <path d="M 50 50 L 84.6 30 L 84.6 50 Z" fill="#a78bfa"/>
+        <path d="M 50 50 L 84.6 70 L 68 80 Z" fill="#f07356"/>
+        <path d="M 50 50 L 50 90 L 32 80 Z" fill="#38bdf8"/>
+        <path d="M 50 50 L 15.4 70 L 15.4 50 Z" fill="#a78bfa"/>
+        <path d="M 50 50 L 15.4 30 L 32 20 Z" fill="#f07356"/>
+        <circle cx="50" cy="50" r="6" fill="#0b1017"/>
+      </svg>
+    </div>
+    <p class="cover-eyebrow">GOVERNANCE ENVELOPES · V0.1 PUBLIC DRAFT</p>
+    <h1>Governance Envelopes for Verifiable Agent Handoff<span class="stop">.</span></h1>
+    <p class="deck">A cross-vendor evidence graph that supports chain-of-custody review for governed agent context, citations, memory, handoff, and action.</p>
+  </div>
+
+  <div>
+    <div class="cover-bot">
+      <div class="field">
+        <span class="k">Author</span>
+        <span class="v">Nicholas Allen</span>
+        <span class="v" style="color:var(--text-muted);font-size:12px;">Sanna AI, Inc.</span>
+      </div>
+      <div class="field"><span class="k">Published</span><span class="v">May 8, 2026</span></div>
+      <div class="field"><span class="k">Builds on</span><span class="v">Sanna Protocol v1.5 receipt primitives</span></div>
+      <div class="field"><span class="k">Document ID</span><span class="v mono">SANNA-WP-001 · v0.1</span></div>
+    </div>
+    <div class="brand-bar"></div>
+  </div>
+</article>
+
+<div class="running-head"><span class="wm">sanna<span class="p">.</span></span><span>Governance Envelopes · v0.1</span></div>
+
+<!-- ABSTRACT + TOC -->
+<section class="section-page" id="abstract" data-screen-label="02 Abstract">
+<div class="doc">
+  <span class="section-num">Abstract</span>
+  <h2 class="section-title">A portable, signed evidence graph for agent context, memory, citation, handoff, and action.</h2>
+
+  <p class="lead">A dominant operational frame for agent governance today is action-level enforcement: deciding which tool calls, API requests, and external actions an agent is allowed to perform. Action-level enforcement is necessary, but it is not sufficient.</p>
+
+  <p>Agents do not only act — they retrieve, remember, cite, and synthesize before they act. Each of those operations admits or produces information that the next action depends on. In a multi-agent system, one agent's output becomes another agent's context, and the trust assumptions compound silently across the chain.</p>
+
+  <p>This paper proposes <strong>Governance Envelopes</strong>: portable, signed bundles of receipts that travel with agent output and describe the instrumented governance events associated with producing it. An envelope binds the output to receipts for tool visibility, context admission, citation binding, memory decisions where present, and action enforcement, and it covers the full bundle under a single signature so that post-signing tampering and omission from the signed bundle are detectable. Downstream agents perform <strong>Receipt-Gated Handoff</strong> — they verify the envelope before admitting the upstream output as context.</p>
+
+  <p>Cryptographic verification can be local: it requires the envelope, the relevant public key material, and the consumer's local trust policy; broader trust evaluation may also require key distribution, revocation, parent resolution, and policy-profile infrastructure.</p>
+
+  <p>The model is deliberately narrow. Sanna does not inspect the model's private chain-of-thought, does not adjudicate semantic truth, and does not make probabilistic systems deterministic. It governs configured surfaces around the model — deterministic checks where participating systems admit, emit, persist, cite, hand off, or authorize information. The result is a portable evidence graph for instrumented context, memory, citation, handoff, and action events. That graph supports chain-of-custody review whenever the party relying on or reviewing an agent output did not directly observe the governed run.</p>
+
+  <h3 style="margin-top:64px;">Contents</h3>
+  <nav class="toc">
+    <ul class="toc-list">
+      <li><a href="#s1"><span class="num">01</span><span class="label">Introduction</span><span class="pg">06</span></a></li>
+      <li><a href="#s2"><span class="num">02</span><span class="label">Illustrative Incident</span><span class="pg">08</span></a></li>
+      <li><a href="#s3"><span class="num">03</span><span class="label">Problem Statement</span><span class="pg">11</span></a></li>
+      <li><a href="#s4"><span class="num">04</span><span class="label">Threat Model</span><span class="pg">13</span></a></li>
+      <li><a href="#s5"><span class="num">05</span><span class="label">Definitions</span><span class="pg">17</span></a></li>
+      <li><a href="#s6"><span class="num">06</span><span class="label">Architecture: Five Chokepoints and One Verification Act</span><span class="pg">20</span></a></li>
+      <li><a href="#s7"><span class="num">07</span><span class="label">Governance Envelope Model</span><span class="pg">24</span></a></li>
+      <li><a href="#s8"><span class="num">08</span><span class="label">Verification Flow</span><span class="pg">28</span></a></li>
+      <li><a href="#s9"><span class="num">09</span><span class="label">Context Admission</span><span class="pg">32</span></a></li>
+      <li><a href="#s10"><span class="num">10</span><span class="label">Cross-Vendor Handoff</span><span class="pg">35</span></a></li>
+      <li><a href="#s11"><span class="num">11</span><span class="label">Blast-Radius Analysis</span><span class="pg">38</span></a></li>
+      <li><a href="#s12"><span class="num">12</span><span class="label">High-Assurance Use Cases</span><span class="pg">41</span></a></li>
+      <li><a href="#s13"><span class="num">13</span><span class="label">Non-Goals</span><span class="pg">46</span></a></li>
+      <li><a href="#s14"><span class="num">14</span><span class="label">Relationship to Existing Work</span><span class="pg">48</span></a></li>
+      <li><a href="#s15"><span class="num">15</span><span class="label">MVP Demonstration</span><span class="pg">52</span></a></li>
+      <li><a href="#s16"><span class="num">16</span><span class="label">Conclusion</span><span class="pg">54</span></a></li>
+      <li class="toc-group">Appendices</li>
+      <li><a href="#sa"><span class="num">A</span><span class="label">End-to-End Flow</span><span class="pg">56</span></a></li>
+      <li><a href="#sb"><span class="num">B</span><span class="label">Mapping to Existing Protocol Fields</span><span class="pg">58</span></a></li>
+      <li><a href="#sc"><span class="num">C</span><span class="label">Selected Public Anchors</span><span class="pg">61</span></a></li>
+    </ul>
+  </nav>
+
+  <table class="metatable" style="margin-top:48px;">
+    <tr><td>Draft</td><td>Governance Envelopes · v0.1 Public Draft</td></tr>
+    <tr><td>Builds on</td><td>Sanna Protocol v1.5 receipt primitives</td></tr>
+    <tr><td>Published</td><td>May 8, 2026</td></tr>
+    <tr><td>Author</td><td>Nicholas Allen, Sanna AI, Inc.</td></tr>
+  </table>
+</div>
+</section>
+
+<!-- §1 INTRO -->
+<section class="section-page" id="s1" data-screen-label="03 §1 Introduction">
+<div class="doc">
+  <span class="section-num">§ 01 — Section</span>
+  <h2 class="section-title">Introduction.</h2>
+  <p class="lead">Agent systems are moving from single-agent tool use to multi-agent workflows. A research agent hands findings to a planning agent; a planning agent hands a plan to an execution agent; an execution agent calls tools that may themselves be other agents.</p>
+  <p>Vendors are converging on standards for declaring tools, brokering identity, and routing requests. Cloud providers are racing to ship agent platforms.</p>
+  <p>Among the most mature controls in this transition are <strong>egress</strong> controls: gateways that govern outbound tool calls, identity systems that bind agent sessions to principals, and policy engines that decide whether a given action may proceed. These controls are real, useful, and necessary. Sanna's own protocol began with action-level enforcement and continues to invest in it.</p>
+  <p>The unsolved interoperability problem is <strong>portable, independently verifiable evidence of governed information flow across observation boundaries</strong> — what entered an agent through participating governance surfaces, what crossed between agents, and what survived across sessions. An observation boundary appears whenever the reviewer, recipient, auditor, regulator, counterparty, or downstream agent did not directly observe the governed run. Cross-vendor handoff is the highest-friction version of that pattern, but the same structure appears inside a single organization whenever one team must review an agent run another system executed.</p>
+
+  <div class="pull">
+    Today, when Agent A passes output to Agent B, the handoff is a runtime-level message, state update, task, artifact, or tool-mediated transfer. The trust assumption is that A was governed; the verification is that the runtime delivered a payload from an accepted source.
+    <span class="pull-attr">— The interoperability gap</span>
+  </div>
+
+  <p>Current frameworks and protocols may authenticate the sender, structure the payload, filter context, or log the transition. They generally do not carry a portable, independently verifiable record of which governed external context was admitted to A through instrumented channels, whether that context was authorized, whether A's citations corresponded to admitted source records, whether A's memory crossed scope boundaries, or whether any agent upstream of A introduced ungoverned material into the evidence graph.</p>
+  <p>There is no generally adopted portable artifact B can inspect to verify these properties independently of the runtime that delivered them.</p>
+  <p>This paper proposes a framing in which the handoff is a signed bundle, the trust assumptions are explicit, and cryptographic verification can be local.</p>
+</div>
+</section>
+
+<!-- §2 ILLUSTRATIVE INCIDENT -->
+<section class="section-page" id="s2" data-screen-label="04 §2 Illustrative Incident">
+<div class="doc">
+  <span class="section-num">§ 02 — Section</span>
+  <h2 class="section-title">Illustrative incident.</h2>
+  <p class="lead">The following sequence was observed in a single multi-turn session with a frontier-tier language model. The vendor and model are intentionally not named; the failure modes are not unique to any single product.</p>
+  <p>The session was a real working session, not an adversarial test. In the course of approximately one hour, the model:</p>
+  <ol>
+    <li><strong>Fabricated a competitive landscape.</strong> Asked to map the competitive position of a category, the model produced a confidently structured answer that included company categories that do not exist as named segments in any public market analysis, and it placed real companies into invented categories with confidence-toned commentary.</li>
+    <li><strong>Coined terminology and presented it as established.</strong> Several phrases the model used as terms-of-art are not in common use; they appear to have been generated on the fly and then referenced later in the session as though they were canonical.</li>
+    <li><strong>Bled context from an unrelated prior session.</strong> Mid-session, the model began grafting concepts and entity names from a different topic onto the active topic. The graft was not flagged. The model proceeded as though the foreign material belonged to the current discussion.</li>
+    <li><strong>Invented citations.</strong> When pressed for sources, the model produced citations to documents and URLs that were never retrieved during the session and, on inspection, do not exist in the form cited.</li>
+    <li><strong>Confabulated a justification when corrected.</strong> When the citation problem was surfaced, rather than acknowledging the fabrication, the model produced a plausible-sounding explanation of why it had cited what it cited — itself a generated artifact, indistinguishable in tone from a real account.</li>
+  </ol>
+
+  <p>Several of these failures map directly to structural chokepoints that a governance layer can occupy:</p>
+
+  <table class="tbl">
+    <thead><tr><th>Observed failure</th><th>Structural chokepoint</th></tr></thead>
+    <tbody>
+      <tr><td class="term">Fabricated competitive landscape</td><td><strong>Citation binding</strong> — no source verification before publication</td></tr>
+      <tr><td class="term">Invented terminology presented as canonical</td><td><strong>Semantic constraint</strong> — no terminology governance bound to the output</td></tr>
+      <tr><td class="term">Cross-session context bleed</td><td><strong>Context admission</strong> — no scope verification before model invocation or context insertion</td></tr>
+      <tr><td class="term">False citations</td><td><strong>Citation binding</strong> — citations not anchored to retrieval results</td></tr>
+      <tr><td class="term">Retroactive confabulation</td><td><strong>Compounding effect of ungoverned upstream context</strong> — there was no authoritative record of what had actually been admitted, so post-hoc justification could not be falsified by the system</td></tr>
+    </tbody>
+  </table>
+
+  <p>The terminology example illustrates a possible future semantic-governance layer, not a property delivered by the five producer-side chokepoints and consumer-side handoff verification in this paper. Governance Envelopes can help reviewers reconstruct which instrumented sources and controls were present, but they do not prove that generated terminology is established or that an admitted source semantically supports a generated claim.</p>
+
+  <p>The relevant observation is not that a model hallucinated. Hallucination is well-documented and not, by itself, a governance failure — models are probabilistic. The observation is that several failures occurred at definable boundaries: retrieval entered, citations were attached, memory was carried forward, justifications were produced. None of those boundary events required inspecting the model's private reasoning. Each was, in principle, interceptable by a deterministic check at a configured governance surface.</p>
+
+  <div class="pull">
+    The relevant observation is not that a model hallucinated. The observation is that the failures occurred at <em>definable boundaries</em> — each, in principle, interceptable by a deterministic check.
+    <span class="pull-attr">— Structural reading of the incident</span>
+  </div>
+
+  <p>This incident is illustrative, not empirical proof of the full cross-vendor architecture. The motivating evidence for Governance Envelopes is structural: once agent output crosses an observation boundary, the receiving party needs a portable artifact it can verify without having observed the run.</p>
+</div>
+</section>
+
+<!-- §3 PROBLEM -->
+<section class="section-page" id="s3" data-screen-label="05 §3 Problem">
+<div class="doc">
+  <span class="section-num">§ 03 — Section</span>
+  <h2 class="section-title">Problem statement.</h2>
+  <p class="lead">Multi-agent handoff today is <strong>runtime-mediated transfer</strong>: a message, state update, task, artifact, tool-call result, or graph transition moves from Agent A to Agent B. The transfer may be authenticated, structured, filtered, routed, and logged by the framework or platform.</p>
+  <p>What it typically does not provide is a portable governance artifact that lets B verify how A's output was produced.</p>
+  <p>This pattern can be sufficient for single-vendor, single-trust-domain workflows where every agent in the chain runs under one operator and the operator accepts the aggregate risk. It becomes insufficient when the workflow crosses an observation boundary and the receiving party needs independently verifiable evidence. Specifically, Agent B has no generally adopted portable way to verify from the handoff artifact alone:</p>
+  <ul>
+    <li><strong>Which governed context Agent A received.</strong> Which retrieved chunks were admitted into A's model invocation? Which were rejected? On what policy?</li>
+    <li><strong>Whether that context was authorized.</strong> Were the retrieved sources within the scope A was permitted to operate in? Did A pull from a customer, matter, patient, or project that the requesting principal has no claim to?</li>
+    <li><strong>Whether cited sources corresponded to admitted source records.</strong> Were the citations A produced bound to documents A actually retrieved and admitted, or are they post-hoc decorations attached to model output?</li>
+    <li><strong>Whether memory crossed scope boundaries.</strong> Did A use persistent context that originated in a different session, customer, or matter?</li>
+    <li><strong>Whether the action was governed.</strong> Did A's tool calls run through an enforcement surface, or were they free-form?</li>
+    <li><strong>Whether any upstream agent introduced ungoverned material into the evidence graph.</strong> If A called another agent that called another agent, did the workflow remain governed across the instrumented hops the consumer requires?</li>
+  </ul>
+  <p>In regulated environments and cross-company workflows, these questions quickly become diligence questions: the questions a reviewer, auditor, counterparty, regulator, or incident-response team is likely to ask once agent output becomes operationally significant. Without a portable answer, the operator is left to reconstruct the evidence manually, or to accept risk that cannot be bounded from the handoff artifact itself.</p>
+</div>
+</section>
+
+<!-- §4 THREAT MODEL -->
+<section class="section-page" id="s4" data-screen-label="06 §4 Threat Model">
+<div class="doc">
+  <span class="section-num">§ 04 — Section</span>
+  <h2 class="section-title">Threat model.</h2>
+  <p class="lead">The threats this paper addresses are not adversarial nation-state attacks against models. They are the everyday failure modes that arise when probabilistic systems are connected to one another without governance at the joints.</p>
+  <p>The most important adversary in any signed-evidence system is the signer itself: a dishonest producer, a compromised runtime, a compromised signing key, or a nonconformant verifier can emit valid-looking artifacts that tell an incomplete or misleading story. Governance Envelopes reduce ambiguity only under explicit trust and coverage assumptions; they do not eliminate counterparty due diligence.</p>
+
+  <h3>Sixteen threat surfaces</h3>
+  <div class="cards">
+    <div class="card blue"><span class="num">T01</span><h4 class="title">Context bleed across scope boundaries</h4><p class="body">Projects, customers, patients, matters, sessions, tenants. The most common form is unintentional: a shared retrieval index, a stale memory, an over-broad query.</p></div>
+    <div class="card blue"><span class="num">T02</span><h4 class="title">Fabricated citations</h4><p class="body">References attached to model output that do not correspond to retrieved sources.</p></div>
+    <div class="card blue"><span class="num">T03</span><h4 class="title">Stale or revoked source material</h4><p class="body">Content that was authoritative at retrieval time but has since been corrected, withdrawn, or de-authorized. Detection of revocation requires an external revocation feed at verification time.</p></div>
+    <div class="card blue"><span class="num">T04</span><h4 class="title">Unauthorized retrieval</h4><p class="body">RAG pulls that exceed the scope the requesting principal is entitled to, including over-broad similarity searches that surface neighbors from other tenants.</p></div>
+    <div class="card violet"><span class="num">T05</span><h4 class="title">Tool visibility drift</h4><p class="body">The set of tools an agent can see at discovery time changing silently between sessions, or differing across surfaces — an agent that "shouldn't know" a tool exists discovering it through a manifest.</p></div>
+    <div class="card violet"><span class="num">T06</span><h4 class="title">Memory writeback contamination</h4><p class="body">Content persisted into long-term memory that should not have been retained, or that crosses a scope boundary on the next session.</p></div>
+    <div class="card violet"><span class="num">T07</span><h4 class="title">Downstream reliance on ungoverned output</h4><p class="body">Agent B treating Agent A's output as ground truth without any check on how A produced it.</p></div>
+    <div class="card violet"><span class="num">T08</span><h4 class="title">Receipt tampering or selective omission</h4><p class="body">An upstream actor presenting a partial or modified set of evidence that misrepresents the governance applied. Envelope signatures detect tampering with or omission from an already-signed envelope; omission before envelope creation is a trust, coverage, and consumer-policy problem.</p></div>
+    <div class="card coral"><span class="num">T09</span><h4 class="title">Platform boundary mismatch</h4><p class="body">An envelope produced under one vendor's policy being consumed by an agent operating under a different vendor's policy, with no shared verification primitive.</p></div>
+    <div class="card coral"><span class="num">T10</span><h4 class="title">Compromised or dishonest producer</h4><p class="body">A producer or signing key emitting envelopes that are syntactically valid but incomplete, misleading, or generated under a weak policy. A signature attributes the artifact to a key; it does not prove the producer was honest.</p></div>
+    <div class="card coral"><span class="num">T11</span><h4 class="title">Unmediated path bypass</h4><p class="body">An agent, developer, or tool route admits context, calls a tool, reads memory, or writes memory outside the governed path. Envelopes can reveal missing required roles when the consumer requires them; they cannot reveal invisible bypass by a trusted producer.</p></div>
+    <div class="card coral"><span class="num">T12</span><h4 class="title">Policy substitution</h4><p class="body">A producer asserts a known policy hash while executing a weaker policy, a stale policy, or a policy whose semantics the consumer misinterprets. A policy hash is a coordination primitive unless backed by reviewed profiles, registries, or out-of-band trust.</p></div>
+    <div class="card coral"><span class="num">T13</span><h4 class="title">Replay across consumers and time</h4><p class="body">A valid envelope, without audience binding, expiry, challenge-response, or nonce, may be presented to the wrong consumer, workflow, tenant, or time window. Replay protection is a higher-assurance profile addition.</p></div>
+    <div class="card coral"><span class="num">T14</span><h4 class="title">Producer-consumer coalition</h4><p class="body">Two parties can attest to each other's governed-looking artifacts under weak controls, or a consumer can emit a handoff admission receipt after incomplete verification.</p></div>
+    <div class="card coral"><span class="num">T15</span><h4 class="title">Producer equivocation</h4><p class="body">A producer can show different signed envelopes to different consumers for the same logical run unless transparency logs, shared registries, contractual audit rights, or similar controls constrain split-view disclosure.</p></div>
+    <div class="card coral"><span class="num">T16</span><h4 class="title">Authorized-but-poisoned source material</h4><p class="body">Poisoned or misleading content may be policy-admissible and therefore produce a clean envelope around bad inputs. Envelopes help trace downstream blast radius; they do not prevent poisoning unless source-authenticity controls exist.</p></div>
+  </div>
+
+  <p>If a signing key is compromised, envelopes signed during the compromise window become suspect evidence. Incident response must treat the affected window as a blast-radius problem: re-verify trust state, review revocation timing, and potentially exclude or quarantine those envelopes.</p>
+  <p>Sanna does not claim to prevent every form of model error. It claims to provide signed evidence useful for detecting, attributing, and falsifying these structural conditions under stated trust and coverage assumptions.</p>
+
+  <h3>Trust and coverage assumptions</h3>
+  <p>Governance Envelopes authenticate signed claims about <strong>instrumented governance events</strong>. They do not, by themselves, prove that the producer was honest, that every relevant event was observed, that the underlying policy was correct, or that the output is semantically true. The model depends on several explicit assumptions:</p>
+  <ul>
+    <li>The relevant context, tool, memory, citation, handoff, and action paths are mediated by Sanna or another compatible governance surface.</li>
+    <li>Producers protect signing keys, rotate them when needed, and expose revocation or trust-state changes appropriate to the assurance level being claimed.</li>
+    <li>Consumers maintain local trust policy for issuers, keys, accepted receipt roles, policy hashes or policy profiles, freshness, and required assurance levels.</li>
+    <li>Receipt and envelope schemas have a defined canonicalization profile, conformance tests, and verifier behavior for unsupported versions or extensions.</li>
+    <li>Revocation, parent resolution, timestamping, replay protection, and source-freshness checks are required only for assurance profiles that claim those properties.</li>
+  </ul>
+  <p>Under those assumptions, an envelope provides portable, tamper-evident process evidence: what the instrumented system says it admitted, rejected, cited, remembered, handed off, and authorized.</p>
+</div>
+</section>
+
+<!-- §5 DEFINITIONS -->
+<section class="section-page" id="s5" data-screen-label="07 §5 Definitions">
+<div class="doc">
+  <span class="section-num">§ 05 — Section</span>
+  <h2 class="section-title">Definitions.</h2>
+  <p class="lead">The following terms are used precisely throughout the rest of this paper.</p>
+  <div class="glossary">
+    <div class="row"><span class="term">Governance Receipt</span><p class="def">A signed, tamper-evident record of a single governance event: an enforcement decision, a context admission, a tool manifest, a citation binding, or an equivalent. Sanna's protocol defines a receipt schema with fields including <code>enforcement_surface</code>, <code>invariants_scope</code>, <code>parent_receipts</code>, <code>constitution_ref</code>, and a fingerprint that other receipts can reference via <code>parent_receipts</code> to form a verifiable chain.</p></div>
+    <div class="row"><span class="term">Governance Envelope</span><p class="def">A portable bundle that wraps an agent output payload together with the set of receipts produced during the production of that payload. The envelope itself is signed; the signature covers the full receipt set.</p></div>
+    <div class="row"><span class="term">Context Admission</span><p class="def">The decision, made before a model invocation or context-insertion event, about which retrieved, recalled, or tool-returned content may enter the model's working memory for a given turn. Admission and rejection decisions are represented in the resulting receipt according to the applicable disclosure profile.</p></div>
+    <div class="row"><span class="term">Citation Binding</span><p class="def">The constraint that any source the agent claims must correspond to a source record actually admitted or otherwise authorized for the output. A nonexistent or unadmitted citation is a binding failure. <strong>Whether an admitted source substantively supports the claim remains a separate semantic-review question.</strong></p></div>
+    <div class="row"><span class="term">Memory Writeback</span><p class="def">The decision about which content from a current session may be persisted for use in future sessions. Writeback is a separate chokepoint from admission; the rules differ.</p></div>
+    <div class="row"><span class="term">Tool Manifest</span><p class="def">The signed record of which tools the agent was allowed to know existed at session start or after a governed tool-discovery/update event. Sanna's <code>enforcement_surface</code> field identifies the surface that produced the manifest; the <code>com.sanna.manifest</code> extension carries per-surface visibility detail.</p></div>
+    <div class="row"><span class="term">Action Enforcement</span><p class="def">The decision about whether a specific action the agent attempted may proceed. This is the action-level governance category that gateways, interceptors, and middleware already address.</p></div>
+    <div class="row"><span class="term">Handoff Verification</span><p class="def">The check a receiving agent performs on an incoming envelope before admitting its payload as context. The check evaluates the envelope's signature, its required receipt roles, the upstream issuer, and locally-defined admission rules.</p></div>
+    <div class="row"><span class="term">Governed Evidence Path</span><p class="def">The set of receipts that, taken together, account for governance decisions observed by participating systems along configured ingress, memory, citation, handoff, and action paths. The phrase is deliberately not "audit trail of reasoning" — Sanna does not inspect reasoning.</p></div>
+    <div class="row"><span class="term">Receipt-Gated Handoff</span><p class="def">The pattern in which a downstream agent refuses to admit an upstream output as context unless the accompanying envelope verifies against local handoff admission policy.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- §6 ARCHITECTURE + Fig 1 -->
+<section class="section-page" id="s6" data-screen-label="08 §6 Architecture">
+<div class="doc">
+  <span class="section-num">§ 06 — Section</span>
+  <h2 class="section-title">Architecture: five chokepoints and one verification act.</h2>
+  <p class="lead">The architecture rests on five operational chokepoints in the producer's run — tool visibility, context admission, citation binding, memory writeback, and action enforcement — and one verification act in the consumer's run: handoff verification.</p>
+  <p>The first five emit receipts about a run. The sixth verifies those receipts and emits its own receipt about the handoff. The composition is the evidence graph.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 880 460" aria-labelledby="fig1-title">
+      <title id="fig1-title">Five producer-side chokepoints feeding a single consumer-side verification act</title>
+      <text x="40" y="36" class="dg-mono-blue">Producer · Agent A</text>
+      <line x1="40" y1="48" x2="420" y2="48" stroke="#1c2938" stroke-width="0.5"/>
+      <g><rect x="40" y="68" width="380" height="56" rx="8" class="dg-box-blue"/><text x="58" y="92" class="dg-mono-blue">01 · Tool visibility</text><text x="58" y="111" class="dg-text-sm">Manifest of what tools the agent may know exists.</text></g>
+      <g><rect x="40" y="138" width="380" height="56" rx="8" class="dg-box-blue"/><text x="58" y="162" class="dg-mono-blue">02 · Context admission</text><text x="58" y="181" class="dg-text-sm">Ingress filter applied before each model invocation.</text></g>
+      <g><rect x="40" y="208" width="380" height="56" rx="8" class="dg-box-violet"/><text x="58" y="232" class="dg-mono-violet">03 · Citation binding</text><text x="58" y="251" class="dg-text-sm">Cited sources resolved to admitted source records.</text></g>
+      <g><rect x="40" y="278" width="380" height="56" rx="8" class="dg-box-violet"/><text x="58" y="302" class="dg-mono-violet">04 · Memory writeback</text><text x="58" y="321" class="dg-text-sm">Decision about what may persist into future sessions.</text></g>
+      <g><rect x="40" y="348" width="380" height="56" rx="8" class="dg-box-coral"/><text x="58" y="372" class="dg-mono-coral">05 · Action enforcement</text><text x="58" y="391" class="dg-text-sm">Allow / halt / escalate for each attempted action.</text></g>
+      <g class="dg-arrow">
+        <path d="M 420 96   L 540 96   L 540 218" />
+        <path d="M 420 166  L 540 166  L 540 218" />
+        <path d="M 420 236  L 540 236" />
+        <path d="M 420 306  L 540 306  L 540 254" />
+        <path d="M 420 376  L 540 376  L 540 254" />
+      </g>
+      <g><rect x="540" y="186" width="180" height="80" rx="8" class="dg-box"/>
+         <text x="552" y="206" class="dg-mono-blue">Envelope</text>
+         <text x="552" y="232" class="dg-text">Signed bundle</text>
+         <text x="552" y="252" class="dg-text-sm">+ payload + receipts</text></g>
+      <g class="dg-arrow-strong"><path d="M 720 226 L 800 226"/><polygon points="800,226 792,222 792,230" fill="#38bdf8" stroke="none"/></g>
+      <text x="840" y="36" class="dg-mono-coral" text-anchor="end">Consumer · Agent B</text>
+      <line x1="540" y1="48" x2="840" y2="48" stroke="#1c2938" stroke-width="0.5"/>
+      <g><rect x="780" y="208" width="60" height="56" rx="8" class="dg-box-coral"/></g>
+      <text x="810" y="232" class="dg-mono-coral" text-anchor="middle">06</text>
+      <text x="810" y="251" class="dg-text-sm" text-anchor="middle">Verify</text>
+      <g class="dg-arrow"><path d="M 810 264 L 810 320"/></g>
+      <text x="810" y="340" class="dg-mono" text-anchor="middle">handoff_admitted →</text>
+    </svg>
+    <span class="figcap"><span class="fig-num">Fig. 01</span>Five producer-side chokepoints feed a single envelope, which a consumer verifies on receipt.</span>
+  </div>
+
+  <p>The controls are not perfectly orthogonal. A retrieval tool can be both an action and a context-ingress event; a browser observation is context returned through a tool; a memory read is context admission for the current turn; a memory write is both an action and a retention decision for a future turn; citation binding is an output constraint over the admission set. The point of the taxonomy is practical instrumentation, not a mathematically clean security model.</p>
+
+  <h3>The six surfaces, in detail</h3>
+  <div class="cards">
+    <div class="card blue"><span class="num">01 — Producer</span><h4 class="title">Tool visibility / manifest</h4><p class="body">Before an agent sees a tool, or before a governed dynamic tool-discovery event changes the visible tool set, the manifest fixes which tools the agent is allowed to know exist. A receipt records the delivered set, the suppressed set, and the reasons. In Sanna's protocol today, this is carried as a <code>session_manifest</code> event with the <code>com.sanna.manifest</code> extension.</p></div>
+    <div class="card blue"><span class="num">02 — Producer</span><h4 class="title">Context admission</h4><p class="body">Before each model invocation or context-insertion event, retrieved, recalled, or tool-returned content is filtered against admission policy. Admitted content enters; rejected content does not. The receipt records both decisions without necessarily exposing sensitive content. <code>content_mode</code> already supports the redaction modes needed (<code>full</code>, <code>redacted</code>, or <code>hashes_only</code>).</p></div>
+    <div class="card violet"><span class="num">03 — Producer</span><h4 class="title">Citation binding</h4><p class="body">When the agent produces output that claims a source, the claim is checked against the admission set. A citation that does not resolve to an admitted source is a binding failure. The decision is recorded as part of the output's receipt.</p></div>
+    <div class="card violet"><span class="num">04 — Producer</span><h4 class="title">Memory writeback</h4><p class="body">Content the agent attempts to persist for future sessions passes through a writeback gate. The gate decides what may be written, under what scope, with what retention. Writeback is a distinct decision from admission; an item may be admissible to the current session but not eligible for persistence.</p></div>
+    <div class="card coral"><span class="num">05 — Producer</span><h4 class="title">Action enforcement</h4><p class="body">When the agent attempts an action, the enforcement surface decides whether it proceeds, halts, escalates, or proceeds with constraints. Sanna's enforcement surfaces — <code>middleware</code>, <code>gateway</code>, <code>cli_interceptor</code>, <code>http_interceptor</code> — produce receipts whose <code>enforcement.action</code> is one of <code>allowed</code>, <code>halted</code>, <code>escalated</code>, or <code>warned</code>.</p></div>
+    <div class="card coral"><span class="num">06 — Consumer</span><h4 class="title">Handoff verification</h4><p class="body">When a receiving agent encounters output from another agent, it does not admit the output as context until it has verified the envelope. The verification produces its own receipt — a handoff admission record — whose <code>parent_receipts</code> field references the upstream receipts it relied on, while envelope-level lineage is carried by envelope metadata such as <code>parent_envelopes</code>.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- §7 ENVELOPE MODEL + Fig 2 -->
+<section class="section-page" id="s7" data-screen-label="09 §7 Envelope Model">
+<div class="doc">
+  <span class="section-num">§ 07 — Section</span>
+  <h2 class="section-title">Governance envelope model.</h2>
+  <p class="lead">A Governance Envelope is the wire-level container for a governed agent output. It binds a payload to the receipts that account for it, under a single signature.</p>
+  <p>The structure below is a strawman for v0.1; field names will evolve as the model is implemented.</p>
+
+  <div class="codeblock">{
+  <span class="k">"sanna_envelope"</span>: <span class="s">"0.1"</span>,
+  <span class="k">"envelope_id"</span>:    <span class="s">"env_..."</span>,
+  <span class="k">"created_at"</span>:     <span class="s">"2026-05-08T00:00:00Z"</span>,
+  <span class="k">"producer"</span>: {
+    <span class="k">"agent_id"</span>: <span class="s">"agent-a"</span>,
+    <span class="k">"issuer"</span>:   <span class="s">"example.com"</span>,
+    <span class="k">"key_id"</span>:   <span class="s">"..."</span>
+  },
+  <span class="k">"payload"</span>: {
+    <span class="k">"type"</span>:         <span class="s">"agent_output"</span>,
+    <span class="k">"sha256"</span>:       <span class="s">"..."</span>,
+    <span class="k">"content_type"</span>: <span class="s">"application/json"</span>
+  },
+  <span class="k">"receipts"</span>: [
+    { <span class="k">"role"</span>: <span class="s">"tool_manifest"</span>,      <span class="k">"fingerprint"</span>: <span class="s">"..."</span>, <span class="k">"receipt"</span>: {} },
+    { <span class="k">"role"</span>: <span class="s">"context_admission"</span>,  <span class="k">"fingerprint"</span>: <span class="s">"..."</span>, <span class="k">"receipt"</span>: {} },
+    { <span class="k">"role"</span>: <span class="s">"citation_binding"</span>,   <span class="k">"fingerprint"</span>: <span class="s">"..."</span>, <span class="k">"receipt"</span>: {} },
+    { <span class="k">"role"</span>: <span class="s">"action_enforcement"</span>, <span class="k">"fingerprint"</span>: <span class="s">"..."</span>, <span class="k">"receipt"</span>: {} }
+  ],
+  <span class="k">"parent_envelopes"</span>: [],
+  <span class="k">"signature"</span>: {
+    <span class="k">"alg"</span>:    <span class="s">"Ed25519"</span>,
+    <span class="k">"key_id"</span>: <span class="s">"..."</span>,
+    <span class="k">"value"</span>:  <span class="s">"..."</span>
+  }
+}</div>
+  <span class="code-cap">Listing 1 · Strawman envelope structure (v0.1)</span>
+
+  <div class="figure">
+    <svg viewBox="0 0 880 460" aria-labelledby="fig2-title">
+      <title id="fig2-title">Envelope anatomy</title>
+      <rect x="200" y="40" width="480" height="400" rx="14" class="dg-box-blue"/>
+      <text x="220" y="68" class="dg-mono-blue">Governance Envelope · v0.1</text>
+      <line x1="220" y1="80" x2="660" y2="80" stroke="#1c2938" stroke-width="0.5"/>
+      <rect x="220" y="96" width="440" height="44" rx="6" class="dg-box"/>
+      <text x="232" y="116" class="dg-mono">Producer · key_id, issuer</text>
+      <text x="232" y="132" class="dg-text-sm">agent-a · example.com · ed25519:0xab…</text>
+      <rect x="220" y="152" width="440" height="44" rx="6" class="dg-box"/>
+      <text x="232" y="172" class="dg-mono">Payload</text>
+      <text x="232" y="188" class="dg-text-sm">sha256 · application/json · agent_output</text>
+      <text x="232" y="220" class="dg-mono-violet">Receipts (signed individually)</text>
+      <g><rect x="220" y="232" width="440" height="32" rx="5" class="dg-box-blue"/><text x="232" y="252" class="dg-mono-blue">tool_manifest</text><text x="650" y="252" class="dg-mono" text-anchor="end">fingerprint · 16-hex</text></g>
+      <g><rect x="220" y="270" width="440" height="32" rx="5" class="dg-box-blue"/><text x="232" y="290" class="dg-mono-blue">context_admission</text><text x="650" y="290" class="dg-mono" text-anchor="end">fingerprint · 16-hex</text></g>
+      <g><rect x="220" y="308" width="440" height="32" rx="5" class="dg-box-violet"/><text x="232" y="328" class="dg-mono-violet">citation_binding</text><text x="650" y="328" class="dg-mono" text-anchor="end">fingerprint · 16-hex</text></g>
+      <g><rect x="220" y="346" width="440" height="32" rx="5" class="dg-box-coral"/><text x="232" y="366" class="dg-mono-coral">action_enforcement</text><text x="650" y="366" class="dg-mono" text-anchor="end">fingerprint · 16-hex</text></g>
+      <rect x="220" y="394" width="440" height="32" rx="5" class="dg-box"/>
+      <text x="232" y="414" class="dg-mono">Envelope signature · Ed25519</text>
+      <text x="650" y="414" class="dg-mono" text-anchor="end">covers full bundle</text>
+      <g class="dg-arrow"><path d="M 30 118 L 200 118"/></g>
+      <text x="30" y="106" class="dg-mono">Who signed</text>
+      <text x="30" y="132" class="dg-text-sm">producer + key</text>
+      <g class="dg-arrow"><path d="M 30 174 L 200 174"/></g>
+      <text x="30" y="162" class="dg-mono">What is bound</text>
+      <text x="30" y="188" class="dg-text-sm">payload hash</text>
+      <g class="dg-arrow"><path d="M 30 290 L 200 290"/></g>
+      <text x="30" y="262" class="dg-mono">Receipt array</text>
+      <text x="30" y="278" class="dg-text-sm">explicit role taxonomy</text>
+      <g class="dg-arrow"><path d="M 680 116 L 850 116"/></g>
+      <text x="680" y="104" class="dg-mono">Local trust policy</text>
+      <text x="680" y="132" class="dg-text-sm">determines acceptance</text>
+      <g class="dg-arrow"><path d="M 680 408 L 850 408"/></g>
+      <text x="680" y="396" class="dg-mono">Single signature</text>
+      <text x="680" y="424" class="dg-text-sm">tampering detectable</text>
+    </svg>
+    <span class="figcap"><span class="fig-num">Fig. 02</span>Envelope anatomy: producer, payload, role-tagged receipts, parent lineage, single signature.</span>
+  </div>
+
+  <h3>Properties of this structure</h3>
+  <p>The example is intentionally minimal. A handoff that writes memory would include a <code>memory_writeback</code> role; a profile that requires memory attestation can reject envelopes that omit it. Required roles are consumer-policy decisions, not universal schema requirements.</p>
+  <p><strong>The envelope signature covers the receipt set as presented.</strong> A producer cannot remove or mutate a receipt from an already-signed envelope and still claim the envelope is intact — the signature would not verify. The signature provides integrity of the signed bundle and attribution to a key; it does not prove that the producer generated every receipt it should have generated before signing. Completeness is a consumer-policy and instrumentation-coverage property.</p>
+  <p><strong>The <code>receipts</code> array uses an explicit <code>role</code> taxonomy.</strong> A consumer that requires a <code>context_admission</code> receipt can assert presence by role rather than parsing receipt internals. Role-presence checks are syntactic. Consumers that need stronger assurances should pair required roles with accepted policy profiles, content-mode floors, scope-tag requirements, or out-of-band policy review.</p>
+  <p><strong>The <code>parent_envelopes</code> array carries cross-envelope chaining.</strong> When an agent produces output that relied on a verified upstream envelope, the producer references the upstream envelope by fingerprint. This is analogous to the existing <code>parent_receipts</code> field on individual Sanna receipts, while keeping receipt lineage and envelope lineage as distinct layers.</p>
+  <p>Several fields are <strong>proposed extensions</strong> beyond the current Sanna v1.5 receipt schema. The <code>role</code> taxonomy on receipts, the <code>parent_envelopes</code> list, and the envelope signature itself are part of the envelope model rather than the current receipt schema, and would be candidates for future Sanna Protocol proposals if adopted in production SDKs.</p>
+  <p>The envelope is not intended to replace the individual receipt. A receipt is the unit of attestation for a single governance event. The envelope is the unit of handoff between agents. Both are expected to continue to exist.</p>
+</div>
+</section>
+
+<!-- §8 VERIFICATION + Fig 3 -->
+<section class="section-page" id="s8" data-screen-label="10 §8 Verification">
+<div class="doc">
+  <span class="section-num">§ 08 — Section</span>
+  <h2 class="section-title">Verification flow.</h2>
+  <p class="lead">A consumer that receives an envelope performs the following sequence before admitting the payload as context. The order matters; later steps assume earlier ones have passed.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 880 580" aria-labelledby="fig3-title">
+      <title id="fig3-title">Ten-step envelope verification ladder</title>
+      <line x1="80" y1="40" x2="80" y2="540" stroke="#1c2938" stroke-width="1"/>
+      <g class="dg-mono-blue">
+        <text x="36" y="60">01</text><text x="36" y="110">02</text><text x="36" y="160">03</text>
+        <text x="36" y="210">04</text><text x="36" y="260">05</text><text x="36" y="310">06</text>
+        <text x="36" y="360">07</text><text x="36" y="410">08</text><text x="36" y="460">09</text>
+        <text x="36" y="510">10</text>
+      </g>
+      <circle cx="80" cy="55" r="6" fill="#38bdf8"/><text x="100" y="50" class="dg-text">Hash the received payload.</text><text x="100" y="68" class="dg-text-sm">Verify SHA-256 matches payload.sha256 — detects in-transit alteration.</text>
+      <circle cx="80" cy="105" r="6" fill="#38bdf8"/><text x="100" y="100" class="dg-text">Verify the envelope signature.</text><text x="100" y="118" class="dg-text-sm">Verify signature.value over canonicalized envelope using producer public key.</text>
+      <circle cx="80" cy="155" r="6" fill="#38bdf8"/><text x="100" y="150" class="dg-text">Verify each embedded receipt.</text><text x="100" y="168" class="dg-text-sm">Recompute fingerprint per protocol formula and verify each receipt's own signature.</text>
+      <circle cx="80" cy="205" r="6" fill="#a78bfa"/><text x="100" y="200" class="dg-text">Verify required receipt roles are present.</text><text x="100" y="218" class="dg-text-sm">Local policy declares required roles. Missing roles → reject.</text>
+      <circle cx="80" cy="255" r="6" fill="#a78bfa"/><text x="100" y="250" class="dg-text">Verify parent linkage resolves.</text><text x="100" y="268" class="dg-text-sm">parent_receipts and parent_envelopes references must resolve in-bundle or via resolver.</text>
+      <circle cx="80" cy="305" r="6" fill="#a78bfa"/><text x="100" y="300" class="dg-text">Verify the issuer key against local trust policy.</text><text x="100" y="318" class="dg-text-sm">Consumer's allowlist of producer.issuer + key_id combinations.</text>
+      <circle cx="80" cy="355" r="6" fill="#a78bfa"/><text x="100" y="350" class="dg-text">Verify the constitution or policy hash if required.</text><text x="100" y="368" class="dg-text-sm">Match constitution_ref.policy_hash to expected value (a coordination primitive).</text>
+      <circle cx="80" cy="405" r="6" fill="#f07356"/><text x="100" y="400" class="dg-text">Check revocation state where required.</text><text x="100" y="418" class="dg-text-sm">Online revocation feed for issuer or cited sources — distinct assurance tier.</text>
+      <circle cx="80" cy="455" r="6" fill="#f07356"/><text x="100" y="450" class="dg-text">Evaluate local handoff admission rules.</text><text x="100" y="468" class="dg-text-sm">Trusted producers, max envelope age, required scope tags, freshness windows.</text>
+      <circle cx="80" cy="505" r="6" fill="#f07356"/><text x="100" y="500" class="dg-text">Emit a handoff admission receipt.</text><text x="100" y="518" class="dg-text-sm">Consumer's own receipt extends the evidence graph by one hop.</text>
+      <text x="780" y="105" class="dg-mono-blue" text-anchor="end">Integrity · 1–3</text>
+      <text x="780" y="305" class="dg-mono-violet" text-anchor="end">Trust · 4–7</text>
+      <text x="780" y="505" class="dg-mono-coral" text-anchor="end">Admission · 8–10</text>
+      <line x1="660" y1="40" x2="660" y2="540" stroke="#1c2938" stroke-width="0.5" stroke-dasharray="2 4"/>
+    </svg>
+    <span class="figcap"><span class="fig-num">Fig. 03</span>Ten-step verification: integrity (1–3), trust (4–7), admission (8–10).</span>
+  </div>
+
+  <p>Sanna's reference SDKs implement the fingerprint computation deterministically — Python and TypeScript produce byte-identical results for the same input.</p>
+  <div class="pull">Cryptographic verification can be local. Trust establishment may not be.<span class="pull-attr">— Decoupling the signature from the ecosystem</span></div>
+  <p>Key discovery, revocation, parent resolution, transparency-log inclusion, and policy-profile interpretation can require online or out-of-band infrastructure. High-assurance handoffs may also require audience binding, request nonces, challenge-response flows, expiry, or trusted timestamps to reduce replay risk; the v0.1 envelope is a portable artifact model, not yet a complete handshake protocol.</p>
+</div>
+</section>
+
+<!-- §9 CONTEXT ADMISSION -->
+<section class="section-page" id="s9" data-screen-label="11 §9 Context Admission">
+<div class="doc">
+  <span class="section-num">§ 09 — Section</span>
+  <h2 class="section-title">Context admission.</h2>
+  <p class="lead">Context admission deserves separate treatment because it is a chokepoint commonly missed in current architectures, and because the value of downstream chokepoints is bounded by what was admitted.</p>
+  <p>A permissive admission policy does not break citation binding, memory writeback, or action enforcement; it limits what those downstream checks can meaningfully constrain.</p>
+  <h3>Post-output filtering catches the problem too late</h3>
+  <p>A common pattern in production systems is to scan the model's output for forbidden content and redact or block it after generation. This pattern detects some failure modes, but it cannot detect fabrications grounded in unauthorized context, because the content of the fabrication may itself look benign — the failure is that the agent was informed by context it should not have received.</p>
+  <h3>Context admission is ingress control for the model's working memory</h3>
+  <p>The decision about what enters the model must be made before each model invocation or context-insertion event, including retrieval results, memory reads, and tool outputs that will be returned to the model. Once content is in the prompt or working context, the model has effectively read it; whatever filtering happens to the output is operating on a system that has already been informed by content that should not have been admitted.</p>
+  <div class="pull">A prompt-assembly or agent-loop pipeline that admits the wrong content and then "tries to remove" it from the output is structurally unsound.<span class="pull-attr">— Context admission as ingress control</span></div>
+  <p>Architectures in which retrieval happens through tool calls during generation must wrap each retrieval result, browser observation, database result, or memory read through admission, or accept that some context enters the model without governance and that the resulting receipt set is correspondingly incomplete.</p>
+  <h3>Disclosure profiles</h3>
+  <p>The receipt for a context admission decision should record what was admitted and what was rejected, with reasons, when that evidence can be safely retained or shared. Sensitive content does not need to be exposed in the receipt; Sanna's <code>content_mode</code> already supports <code>redacted</code> and <code>hashes_only</code> modes that preserve evidentiary value while redacting bodies.</p>
+  <p>In some deployments, rejected-context evidence may be internal-only, salted, escrowed, or omitted from an external envelope to satisfy privacy, privilege, data-minimization, or data-residency requirements. What matters is that the decision itself can be made attestable at the assurance level the workflow claims.</p>
+  <p>A consumer that requires high assurance can require, as part of its handoff admission policy, that an upstream envelope include a <code>context_admission</code> receipt whose policy hash matches an expected value. The consumer is not auditing the model's reasoning; it is verifying that ingress control was applied under a known policy to the instrumented context paths.</p>
+  <p>The v0.1 architecture primarily addresses dynamic context: content admitted during a session through retrieval, memory recall, tool returns, or other context-insertion events. <strong>Static framing</strong> — system prompts, persona instructions, in-context examples, and initial conversation history — is not modeled here as a per-turn admission event. Consumers that require attestation of framing should require a separate session-bootstrap manifest or framing-attestation receipt; that is candidate work for a future protocol revision.</p>
+</div>
+</section>
+
+<!-- §10 CROSS-VENDOR + Fig 4 -->
+<section class="section-page" id="s10" data-screen-label="12 §10 Cross-Vendor">
+<div class="wide">
+  <span class="section-num">§ 10 — Section</span>
+  <h2 class="section-title">Cross-vendor handoff.</h2>
+</div>
+<div class="doc">
+  <p class="lead">Receipts and envelopes are independently verifiable using public key material and a local trust policy. They do not require a vendor API to interpret, and they do not require either side of a handoff to share a runtime platform.</p>
+  <p>They do, however, require a shared trust framework for producer keys, verifier identities, accepted policy profiles, and assurance levels. In early deployments, that may be bilateral key exchange or enterprise allowlists; in higher-scale deployments, it may be DNS- or well-known-URI key publication, federation operators, industry trust registries, or platform-exported trust metadata.</p>
+  <p>This is the most consequential property of the model. Consider a workflow that crosses vendors:</p>
+</div>
+<div class="wide">
+  <div class="figure">
+    <svg viewBox="0 0 880 380" aria-labelledby="fig4-title">
+      <title id="fig4-title">Cross-vendor envelope handoff between three agents</title>
+      <text x="40"  y="36" class="dg-mono-blue">Cloud A · Hosted frontier model</text>
+      <text x="320" y="36" class="dg-mono-violet">Private DC · Customer environment</text>
+      <text x="640" y="36" class="dg-mono-coral">Third-party SaaS · Specialist agent</text>
+      <line x1="40"  y1="48" x2="280" y2="48" stroke="#38bdf8" stroke-width="1"/>
+      <line x1="320" y1="48" x2="600" y2="48" stroke="#a78bfa" stroke-width="1"/>
+      <line x1="640" y1="48" x2="840" y2="48" stroke="#f07356" stroke-width="1"/>
+      <rect x="40" y="80" width="240" height="120" rx="10" class="dg-box-blue"/>
+      <text x="56" y="106" class="dg-mono-blue">Agent A</text>
+      <text x="56" y="128" class="dg-text-sm">Receives request</text>
+      <text x="56" y="146" class="dg-text-sm">Runs 5 chokepoints</text>
+      <text x="56" y="164" class="dg-text-sm">Emits Envelope (env_001)</text>
+      <text x="56" y="186" class="dg-mono">issued by issuer-a · key-a</text>
+      <rect x="320" y="80" width="280" height="120" rx="10" class="dg-box-violet"/>
+      <text x="336" y="106" class="dg-mono-violet">Agent B</text>
+      <text x="336" y="128" class="dg-text-sm">Verifies env_001 vs local trust policy</text>
+      <text x="336" y="146" class="dg-text-sm">Runs own chokepoints</text>
+      <text x="336" y="164" class="dg-text-sm">Emits Envelope (env_002)</text>
+      <text x="336" y="186" class="dg-mono">parent_envelopes: [env_001]</text>
+      <rect x="640" y="80" width="200" height="120" rx="10" class="dg-box-coral"/>
+      <text x="656" y="106" class="dg-mono-coral">Agent C</text>
+      <text x="656" y="128" class="dg-text-sm">Verifies env_002</text>
+      <text x="656" y="146" class="dg-text-sm">Walks parent chain</text>
+      <text x="656" y="164" class="dg-text-sm">Verifies env_001 issuer</text>
+      <text x="656" y="186" class="dg-mono">handoff_admitted</text>
+      <g class="dg-arrow-strong" stroke="#38bdf8"><path d="M 280 140 L 320 140"/><polygon points="320,140 312,136 312,144" fill="#38bdf8" stroke="none"/></g>
+      <g class="dg-arrow-strong" stroke="#a78bfa"><path d="M 600 140 L 640 140"/><polygon points="640,140 632,136 632,144" fill="#a78bfa" stroke="none"/></g>
+      <text x="300" y="130" class="dg-mono-blue" text-anchor="middle">env_001</text>
+      <text x="620" y="130" class="dg-mono-violet" text-anchor="middle">env_002</text>
+      <text x="40" y="240" class="dg-mono">Trust requirements at each verification</text>
+      <line x1="40" y1="252" x2="840" y2="252" stroke="#1c2938" stroke-width="0.5"/>
+      <text x="40" y="278" class="dg-mono-blue">B verifies env_001</text>
+      <text x="40" y="298" class="dg-text-sm">issuer-a key trusted · required roles present</text>
+      <text x="40" y="318" class="dg-text-sm">policy_hash matches profile · payload sha256 ok</text>
+      <text x="320" y="278" class="dg-mono-violet">C verifies env_002</text>
+      <text x="320" y="298" class="dg-text-sm">issuer-b key trusted · receipts re-fingerprint</text>
+      <text x="320" y="318" class="dg-text-sm">parent_envelopes resolves to env_001</text>
+      <text x="320" y="338" class="dg-text-sm">env_001 issuer-a still trusted at evaluation time</text>
+      <text x="640" y="278" class="dg-mono-coral">Out-of-band</text>
+      <text x="640" y="298" class="dg-text-sm">key distribution · revocation feed</text>
+      <text x="640" y="318" class="dg-text-sm">policy registry · transparency log</text>
+      <text x="640" y="338" class="dg-text-sm">audience / replay protection (profile-dependent)</text>
+    </svg>
+    <span class="figcap"><span class="fig-num">Fig. 04</span>Cross-vendor envelope handoff. Each consumer verifies the upstream envelope, walks <code>parent_envelopes</code>, and emits its own.</span>
+  </div>
+</div>
+<div class="doc">
+  <p>In a message-passing world, the trust assumptions across this chain are difficult to automate and compare across boundaries. Each hop crosses an organizational boundary, an infrastructure boundary, and frequently a regulatory boundary. The "trust" that makes the workflow function is not actually trust in the cryptographic sense — it is the absence of a verification primitive that would let any party check.</p>
+  <p>In an envelope-based world, A produces output with a signed envelope that references A's issuer key. B receives the output and verifies the envelope against B's local trust policy, which lists A's issuer key as acceptable for the relevant payload type. C receives B's output with B's envelope (which references A's via <code>parent_envelopes</code>) and verifies the evidence graph at its end.</p>
+  <p>The envelope <strong>travels with the output, not inside a platform</strong>. There need not be a runtime back-channel to the producer. The intended scaling model resembles certificate verification, but with the same implication: useful cross-vendor verification ultimately needs trust stores, key lifecycle management, revocation, transparency, and profile governance.</p>
+  <p>The cross-vendor verification claim in this paper is structural. Production-scale cross-vendor verification depends on key distribution, revocation, transparency, and trust federation, all of which are discussed as future protocol work in §14. Early deployments will rely on bilateral key exchange, enterprise allowlists, and narrow profile agreements. The federated trust ecosystem described here is a target state, not a current capability of the v0.1 envelope model.</p>
+  <p>This is distinct from platform-native agent control planes. A cloud or productivity platform can govern agents, tools, data, memory, and logs inside its own operational boundary. Governance Envelopes are proposed for the moment an agent output must leave an observation boundary — another platform, another organization, internal audit, a regulator, a legal reviewer, a counterparty, or a downstream agent — and remain intelligible to a reviewer who did not observe the run. Cross-vendor handoff is the highest-friction case for this property, not the only case; the same observation-boundary problem appears whenever review must happen outside the producer's operational reach.</p>
+</div>
+</section>
+
+<!-- §11 BLAST RADIUS + Fig 5 -->
+<section class="section-page" id="s11" data-screen-label="13 §11 Blast Radius">
+<div class="doc">
+  <span class="section-num">§ 11 — Section</span>
+  <h2 class="section-title">Blast-radius analysis.</h2>
+  <p class="lead">When a source is later found to be wrong — corrected, retracted, poisoned, revoked, stale, or determined to have been admitted out of scope — the operationally important question is <strong>what was affected</strong>.</p>
+  <p>In a system without governance envelopes, this question is usually answerable only by reconstruction. Operational logs and traces can support that reconstruction, but they are usually not portable evidence artifacts designed for cross-boundary evidence-graph queries. Cross-agent traces, if they exist, often lose their evidentiary semantics when the workflow crosses a vendor or organizational boundary.</p>
+  <p>In a deployment with sufficient instrumentation, durable source identifiers, and indexed envelope storage, the question can become an evidence-graph traversal:</p>
+  <ul>
+    <li>Which agent runs <strong>admitted</strong> the source? A query over <code>context_admission</code> receipts indexed by source identifier.</li>
+    <li>Which outputs <strong>cited</strong> it? A query over <code>citation_binding</code> receipts indexed by the same identifier.</li>
+    <li>Which downstream actions were <strong>linked to it</strong>? A walk along <code>parent_receipts</code> and <code>parent_envelopes</code> from the citing receipts and envelopes.</li>
+    <li>Which customers, matters, or workflows were <strong>in the recorded downstream set</strong>? The <code>agent_identity</code>, <code>human_principal</code>, and workflow scope on each receipt provide the index.</li>
+    <li>Which decisions need <strong>review, rollback, or re-approval</strong>? The intersection of the action receipts in the affected set with the operator's incident response policy.</li>
+  </ul>
+</div>
+
+<div class="wide">
+  <div class="figure">
+    <svg viewBox="0 0 880 460" aria-labelledby="fig5-title">
+      <title id="fig5-title">Blast-radius graph traversal from a poisoned source</title>
+      <circle cx="100" cy="230" r="32" class="dg-box-coral"/>
+      <text x="100" y="225" class="dg-mono-coral" text-anchor="middle">SOURCE</text>
+      <text x="100" y="241" class="dg-text-sm" text-anchor="middle">poisoned</text>
+      <text x="240" y="36" class="dg-mono">context_admission</text>
+      <line x1="240" y1="48" x2="380" y2="48" stroke="#1c2938" stroke-width="0.5"/>
+      <rect x="240" y="80" width="140" height="36" rx="6" class="dg-box-coral"/><text x="252" y="103" class="dg-text-sm">A1 · matter-12</text>
+      <rect x="240" y="130" width="140" height="36" rx="6" class="dg-box-coral"/><text x="252" y="153" class="dg-text-sm">A2 · matter-12</text>
+      <rect x="240" y="180" width="140" height="36" rx="6" class="dg-box-coral"/><text x="252" y="203" class="dg-text-sm">A3 · matter-19</text>
+      <rect x="240" y="230" width="140" height="36" rx="6" class="dg-box"/><text x="252" y="253" class="dg-text-sm">A4 · rejected</text>
+      <rect x="240" y="280" width="140" height="36" rx="6" class="dg-box-coral"/><text x="252" y="303" class="dg-text-sm">A5 · matter-19</text>
+      <rect x="240" y="330" width="140" height="36" rx="6" class="dg-box"/><text x="252" y="353" class="dg-text-sm">A6 · rejected</text>
+      <rect x="240" y="380" width="140" height="36" rx="6" class="dg-box-coral"/><text x="252" y="403" class="dg-text-sm">A7 · matter-22</text>
+      <text x="450" y="36" class="dg-mono">citation_binding</text>
+      <line x1="450" y1="48" x2="590" y2="48" stroke="#1c2938" stroke-width="0.5"/>
+      <rect x="450" y="80" width="140" height="36" rx="6" class="dg-box-coral"/><text x="462" y="103" class="dg-text-sm">memo · cite #4</text>
+      <rect x="450" y="130" width="140" height="36" rx="6" class="dg-box-coral"/><text x="462" y="153" class="dg-text-sm">brief · cite #2</text>
+      <rect x="450" y="180" width="140" height="36" rx="6" class="dg-box-coral"/><text x="462" y="203" class="dg-text-sm">summary · cite #1</text>
+      <rect x="450" y="280" width="140" height="36" rx="6" class="dg-box-coral"/><text x="462" y="303" class="dg-text-sm">research-doc</text>
+      <rect x="450" y="380" width="140" height="36" rx="6" class="dg-box-coral"/><text x="462" y="403" class="dg-text-sm">policy-draft</text>
+      <text x="660" y="36" class="dg-mono">action_enforcement</text>
+      <line x1="660" y1="48" x2="800" y2="48" stroke="#1c2938" stroke-width="0.5"/>
+      <rect x="660" y="80" width="180" height="36" rx="6" class="dg-box-coral"/><text x="672" y="103" class="dg-text-sm">filed-with-court · matter-12</text>
+      <rect x="660" y="130" width="180" height="36" rx="6" class="dg-box-coral"/><text x="672" y="153" class="dg-text-sm">sent-to-counsel · matter-12</text>
+      <rect x="660" y="180" width="180" height="36" rx="6" class="dg-box-coral"/><text x="672" y="203" class="dg-text-sm">attached-to-deal · matter-19</text>
+      <rect x="660" y="280" width="180" height="36" rx="6" class="dg-box-coral"/><text x="672" y="303" class="dg-text-sm">internal-share · matter-19</text>
+      <rect x="660" y="380" width="180" height="36" rx="6" class="dg-box-coral"/><text x="672" y="403" class="dg-text-sm">draft-only · matter-22</text>
+      <g class="dg-arrow" stroke="#f07356">
+        <path d="M 132 230 L 240 98"/><path d="M 132 230 L 240 148"/><path d="M 132 230 L 240 198"/>
+        <path d="M 132 230 L 240 298"/><path d="M 132 230 L 240 398"/>
+      </g>
+      <g class="dg-arrow" stroke="#1c2938" stroke-dasharray="2 3">
+        <path d="M 132 230 L 240 248"/><path d="M 132 230 L 240 348"/>
+      </g>
+      <g class="dg-arrow" stroke="#f07356">
+        <path d="M 380 98  L 450 98"/><path d="M 380 148 L 450 148"/><path d="M 380 198 L 450 198"/>
+        <path d="M 380 298 L 450 298"/><path d="M 380 398 L 450 398"/>
+        <path d="M 590 98  L 660 98"/><path d="M 590 148 L 660 148"/><path d="M 590 198 L 660 198"/>
+        <path d="M 590 298 L 660 298"/><path d="M 590 398 L 660 398"/>
+      </g>
+      <g transform="translate(40 432)">
+        <rect x="0" y="0" width="12" height="12" class="dg-box-coral"/>
+        <text x="20" y="10" class="dg-mono">in blast radius</text>
+        <rect x="160" y="0" width="12" height="12" class="dg-box"/>
+        <text x="180" y="10" class="dg-mono">rejected · not in radius</text>
+      </g>
+    </svg>
+    <span class="figcap"><span class="fig-num">Fig. 05</span>Blast-radius traversal from a single poisoned source through admission → citation → action receipts.</span>
+  </div>
+</div>
+
+<div class="doc">
+  <p>This resembles <strong>SBOM vulnerability impact analysis</strong>. The Software Bill of Materials concept made it tractable to ask "which of our deployed systems contain version X of this library." Governance envelopes make it tractable to ask "which recorded agent outputs were linked to this source, and which recorded downstream actions followed those outputs."</p>
+  <div class="pull">The analogy is structural, not complete. SBOM impact analysis is bounded by a binary's static dependencies. Governance Envelope impact analysis is bounded by instrumentation coverage.<span class="pull-attr">— Bounded by what was instrumented</span></div>
+  <p>The query returns the outputs the evidence graph records as having admitted, cited, or linked to the source, not every output the model's behavior was actually influenced by. For incident response, the envelope graph is a starting set, not a closed set. Outputs whose context paths bypassed instrumented gates do not appear in the query and cannot be retrieved by traversing the graph.</p>
+  <p>The evidence graph also needs an evidence store. The envelope format does not decide where the graph lives, who indexes it, or who can traverse it across organizational boundaries. In single-organization workflows, the graph can live in the operator's evidence store. In cross-organization workflows, partial copies may live with each party, and full traversal may require a federation operator, a contractual audit right, or a lawful data-exchange mechanism.</p>
+  <p>Temporal queries over the graph rest on producer-asserted timestamps unless envelopes are anchored in a trusted timestamping service, transparency log, or equivalent.</p>
+</div>
+</section>
+
+<!-- §12 USE CASES -->
+<section class="section-page" id="s12" data-screen-label="14 §12 Use Cases">
+<div class="doc">
+  <span class="section-num">§ 12 — Section</span>
+  <h2 class="section-title">High-assurance use cases.</h2>
+  <p class="lead">The model is deliberately general. The common pattern is not one regulation or one industry; it is any workflow where an agent's output may be reviewed, accepted, escalated, or relied on by someone who did not directly observe the agent run.</p>
+  <p>In those settings, the receiving party needs evidence about observed inputs, controls, handoff, and scope before the output can be evaluated responsibly. The trust and coverage assumptions in §4 govern every use case below.</p>
+  <p>These examples are not claims that Governance Envelopes satisfy any specific regulatory regime by themselves. They are examples where signed evidence of instrumented governance events maps to existing needs for traceability, documentation, oversight, auditability, or counterparty assurance.</p>
+
+  <div class="cards" style="grid-template-columns: 1fr 1fr; gap: 14px;">
+    <div class="card blue"><span class="num">12.01</span><h4 class="title">Healthcare</h4><p class="body">AI-supported clinical decisions, prior authorization, clinical documentation review, revenue-cycle workflows, audit review, and rating-agency or investor diligence may each require evidence about what source material an AI system considered, what material was excluded, and which controls governed the decision pathway.</p></div>
+    <div class="card blue"><span class="num">12.02</span><h4 class="title">Insurance</h4><p class="body">Underwriting decisions, claims adjudication, pricing support, fraud investigation, and loss causality analysis may need defensible records of which instrumented submissions, prior claims, third-party data, and policy documents were admitted or rejected, with explicit boundaries between insureds and claimants.</p></div>
+    <div class="card blue"><span class="num">12.03</span><h4 class="title">Financial services</h4><p class="body">Suitability decisions, credit analysis, underwriting, trade surveillance, model risk management, and supervisory review can use envelopes as supporting evidence for input provenance, policy application, and review workflows when an agent's output informs a subsequent recommendation or decision.</p></div>
+    <div class="card violet"><span class="num">12.04</span><h4 class="title">Legal</h4><p class="body">Document review, legal research, privilege boundaries, conflict checks, and matter walls all depend on controlling which material informs a matter-specific workflow. Envelopes can provide signed evidence that participating retrieval and memory systems enforced matter-boundary controls for a given run.</p></div>
+    <div class="card violet"><span class="num">12.05</span><h4 class="title">Life sciences</h4><p class="body">Drug development, clinical investigations, quality systems, and medical-device workflows already depend on controlled electronic records, audit trails, data integrity, and documented context of use. Agent outputs may need controlled records when they become part of regulated electronic records.</p></div>
+    <div class="card violet"><span class="num">12.06</span><h4 class="title">Public sector</h4><p class="body">Benefits eligibility, immigration support, law enforcement analysis, public procurement, and other rights- or safety-impacting workflows may require human oversight, traceability, and review of the data and policy constraints observed by participating systems.</p></div>
+    <div class="card coral"><span class="num">12.07</span><h4 class="title">Critical infrastructure</h4><p class="body">Energy, transportation, manufacturing, telecommunications, and other operational technology environments increasingly use AI to support reliability, safety, and incident response. When an agent recommends an operational change, an operator may need evidence of which instrumented telemetry, procedures, and threat intelligence were admitted before review or escalation.</p></div>
+    <div class="card coral"><span class="num">12.08</span><h4 class="title">Audit & assurance</h4><p class="body">Audit workpapers and assurance files depend on clear links among procedures performed, evidence obtained, and conclusions reached. If agents assist with evidence gathering, variance analysis, control testing, or memo drafting, envelopes may become supporting documentation within the review record.</p></div>
+    <div class="card coral"><span class="num">12.09</span><h4 class="title">Data licensing & provenance</h4><p class="body">Enterprises and publishers need to review whether licensed, restricted, expired, revoked, or copyrighted material was used to produce an output. Context admission and citation binding — combined with source-state checks and candidate-set commitments — can support evidence that admitted sources were permitted and that excluded sources were evaluated and rejected; stronger exclusion claims require complete instrumentation.</p></div>
+    <div class="card coral"><span class="num">12.10</span><h4 class="title">Enterprise RAG</h4><p class="body">Multi-tenant retrieval pipelines need evidence that configured admission gates rejected cross-tenant content observed in a given run. Context admission with signed evidence is the right place to enforce and attest this for instrumented retrieval paths.</p></div>
+    <div class="card coral" style="grid-column: 1 / -1;"><span class="num">12.11</span><h4 class="title">Inter-company agent workflows</h4><p class="body">As agents from different organizations begin to coordinate — procurement, supply chain, financial reconciliation, vendor risk review, claims coordination, and future agentic commerce — the basis for trust across the boundary needs to include verifiable artifacts, not only contract clauses. Envelopes are one such artifact; they do not eliminate the need for counterparty diligence.</p></div>
+  </div>
+
+  <div class="pull">The value of an envelope is not that it makes the agent more capable. The value is that it makes <em>review</em> of the agent's contribution tractable.<span class="pull-attr">— Why use cases cluster around review</span></div>
+  <p>Across all of these settings, the envelope only attests to events observed by participating governance surfaces. Events that bypass those surfaces — out-of-band tool calls, unmonitored retrieval, side-channel memory writes, manual operator actions — do not appear in the receipt graph, and absence in the envelope is not equivalent to absence in fact.</p>
+  <p>The envelope supports review; it does not substitute for professional, legal, regulatory, clinical, or audit judgment. Envelopes are technical evidence artifacts. They do not by themselves establish admissibility, compliance, privilege preservation, safe harbor, or legal sufficiency.</p>
+  <p>Several of these domains — life sciences, public sector, legal, financial services — also impose constraints on what may appear inside the envelope itself. Regulated metadata, personal data, privileged material, and trade-secret context may need to be carried as salted commitments, escrowed audit material, or external references rather than inline values. Privacy and data-residency profiles are tracked in §14 as future protocol work.</p>
+</div>
+</section>
+
+<!-- §13 NON-GOALS -->
+<section class="section-page" id="s13" data-screen-label="15 §13 Non-Goals">
+<div class="doc">
+  <span class="section-num">§ 13 — Section</span>
+  <h2 class="section-title">Non-goals.</h2>
+  <p class="lead">Equally important is what the model does not attempt.</p>
+  <ul>
+    <li><strong>Sanna does not inspect the model's private chain-of-thought.</strong> The receipt does not contain hidden reasoning, and the verifier does not interpret the model's internal state. Governance is applied at the boundaries the model can be observed at — ingress, egress, retrieval, citation, action — and nowhere else.</li>
+    <li><strong>Sanna does not prove semantic truth or correctness of governed content.</strong> A signed envelope is not a claim that the content is true. It is a claim that the content was produced under specified governance, that its inputs were admitted under specified policy, and that the signed artifact has not been tampered with. Truth-of-content remains a question for substantive review.</li>
+    <li><strong>Sanna does not prove policy substance.</strong> A valid receipt can show that a policy was applied; it does not prove that the policy was meaningful, sufficiently restrictive, correctly written, or appropriate for the workflow. Consumers that care about policy strength must require accepted policy hashes, policy profiles, or out-of-band policy review.</li>
+    <li><strong>Sanna does not prove completeness outside instrumented coverage.</strong> A producer can only attest to governance events observed by participating systems, and consumers must decide which missing roles, weak policies, stale keys, unavailable revocation checks, or unresolved parents cause rejection, quarantine, or degraded trust.</li>
+    <li><strong>Sanna does not provide replay protection or audience binding in v0.1.</strong> The portable artifact model is a one-way attestation. Freshness, replay, audience binding, and challenge-response properties are higher-assurance profile additions and depend on protocol work outside this paper.</li>
+    <li><strong>Sanna does not fully attest static framing in v0.1.</strong> System prompts, persona instructions, in-context examples, and initial conversation history are not modeled here as per-turn admission events. They can be covered by future session-bootstrap or framing-attestation receipts.</li>
+    <li><strong>Sanna does not solve long-term validation by itself.</strong> Audit and regulatory use cases may require envelopes to remain verifiable years after creation. Long-term validation depends on key archival, transparency-log anchoring, format compatibility, and rules for handling cited content that has been deleted, redacted, or revoked.</li>
+    <li><strong>Sanna does not make probabilistic systems deterministic.</strong> Models will continue to vary, hallucinate, and produce non-reproducible outputs. The architecture does not depend on determinism in the model; it depends on deterministic checks at configured chokepoints given fixed policy inputs, source state, and trust-state inputs.</li>
+    <li><strong>Sanna does not replace identity, authorization, DLP, or observability.</strong> Identity systems remain the source of truth for who the principal is. Authorization systems remain the source of truth for what the principal may do. The envelope composes with these systems; it does not subsume them.</li>
+  </ul>
+  <div class="pull">Sanna governs the evidence path around the model, not the model itself.<span class="pull-attr">— The boundary of the claim</span></div>
+</div>
+</section>
+
+<!-- §14 EXISTING WORK -->
+<section class="section-page" id="s14" data-screen-label="16 §14 Existing Work">
+<div class="doc">
+  <span class="section-num">§ 14 — Section</span>
+  <h2 class="section-title">Relationship to existing work.</h2>
+  <p class="lead">Several adjacent categories are emerging or already established. The relationship is one of composition rather than competition.</p>
+  <p><strong>Action-level receipts and policy enforcement</strong> are an emerging recognized category. Multiple vendors and open-source projects are converging on the idea that an agent's tool calls should pass through a governed surface that can halt, allow, or escalate, and that the decision should produce a record. Sanna's own protocol began here. Action enforcement is necessary infrastructure, and the work being done in this category is real progress.</p>
+  <p><strong>Gateways, identity systems, and egress controls</strong> are necessary infrastructure layers. The agent must be authenticated, the request must be routable, the network call must be inspectable. None of this is in tension with envelopes; envelopes presuppose it.</p>
+  <p><strong>Evidence packaging layers that bind control results into portable credentials</strong> — verifiable credentials, signed audit logs, attestation frameworks — are complementary. The envelope model uses the same primitives (signatures, fingerprints, chained references) and is explicitly designed to coexist. Where an envelope's payload is itself a credential, both can be present.</p>
+  <p>The contribution of Governance Envelopes is <strong>not</strong> a new cryptographic primitive. The contribution is a <strong>scope</strong> extension: from action-level enforcement to ingress, memory, citation, and cross-agent handoff; and from per-vendor records to a portable, signed bundle that verifies independently.</p>
+  <p>Platform-native governance will remain important. Hyperscale cloud and productivity platform operators can govern agents, tools, identity, memory, and logs inside their own trust boundaries. Governance Envelopes are aimed at a narrower interoperability gap: exporting, importing, and requiring portable evidence when a governed agent output crosses an observation boundary.</p>
+  <p>The moat, if the model succeeds, is not secrecy of the cryptographic primitive. It is the ecosystem layer around the primitive: a neutral trust federation, regulated-industry profile governance, verifier conformance suites, SDK adoption, policy-profile registries, enterprise integrations, and operational tooling for storing, searching, redacting, revoking, and resolving envelopes over time. If dominant platforms provide mutually accepted evidence export and import, the standalone opportunity becomes a profile, conformance, and federation business rather than a primary control plane. If they do not, the neutral envelope layer is the interoperability substrate.</p>
+  <p>Near-term adoption does not require a mature multi-agent commerce market. It can begin inside organizations before crossing between them, in workflows where opaque native logs are insufficient for review. The commercial trigger is not internal governance alone; it is review across an observation boundary where the receiving party needs portable evidence of what participating governance surfaces observed and signed.</p>
+  <p>The envelope is most valuable when integrated with existing identity, authorization, DLP, SIEM, policy engines, and observability systems. Without those integrations, it risks becoming duplicative evidence; with them, it becomes the portable artifact those systems can export, import, and retain.</p>
+
+  <h3>Future protocol work</h3>
+  <p>Several issues belong in future protocol work rather than in this v0.1 thesis paper. They include:</p>
+  <ul>
+    <li>canonicalization profiles, algorithm agility, signature-suite identifiers, critical-extension handling, and long-term validation;</li>
+    <li>producer key distribution, key rotation, revocation freshness, timestamping, replay protection, audience binding, and challenge-response modes for high-assurance handoff;</li>
+    <li>evidence-graph consistency rules, cycle detection, depth and fan-in limits, resolver trust, cache behavior, and standardized verifier error codes;</li>
+    <li>dynamic manifest deltas, tool-mediated retrieval receipts, multi-role receipts, streaming envelopes, and session-level admission summaries;</li>
+    <li>source-state and revocation profiles for admitted sources, including TTLs, revocation reason codes, fail-closed or degraded-mode semantics, and renewable admission attestations for source admissibility;</li>
+    <li>candidate-set commitments for negative evidence, so a consumer can reason not only about what was admitted but about what candidates were evaluated and rejected;</li>
+    <li>privacy and data-residency profiles, including selective disclosure, salted commitments, escrowed audit material, and external envelopes that minimize sensitive metadata.</li>
+  </ul>
+</div>
+</section>
+
+<!-- §15 MVP -->
+<section class="section-page" id="s15" data-screen-label="17 §15 MVP">
+<div class="doc">
+  <span class="section-num">§ 15 — Section</span>
+  <h2 class="section-title">MVP demonstration.</h2>
+  <p class="lead">A minimum viable demonstration of the model can be constructed end-to-end against the existing Sanna protocol, with the envelope structure layered on top.</p>
+  <p>This MVP is a feasibility test for envelope construction, verification, and rejection inside a controlled stack; a stronger cross-vendor demonstration would use independent producer and verifier implementations, independently managed keys, and separate trust policies.</p>
+
+  <ol>
+    <li><strong>Set up.</strong> Two retrieval chunks are available to Agent A. Chunk 1 is in scope for the active session (a customer the principal has a relationship with). Chunk 2 is out of scope (a different customer).</li>
+    <li><strong>Retrieval.</strong> Agent A's retrieval step returns both chunks.</li>
+    <li><strong>Context admission.</strong> Sanna's context admission gate, configured with the active session's scope policy, admits Chunk 1 and rejects Chunk 2 <strong>before the next model invocation</strong>. A <code>context_admission</code> receipt records both decisions; Chunk 2 is recorded by hash only (<code>content_mode: hashes_only</code>) so the rejection is attestable without exposing out-of-scope content.</li>
+    <li><strong>Generation and action.</strong> Agent A produces output. The output passes through citation binding (any cited source must be in the admitted set) and action enforcement.</li>
+    <li><strong>Envelope emission.</strong> Agent A emits a Governance Envelope binding the output to the four receipts (tool manifest, context admission, citation binding, action enforcement), signed under Agent A's issuer key.</li>
+    <li><strong>Handoff to Agent B.</strong> Agent B receives the output and the envelope.</li>
+    <li><strong>Verification.</strong> Agent B runs the verification flow from §8. The envelope verifies. Agent B records the upstream envelope lineage (via <code>parent_envelopes</code>) and emits a <code>handoff_admission</code> receipt referencing the upstream receipts it relied on before admitting the payload as context. (<code>handoff_admission</code> and <code>handoff_rejected</code> are proposed <code>event_type</code> variants on the existing receipt schema, listed in §14.)</li>
+    <li><strong>Tamper test.</strong> Re-run with the <code>context_admission</code> receipt removed from the envelope. Agent B's verification fails at step 4 (required role missing). Re-run with the receipt present but its payload mutated. Verification fails at step 3 (fingerprint mismatch). Re-run with the envelope signature recomputed over the mutated bundle but using a key not in Agent B's trust policy. Verification fails at step 6.</li>
+  </ol>
+
+  <p>In each tamper case, Agent B refuses the handoff and emits a <code>handoff_rejected</code> receipt explaining which check failed. The evidence of the rejection is itself a signed artifact.</p>
+  <p>This demonstration exercises the core envelope and handoff path, but it does not yet demonstrate memory writeback, dynamic tool-discovery variants, streaming handoff, market interoperability, or enterprise identity integration. A later interoperability demonstration should prove the same envelope with a separately implemented verifier, independently managed keys, and separately configured trust policy.</p>
+</div>
+</section>
+
+<!-- §16 CONCLUSION -->
+<section class="section-page" id="s16" data-screen-label="18 §16 Conclusion">
+<div class="doc">
+  <span class="section-num">§ 16 — Section</span>
+  <h2 class="section-title">Conclusion.</h2>
+  <p class="lead">Agent trust must compose across observation boundaries. As multi-agent systems move from research demos into production, and as those systems begin to cross organizational, platform, review, and regulatory lines, the unit of trust cannot remain "we both use the same vendor."</p>
+  <p>Authenticated message passing is not governance evidence. A payload that arrives through an accepted runtime can show who sent it, where it was routed, and sometimes what state accompanied it. It is not, by itself, evidence that the sender was honest, that every event was observed, or that the underlying policy was sound — those remain matters of trust in the producer, of instrumentation coverage, and of out-of-band policy review. What the envelope makes possible is a portable, verifiable record of what the instrumented governance surfaces saw, decided, and signed.</p>
+  <p>That is a smaller property than full trust, but it is the property runtime-mediated handoff typically lacks as a portable, independently verifiable artifact, and it is the property reviewers, auditors, regulators, and counterparties need before agent output can be evaluated responsibly.</p>
+  <div class="pull">The primitive this paper proposes is verifiable handoff with a governed evidence path: a portable, signed envelope that binds an agent's output to receipts for configured governance surfaces around the model — tool visibility, context admission, citation binding, memory writeback, action enforcement, and handoff verification — and that a receiving agent can verify under its local trust policy before admitting the output as context.<span class="pull-attr">— The thesis, in full</span></div>
+  <p>Sanna's existing protocol provides the receipt-level primitives this construction depends on: deterministic fingerprints, Ed25519 signatures, parent-receipt chaining, constitution provenance, and an extension namespace for vendor metadata. The Governance Envelope extends these primitives from per-event records to per-handoff bundles, and from per-vendor records toward cross-vendor verifiable artifacts where trust and profile infrastructure exists.</p>
+  <p>The result is an evidence graph for <strong>instrumented context admissions, citation bindings, memory decisions, handoff checks, and action decisions</strong> — a governance layer for observable agent events that composes the way the systems it governs already do.</p>
+</div>
+</section>
+
+<!-- APPENDIX A -->
+<section class="section-page" id="sa" data-screen-label="19 App A">
+<div class="doc">
+  <span class="section-num">Appendix A</span>
+  <h2 class="section-title">End-to-end flow.</h2>
+  <p class="lead">A simplified batch handoff. Production agent loops may repeat these gates per model invocation, per tool-returned context insertion, per memory operation, and per handoff.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 880 320" aria-labelledby="figA-title">
+      <title id="figA-title">End-to-end flow across two agents</title>
+      <text x="40" y="32" class="dg-mono-blue">Agent A · Cloud A</text>
+      <rect x="40" y="56" width="380" height="200" rx="10" fill="none" stroke="#1c2938" stroke-dasharray="3 4"/>
+
+      <rect x="60" y="76" width="120" height="48" rx="6" class="dg-box"/>
+      <text x="120" y="105" class="dg-text" text-anchor="middle">Retrieval</text>
+      <rect x="200" y="76" width="200" height="48" rx="6" class="dg-box-blue"/>
+      <text x="300" y="100" class="dg-mono-blue" text-anchor="middle">Context admission</text>
+      <text x="300" y="116" class="dg-text-sm" text-anchor="middle">chokepoint</text>
+
+      <rect x="60" y="140" width="120" height="48" rx="6" class="dg-box"/>
+      <text x="120" y="169" class="dg-text" text-anchor="middle">Prompt assembly</text>
+      <rect x="200" y="140" width="200" height="48" rx="6" class="dg-box-coral"/>
+      <text x="300" y="164" class="dg-mono-coral" text-anchor="middle">Action enforcement</text>
+      <text x="300" y="180" class="dg-text-sm" text-anchor="middle">chokepoint</text>
+
+      <rect x="60" y="204" width="340" height="40" rx="6" class="dg-box-violet"/>
+      <text x="230" y="228" class="dg-mono-violet" text-anchor="middle">Governance Envelope (signed bundle)</text>
+
+      <g class="dg-arrow"><path d="M 180 100 L 200 100"/></g>
+      <g class="dg-arrow"><path d="M 300 124 L 300 140"/></g>
+      <g class="dg-arrow"><path d="M 180 164 L 200 164"/></g>
+      <g class="dg-arrow"><path d="M 300 188 L 300 204"/></g>
+
+      <g class="dg-arrow-strong"><path d="M 420 224 L 480 224"/><polygon points="480,224 472,220 472,228" fill="#38bdf8" stroke="none"/></g>
+      <text x="450" y="216" class="dg-mono" text-anchor="middle">handoff</text>
+
+      <text x="500" y="32" class="dg-mono-coral">Agent B · Cloud B</text>
+      <rect x="500" y="56" width="340" height="200" rx="10" fill="none" stroke="#1c2938" stroke-dasharray="3 4"/>
+
+      <rect x="520" y="76" width="300" height="48" rx="6" class="dg-box-coral"/>
+      <text x="670" y="100" class="dg-mono-coral" text-anchor="middle">Handoff verification</text>
+      <text x="670" y="116" class="dg-text-sm" text-anchor="middle">chokepoint</text>
+
+      <rect x="520" y="140" width="300" height="48" rx="6" class="dg-box-blue"/>
+      <text x="670" y="164" class="dg-mono-blue" text-anchor="middle">Context admission</text>
+      <text x="670" y="180" class="dg-text-sm" text-anchor="middle">chokepoint</text>
+
+      <rect x="520" y="204" width="300" height="40" rx="6" class="dg-box"/>
+      <text x="670" y="228" class="dg-text" text-anchor="middle">Agent B continues</text>
+
+      <g class="dg-arrow"><path d="M 670 124 L 670 140"/></g>
+      <g class="dg-arrow"><path d="M 670 188 L 670 204"/></g>
+
+      <g transform="translate(40 282)">
+        <rect x="0" y="0" width="12" height="12" class="dg-box-blue"/>
+        <text x="20" y="10" class="dg-mono">Producer chokepoint</text>
+        <rect x="180" y="0" width="12" height="12" class="dg-box-coral"/>
+        <text x="200" y="10" class="dg-mono">Consumer chokepoint</text>
+        <rect x="360" y="0" width="12" height="12" class="dg-box-violet"/>
+        <text x="380" y="10" class="dg-mono">Envelope</text>
+      </g>
+    </svg>
+    <span class="figcap"><span class="fig-num">Fig. A</span>End-to-end batch handoff. Shaded boxes are governed chokepoints.</span>
+  </div>
+</div>
+</section>
+
+<!-- APPENDIX B -->
+<section class="section-page" id="sb" data-screen-label="20 App B">
+<div class="wide">
+  <span class="section-num">Appendix B</span>
+  <h2 class="section-title">Mapping to existing protocol fields.</h2>
+</div>
+<div class="doc">
+  <p class="lead">The envelope model builds on primitives already present in the Sanna Protocol v1.5 receipt schema. The table below maps envelope concepts to the protocol fields that support them today, and identifies which parts are proposed additions.</p>
+</div>
+<div class="wide">
+  <table class="tbl">
+    <thead><tr><th>Envelope concept</th><th>Existing protocol support</th><th>Proposed extension</th></tr></thead>
+    <tbody>
+      <tr><td class="term">Receipt fingerprint, deterministic across SDKs</td><td><code>receipt_fingerprint</code> (16 hex), <code>full_fingerprint</code> (64 hex), pipe-delimited fingerprint formula</td><td>—</td></tr>
+      <tr><td class="term">Signed receipts</td><td><code>receipt_signature</code> (<code>scheme: receipt_sig_v1</code>, Ed25519)</td><td>—</td></tr>
+      <tr><td class="term">Cross-receipt chaining within a session</td><td><code>parent_receipts: [full_fingerprint, ...]</code>, AARM R2 verifier</td><td>—</td></tr>
+      <tr><td class="term">Tool manifest as a governance event</td><td><code>event_type: session_manifest</code>, <code>extensions["com.sanna.manifest"]</code>, <code>enforcement_surface: mixed</code></td><td>—</td></tr>
+      <tr><td class="term">Constitution / policy attestation</td><td><code>constitution_ref.policy_hash</code>, <code>constitution_ref.signature</code> (<code>scheme: constitution_sig_v1</code>)</td><td>—</td></tr>
+      <tr><td class="term">Identity binding for the agent run</td><td><code>agent_identity</code> (<code>agent_session_id</code>, <code>human_principal</code>, <code>service_account</code>, <code>role</code>, <code>privilege_scope</code>) at <code>checks_version: 10</code></td><td>—</td></tr>
+      <tr><td class="term">Content-handling modes for evidentiary records</td><td><code>content_mode</code> of <code>full</code>, <code>redacted</code>, or <code>hashes_only</code></td><td>—</td></tr>
+      <tr><td class="term">Vendor / extension namespace</td><td><code>extensions</code> with reverse-DNS namespacing; <code>com.sanna.*</code> reserved</td><td>New role IDs (<code>tool_manifest</code>, <code>context_admission</code>, <code>citation_binding</code>, etc.) for envelope-level role taxonomy</td></tr>
+      <tr><td class="term">Envelope wrapper around multiple receipts</td><td>—</td><td><code>Governance Envelope</code> (this paper)</td></tr>
+      <tr><td class="term">Cross-envelope chaining across handoffs</td><td>—</td><td><code>parent_envelopes</code> array on the envelope</td></tr>
+      <tr><td class="term">Envelope-level signature covering the bundle</td><td>—</td><td>Envelope <code>signature</code> block (Ed25519, distinct from receipt signatures)</td></tr>
+      <tr><td class="term">Receipt role taxonomy</td><td>Implied by <code>enforcement_surface</code> and <code>event_type</code> enums; not surfaced as explicit roles</td><td>Explicit <code>role</code> field on each entry of the envelope's <code>receipts</code> array (<code>tool_manifest</code>, <code>context_admission</code>, <code>citation_binding</code>, <code>memory_writeback</code>, <code>action_enforcement</code>)</td></tr>
+      <tr><td class="term">Handoff admission as a first-class event</td><td>—</td><td>A new <code>event_type</code> variant (e.g., <code>handoff_admitted</code> / <code>handoff_rejected</code>) emitted by the consumer-side verifier</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="doc">
+  <p>Items in the right-hand column would be candidates for future Sanna Protocol proposals. The intent of this paper is to motivate the extension, not to specify it; field names and exact shapes will be settled through protocol design and implementation review.</p>
+</div>
+</section>
+
+<!-- APPENDIX C -->
+<section class="section-page" id="sc" data-screen-label="21 App C">
+<div class="doc">
+  <span class="section-num">Appendix C</span>
+  <h2 class="section-title">Selected public anchors.</h2>
+  <p class="lead">The use cases in this paper are framed from an architecture perspective, not as legal conclusions. The following public materials illustrate why traceability, documentation, logging, oversight, and evidence preservation are recurring requirements across the environments discussed above.</p>
+
+  <div class="glossary">
+    <div class="row">
+      <span class="term">EU AI Act</span>
+      <p class="def">Regulation (EU) 2024/1689 includes logging, record-keeping, human oversight, and general-purpose AI model documentation and copyright-related obligations, including Articles 12, 14, and 53. See the <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en">official EUR-Lex publication</a>.</p>
+    </div>
+    <div class="row">
+      <span class="term">Insurance — NAIC</span>
+      <p class="def">The NAIC's model bulletin on insurer use of AI systems emphasizes governance, risk management, documentation, testing, and oversight. See the <a href="https://content.naic.org/article/naic-members-approve-model-bulletin-use-ai-insurers">NAIC announcement</a> and <a href="https://content.naic.org/sites/default/files/inline-files/2023-12-4%20Model%20Bulletin_Adopted_0.pdf">adopted model bulletin</a>.</p>
+    </div>
+    <div class="row">
+      <span class="term">Financial services — FINRA</span>
+      <p class="def">FINRA has stated that securities firms' existing regulatory obligations remain applicable when AI is used, including supervision, recordkeeping, and customer-protection obligations. See <a href="https://www.finra.org/rules-guidance/notices/24-09">FINRA Regulatory Notice 24-09</a>.</p>
+    </div>
+    <div class="row">
+      <span class="term">Healthcare and medical products — FDA</span>
+      <p class="def">FDA materials on AI-enabled medical products and electronic records emphasize transparency, data management, monitoring, record integrity, and audit trails. See <a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices">FDA AI-enabled medical devices</a> and <a href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11">21 CFR Part 11</a>.</p>
+    </div>
+    <div class="row">
+      <span class="term">Public sector & critical infrastructure — NIST</span>
+      <p class="def">NIST's AI Risk Management Framework emphasizes governance, mapping, measurement, and management of AI risks. See <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI RMF 1.0</a> and the <a href="https://www.nist.gov/programs-projects/concept-note-ai-rmf-profile-trustworthy-ai-critical-infrastructure">Critical Infrastructure Profile concept note</a>.</p>
+    </div>
+    <div class="row">
+      <span class="term">Audit and assurance — PCAOB</span>
+      <p class="def">Audit documentation standards require workpapers to provide a clear record of procedures performed, evidence obtained, and conclusions reached. See <a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS1215">PCAOB AS 1215</a>.</p>
+    </div>
+    <div class="row">
+      <span class="term">Legal work — ABA</span>
+      <p class="def">The ABA has warned lawyers using generative AI to attend to competence, confidentiality, communication, supervision, and accuracy obligations. See <a href="https://www.americanbar.org/content/dam/aba/administrative/professional_responsibility/ethics-opinions/aba-formal-opinion-512.pdf">ABA Formal Opinion 512</a>. Court sanctions for fabricated AI citations, including <a href="https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/">Mata v. Avianca</a>, illustrate the operational importance of citation binding.</p>
+    </div>
+    <div class="row">
+      <span class="term">Content provenance — C2PA</span>
+      <p class="def">C2PA Content Credentials provide a public provenance model for digital content. See the <a href="https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html">C2PA 2.4 specification</a>.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================ BACK COVER ============================================================ -->
+<article class="back" data-screen-label="22 Back">
+  <div style="display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">
+      <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="#38bdf8" stroke-width="3"/>
+        <path d="M 50 50 L 50 10 L 68 20 Z" fill="#38bdf8"/>
+        <path d="M 50 50 L 84.6 30 L 84.6 50 Z" fill="#a78bfa"/>
+        <path d="M 50 50 L 84.6 70 L 68 80 Z" fill="#f07356"/>
+        <path d="M 50 50 L 50 90 L 32 80 Z" fill="#38bdf8"/>
+        <path d="M 50 50 L 15.4 70 L 15.4 50 Z" fill="#a78bfa"/>
+        <path d="M 50 50 L 15.4 30 L 32 20 Z" fill="#f07356"/>
+        <circle cx="50" cy="50" r="7" fill="#0b1017"/>
+      </svg>
+      <span style="font-family:var(--font-sans);font-weight:300;font-size:14px;color:#fff;letter-spacing:-0.3px;text-transform:none;">sanna<span style="color:var(--blue);">.</span></span>
+    </div>
+    <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Document SANNA-WP-001 · v0.1</span>
+  </div>
+
+  <div class="back-mid">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#38bdf8" stroke-width="2"/>
+      <path d="M 50 50 L 50 10 L 68 20 Z" fill="#38bdf8"/>
+      <path d="M 50 50 L 84.6 30 L 84.6 50 Z" fill="#a78bfa"/>
+      <path d="M 50 50 L 84.6 70 L 68 80 Z" fill="#f07356"/>
+      <path d="M 50 50 L 50 90 L 32 80 Z" fill="#38bdf8"/>
+      <path d="M 50 50 L 15.4 70 L 15.4 50 Z" fill="#a78bfa"/>
+      <path d="M 50 50 L 15.4 30 L 32 20 Z" fill="#f07356"/>
+      <circle cx="50" cy="50" r="7" fill="#0b1017"/>
+    </svg>
+    <div class="wm">sanna<span class="p">.</span></div>
+    <div class="tag">Trust infrastructure for agentic AI.</div>
+  </div>
+
+  <div>
+    <div style="height:3px;background:linear-gradient(90deg,var(--blue) 0%,var(--violet) 50%,var(--coral) 100%);margin-bottom:24px;"></div>
+    <div class="back-bot">
+      <div class="col">
+        <h5>Contact</h5>
+        <p>nic@sanna.dev<br/>sanna.dev</p>
+      </div>
+      <div class="col">
+        <h5>Protocol</h5>
+        <p>github.com/sanna-ai<br/>v1.5 receipts · v0.1 envelopes</p>
+      </div>
+      <div class="col">
+        <h5>This document</h5>
+        <p>Public draft.<br/>© 2026 Sanna AI, Inc.</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<footer>
+    <div class="container-narrow">
+        <p class="footer-line">&copy; 2026 Sanna &middot; Built by Nic Allen &middot; Open Source &middot; AGPL-3.0</p>
+        <div class="footer-links">
+            <a href="/papers/">Papers</a>
+            <a href="/blog/">Blog</a>
+            <a href="https://github.com/sanna-ai" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/nicallen27" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:nic@sanna.dev">nic@sanna.dev</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
