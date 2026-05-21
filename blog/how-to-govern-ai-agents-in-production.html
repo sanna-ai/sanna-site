@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How to Govern AI Agents in Production — Sanna</title>
     <meta name="description" content="AI agents cross trust boundaries every day with no proof they followed their rules. Here's how to enforce governance at execution time and generate cryptographic evidence it happened.">
-    <meta name="keywords" content="AI agent governance, how to govern AI agents, AI compliance, agentic AI safety, AI constitution enforcement, reasoning receipts, MCP gateway governance, AI agent policy enforcement, enterprise AI governance">
+    <meta name="keywords" content="AI agent governance, how to govern AI agents, AI compliance, agentic AI safety, AI constitution enforcement, governance receipts, MCP gateway governance, AI agent policy enforcement, enterprise AI governance">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Nic Allen">
     <link rel="canonical" href="https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html">
@@ -16,6 +16,10 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html">
     <meta property="og:site_name" content="Sanna">
+    <meta property="og:image" content="https://sanna.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sanna — AI agent governance: enforce constitutions, prove compliance with cryptographic receipts.">
     <meta property="article:author" content="Nic Allen">
     <meta property="article:published_time" content="2026-02-18T00:00:00Z">
 
@@ -23,6 +27,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="How to Govern AI Agents in Production">
     <meta name="twitter:description" content="Enforce governance at execution time. Generate cryptographic proof it happened. Open source.">
+    <meta name="twitter:image" content="https://sanna.dev/og-image.png">
 
     <!-- JSON-LD Article -->
     <script type="application/ld+json">
@@ -41,6 +46,7 @@
             "name": "Sanna"
         },
         "datePublished": "2026-02-18",
+        "dateModified": "2026-02-18",
         "url": "https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html",
         "mainEntityOfPage": "https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html"
     }
@@ -137,12 +143,12 @@
 
                 <p>The constitution is signed with the organization's Ed25519 key and version-controlled alongside the agent's code. Your compliance team can read it. Your engineers can enforce it. Your auditors can verify it was the active constitution at the time of any given decision.</p>
 
-                <h2>Reasoning Receipts</h2>
+                <h2>Governance Receipts</h2>
 
-                <p>Every decision Sanna makes — allow, halt, or escalate — generates a reasoning receipt. This is a signed artifact containing the decision outcome, the rule that was evaluated, a deterministic fingerprint of the input, and a timestamp.</p>
+                <p>Every decision Sanna makes — allow, halt, or escalate — generates a governance receipt. This is a signed artifact containing the decision outcome, the rule that was evaluated, a deterministic fingerprint of the input, and a timestamp.</p>
 
                 <div class="code-block">
-                    <span class="code-block-label">reasoning receipt (simplified)</span>
+                    <span class="code-block-label">governance receipt (simplified)</span>
 <pre>{
   <span class="key">"decision"</span>: <span class="string">"halt"</span>,
   <span class="key">"rule"</span>: <span class="string">"issue_refund: amount must not exceed 500"</span>,
@@ -196,6 +202,12 @@
                 </div>
 
                 <p>Gateway mode is particularly relevant for teams deploying agents across multiple platforms — ServiceNow, Salesforce, custom internal tools — where modifying each agent's code isn't practical. The governance layer wraps around the existing infrastructure without changing it.</p>
+
+                <div style="margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--border);">
+                    <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;">Related reading</div>
+                    <p style="margin-bottom: 10px;"><a href="/blog/the-gap-between-policy-and-proof.html">The Gap Between Policy and Proof in AI Agent Compliance</a></p>
+                    <p style="margin-bottom: 0;"><a href="/blog/live-demo-constitutional-enforcement.html">Live Red-Team: &ldquo;I'm Not Gonna Sabotage Your Own Governance Layer&rdquo;</a></p>
+                </div>
 
                 <h2>Try It</h2>
 

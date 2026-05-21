@@ -1,0 +1,36 @@
+# Sanna — Trust Infrastructure for AI Agents
+
+> Sanna is open-source AI agent governance infrastructure. It enforces agent
+> constitutions at execution time, halts forbidden actions before they reach
+> downstream systems, and generates Ed25519-signed Governance Receipts:
+> tamper-evident, offline-verifiable proof that governance was applied at the
+> moment of action. Two equal pillars — constitution enforcement and
+> cryptographic governance receipts. Python and TypeScript SDKs, vendor-neutral,
+> AGPL-3.0. Built by Nic Allen (15 years in regulated trust systems: pharma
+> GxP/FDA, Google Cloud, cybersecurity).
+
+## Core pages
+- [Homepage](https://sanna.dev/): Product overview, the two pillars, deployment modes (Python library, TypeScript library, MCP gateway, OpenClaw plugin), and use cases for financial services, healthcare, and enterprise AI teams.
+- [Papers](https://sanna.dev/papers/): Technical white papers and original research on agent governance and trust infrastructure.
+- [Blog](https://sanna.dev/blog/): Analysis on AI agent governance, compliance, and audit evidence.
+
+## Papers (original research)
+- [Governance Envelopes for Verifiable Agent Handoff](https://sanna.dev/papers/governance-envelopes.html) (SANNA-WP-001, ~14,000 words; [PDF](https://sanna.dev/papers/governance-envelopes.pdf)): A portable, signed evidence graph for agent context, memory, citation, handoff, and action — plus a Receipt-Gated Handoff pattern that downstream agents can verify under local trust policy. Covers cross-vendor agent handoff and chain-of-custody review.
+
+## Key articles
+- [How to Govern AI Agents in Production](https://sanna.dev/blog/how-to-govern-ai-agents-in-production.html): Why enforcement plus proof is the complete governance layer; constitution YAML and signed receipt examples.
+- [The Gap Between Policy and Proof in AI Agent Compliance](https://sanna.dev/blog/the-gap-between-policy-and-proof.html): Two audit firms independently identify the same gap — enterprises can't prove governance was applied at the moment of execution. Maps to SOC 2, NIST AI RMF, ISO 42001, EU AI Act.
+- [Salesforce Headless 360 Creates a Governance Gap Agentforce Cannot Close](https://sanna.dev/blog/headless-360-governance-gap.html): Why headless SaaS removes the human UI checkpoint that compliance controls depended on, and why no platform vendor can close the gap from inside its own platform.
+- [The Governance Gap Inside Claude Code](https://sanna.dev/blog/the-governance-gap-inside-claude-code.html): The Claude Code source leak reveals sophisticated runtime permission enforcement with no durable proof — the industry-default gap.
+- [Live Red-Team: Constitutional Enforcement](https://sanna.dev/blog/live-demo-constitutional-enforcement.html): A multi-round, multi-model red-team exercise — 20+ attack vectors, signed receipts as ground truth, soft guardrails vs architectural enforcement.
+
+## Code and specification
+- [GitHub organization](https://github.com/sanna-ai)
+- [sanna (Python SDK)](https://github.com/sanna-ai/sanna)
+- [sanna-ts (TypeScript SDK)](https://github.com/sanna-ai/sanna-ts)
+- [sanna-protocol (open specification, Apache 2.0)](https://github.com/sanna-ai/sanna-protocol)
+- [PyPI](https://pypi.org/project/sanna/)
+
+## Contact
+- Email: nic@sanna.dev
+- LinkedIn: https://www.linkedin.com/in/nicallen27

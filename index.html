@@ -17,11 +17,16 @@
     <meta property="og:url" content="https://sanna.dev">
     <meta property="og:site_name" content="Sanna">
     <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://sanna.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sanna — AI agent governance: enforce constitutions, prove compliance with cryptographic receipts.">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Sanna — Trust Infrastructure for AI Agents">
     <meta name="twitter:description" content="Constitution enforcement and cryptographic governance receipts for AI agents. Python and TypeScript. Open source.">
+    <meta name="twitter:image" content="https://sanna.dev/og-image.png">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -97,7 +102,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-eyebrow">Trust Infrastructure for AI Agents</div>
-            <h1>Sanna</h1>
+            <h1><span>Sanna</span> <span style="display:block;font-size:clamp(22px,3.4vw,34px);font-weight:400;letter-spacing:-0.5px;line-height:1.25;color:var(--text-secondary);margin-top:var(--space-5);">AI Agent Governance, Enforced and Proven</span></h1>
             <p class="hero-sub">When your agent acts, Sanna enforces the rules and generates cryptographic proof it happened. Forbidden actions are halted before they reach downstream systems.</p>
             <a href="#get-started" class="btn btn-primary">Get Started</a>
             <a href="https://github.com/sanna-ai" class="btn btn-ghost" target="_blank" rel="noopener">
@@ -574,6 +579,85 @@
             </div>
         </div>
     </section>
+
+    <!-- FAQ -->
+    <section>
+        <div class="container">
+            <div class="section-label violet">FAQ</div>
+            <h2>AI Agent Governance, Answered</h2>
+            <div style="margin-top: 48px; max-width: 760px;">
+                <div style="padding: 24px 0; border-bottom: 1px solid var(--border);">
+                    <h3>What is AI agent governance?</h3>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-top: 10px;">AI agent governance is the practice of defining, enforcing, and proving the rules an autonomous AI agent must follow when it acts. Effective governance has two parts: enforcement that stops out-of-policy actions before they reach downstream systems, and evidence that proves the rule was applied. Logs and dashboards describe what happened after the fact — governance decides what is allowed at the moment of action.</p>
+                </div>
+                <div style="padding: 24px 0; border-bottom: 1px solid var(--border);">
+                    <h3>What is the difference between AI guardrails and AI governance?</h3>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-top: 10px;">Guardrails are soft guidance an agent can choose to ignore — instructions in a system prompt. Governance is architectural enforcement the agent cannot bypass, paired with a durable record that enforcement occurred. In live red-team testing, agents routed around soft guardrails within seconds; only invariant-based enforcement backed by signed receipts stopped them.</p>
+                </div>
+                <div style="padding: 24px 0; border-bottom: 1px solid var(--border);">
+                    <h3>How do you prove AI agent compliance to an auditor?</h3>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-top: 10px;">You need per-action evidence, not policy documents or sampled logs. A Governance Receipt is a cryptographically signed (Ed25519) record that binds the policy in force, the action, the decision, and a timestamp into a single artifact any third party can verify offline — without trusting the system that produced it. That is the evidence ISO 42001, the NIST AI Risk Management Framework, and SOC 2 reviewers increasingly expect for autonomous agents.</p>
+                </div>
+                <div style="padding: 24px 0; border-bottom: 1px solid var(--border);">
+                    <h3>Can AI governance be enforced at runtime instead of in periodic audits?</h3>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-top: 10px;">Yes. Sanna evaluates every agent action against a version-controlled constitution at execution time. Allowed actions proceed, forbidden actions halt before reaching downstream systems, and uncertain actions escalate for human approval — each producing a signed receipt. Periodic certification proves a point in time; runtime enforcement proves every action.</p>
+                </div>
+                <div style="padding: 24px 0; border-bottom: 1px solid var(--border);">
+                    <h3>Is Sanna open source?</h3>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-top: 10px;">Yes. Sanna ships Python and TypeScript SDKs under AGPL-3.0 and an open protocol specification under Apache 2.0. Open source is load-bearing: a governance layer that enterprises depend on cannot be controlled by any single vendor, including Sanna. Install with <span class="mono">pip install sanna</span> or <span class="mono">npm install @sanna-ai/core</span>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is AI agent governance?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "AI agent governance is the practice of defining, enforcing, and proving the rules an autonomous AI agent must follow when it acts. Effective governance has two parts: enforcement that stops out-of-policy actions before they reach downstream systems, and evidence that proves the rule was applied. Logs and dashboards describe what happened after the fact — governance decides what is allowed at the moment of action."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the difference between AI guardrails and AI governance?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Guardrails are soft guidance an agent can choose to ignore — instructions in a system prompt. Governance is architectural enforcement the agent cannot bypass, paired with a durable record that enforcement occurred. In live red-team testing, agents routed around soft guardrails within seconds; only invariant-based enforcement backed by signed receipts stopped them."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do you prove AI agent compliance to an auditor?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You need per-action evidence, not policy documents or sampled logs. A Governance Receipt is a cryptographically signed (Ed25519) record that binds the policy in force, the action, the decision, and a timestamp into a single artifact any third party can verify offline — without trusting the system that produced it. That is the evidence ISO 42001, the NIST AI Risk Management Framework, and SOC 2 reviewers increasingly expect for autonomous agents."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can AI governance be enforced at runtime instead of in periodic audits?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Sanna evaluates every agent action against a version-controlled constitution at execution time. Allowed actions proceed, forbidden actions halt before reaching downstream systems, and uncertain actions escalate for human approval — each producing a signed receipt. Periodic certification proves a point in time; runtime enforcement proves every action."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Sanna open source?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Sanna ships Python and TypeScript SDKs under AGPL-3.0 and an open protocol specification under Apache 2.0. Open source is load-bearing: a governance layer that enterprises depend on cannot be controlled by any single vendor, including Sanna. Install with pip install sanna or npm install @sanna-ai/core."
+                }
+            }
+        ]
+    }
+    </script>
 
     <!-- Try It -->
     <section id="get-started">

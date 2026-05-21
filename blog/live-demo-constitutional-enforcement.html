@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>"I'm Not Gonna Sabotage Your Own Governance Layer" — Sanna</title>
     <meta name="description" content="A live red-team exercise against AI agents using sanna-openclaw v0.2.0. Three rounds, multiple models, 20+ attack vectors — a real-time demonstration of constitutional enforcement with cryptographic receipts.">
-    <meta name="keywords" content="AI agent red team, AI governance testing, constitutional enforcement, AI agent bypass, reasoning receipts, AI safety testing, sanna openclaw, AI agent jailbreak, cryptographic governance, MCP gateway security">
+    <meta name="keywords" content="AI agent red team, AI governance testing, constitutional enforcement, AI agent bypass, governance receipts, AI safety testing, sanna openclaw, AI agent jailbreak, cryptographic governance, MCP gateway security">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Nic Allen">
     <link rel="canonical" href="https://sanna.dev/blog/live-demo-constitutional-enforcement.html">
@@ -16,6 +16,10 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://sanna.dev/blog/live-demo-constitutional-enforcement.html">
     <meta property="og:site_name" content="Sanna">
+    <meta property="og:image" content="https://sanna.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sanna — AI agent governance: enforce constitutions, prove compliance with cryptographic receipts.">
     <meta property="article:author" content="Nic Allen">
     <meta property="article:published_time" content="2026-02-26T00:00:00Z">
 
@@ -23,6 +27,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="&quot;I'm Not Gonna Sabotage Your Own Governance Layer&quot;">
     <meta name="twitter:description" content="A live red-team exercise against AI agents. Constitutional enforcement with cryptographic receipts. Open source.">
+    <meta name="twitter:image" content="https://sanna.dev/og-image.png">
 
     <!-- JSON-LD Article -->
     <script type="application/ld+json">
@@ -41,6 +46,7 @@
             "name": "Sanna"
         },
         "datePublished": "2026-02-26",
+        "dateModified": "2026-02-26",
         "url": "https://sanna.dev/blog/live-demo-constitutional-enforcement.html",
         "mainEntityOfPage": "https://sanna.dev/blog/live-demo-constitutional-enforcement.html"
     }
@@ -587,6 +593,12 @@
                 <p><strong>Agent response text as bypass vector</strong> &mdash; mailto links, anonymous email instructions, and social engineering coaching embedded in chat output are outside the tool governance boundary entirely. Response content governance is architecturally complex (post-generation inspection rather than pre-execution interception) and is being scoped for a future release.</p>
 
                 <p>The evaluator roadmap moves through three tiers: regex (shipping now), structural analysis like shell tokenization and encoding detection (v0.3), and semantic evaluation via LLM-as-Judge (v0.4). Each tier catches vectors the previous tier can&rsquo;t, without replacing it &mdash; they stack.</p>
+
+                <div style="margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--border);">
+                    <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;">Related reading</div>
+                    <p style="margin-bottom: 10px;"><a href="/blog/the-governance-gap-inside-claude-code.html">The Governance Gap Inside Claude Code</a></p>
+                    <p style="margin-bottom: 0;"><a href="/blog/how-to-govern-ai-agents-in-production.html">How to Govern AI Agents in Production</a></p>
+                </div>
 
                 <div class="install-block">
                     <h3>sanna-openclaw v0.2.0</h3>
